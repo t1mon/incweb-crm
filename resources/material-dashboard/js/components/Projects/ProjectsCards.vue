@@ -1,0 +1,370 @@
+<template>
+    <div v-if="stateFilteredProjects">
+        <div style="overflow: auto">
+            <div class="row m-0 pt-3 align-items-stretch">
+                <div v-for="project in projectsActive" class="projects__card__wrap col-md-8 col-lg-6 col-xxl-5 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body p-3">
+                            <div class="d-flex mt-n2">
+                                <div v-avatar="{ background: project.color, name: project.name }" class="projects__card__avatar avatar avatar-xl bg-gradient-dark border-radius-xl p-2 mt-n4"></div>
+                                <div class="ms-3 my-auto projects__card__name__wrap">
+                                    <a :href="project.link" class="projects__card__name"><h6 v-tLength="10" class="mb-0">{{ project.name }}</h6></a>
+                                </div>
+                                <div class="projects__card__status mx-auto my-auto">
+                            <span v-if="project.status" class="badge badge-dot">
+                                <i class="bg-success"></i>
+                                <span class="text-dark text-xs">Активен</span>
+                            </span>
+                                    <span v-if="!project.status" class="badge badge-dot">
+                                <i class="bg-danger"></i>
+                                <span class="text-dark text-xs">Приостановлен</span>
+                            </span>
+                                </div>
+                                <div class="align-items-center d-flex justify-content-center px-2">
+<!--                                    <div class="form-check form-switch ps-0">-->
+<!--                                        <input @change="switchProject(project.id)" class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault" :checked="project.status">-->
+<!--                                    </div>-->
+                                </div>
+                                <div class="ms-auto">
+                                    <button @click="dropdown($event)" class="projects__dropdown btn btn-link text-secondary ps-0 pe-2">
+                                        <ul class="projects__dropdown__menu">
+                                            <li class="projects__dropdown__item"><a :href=" project.link ">Журнал</a></li>
+                                            <li @click="dropdown($event)" class="projects__dropdown__item">
+                                                <ul class="projects__dropdown__menu">
+                                                    <li class="projects__dropdown__title">Удалить проект?</li>
+                                                    <li @click="deleteProject(project.id, $event)" class="projects__dropdown__item">Да</li>
+                                                    <li class="projects__dropdown__item">Нет</li>
+                                                </ul>
+                                                <span>Удалить проект</span>
+                                            </li>
+                                        </ul>
+                                        <i class="fa fa-ellipsis-v text-lg" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr class="horizontal dark">
+
+                            <div class="projects__card__row">
+                                <div class="projects__card__box">
+                                    <div class="projects__card__box__header">
+                                        <div class="projects__card__box__status">
+                                    <span v-if="project.emailSend.enabled" class="badge badge-dot">
+                                        <i class="bg-success"></i>
+                                    </span>
+                                            <span v-if="!project.emailSend.enabled" class="badge badge-dot">
+                                        <i class="bg-danger"></i>
+                                    </span>
+                                        </div>
+                                        <h5 class="projects__card__box__title">E-mail:</h5>
+                                    </div>
+
+                                    <ul class="projects__card__box__content">
+                                        <li v-tLength="16" v-for="email in project.emailSend.emailsList" class="projects__card__box__item">{{ email[0] }}</li>
+                                        <li v-if="project.emailSend.emailsList.length === 0" class="projects__card__box__item">Список пуст</li>
+                                    </ul>
+                                </div>
+
+                                <div class="projects__card__line"></div>
+
+                                <div class="projects__card__box">
+                                    <div class="projects__card__box__header">
+                                        <h5 class="projects__card__box__title">Вебхуки:</h5>
+                                    </div>
+
+                                    <ul class="projects__card__box__content projects__card__box__content--right">
+                                        <li v-for="webhook in project.webhooks" class="projects__card__box__item">
+                                            <div class="projects__card__box__status">
+                                        <span v-if="webhook.enabled" class="projects__card__dot badge badge-dot">
+                                            <i class="bg-success"></i>
+                                        </span>
+                                                <span v-if="!webhook.enabled" class="projects__card__dot badge badge-dot">
+                                            <i class="bg-danger"></i>
+                                        </span>
+                                            </div>
+                                            <span>{{ webhook.name }}</span>
+                                        </li>
+                                        <li v-if="project.webhooks.length === 0" class="projects__card__box__item">Список пуст</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <hr class="horizontal dark">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div v-if="!stateProjectsLeadsCount" class="spinner-border text-default m-auto" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <h6 v-if="stateProjectsLeadsCount" class="text-sm mb-0">{{ stateProjectsLeadsCount[project.id].totalLeads }}</h6>
+                                    <p class="text-secondary text-sm font-weight-normal mb-0">Лидов всего</p>
+                                </div>
+                                <div class="col-4">
+                                    <div v-if="!stateProjectsLeadsCount" class="spinner-border text-default m-auto" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <h6 v-if="stateProjectsLeadsCount" class="text-sm mb-0">{{ stateProjectsLeadsCount[project.id].leadsToday }}</h6>
+                                    <p class="text-secondary text-sm font-weight-normal mb-0">Лидов сегодня</p>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <h6 v-date="project.created_at" class="text-sm mb-0"></h6>
+                                    <p class="text-secondary text-sm font-weight-normal mb-0">Дата создания</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="bg-secondary w-100 py-2">
+            <div class="form-check m-0 d-flex align-items-center">
+                <input v-model="showInactive" class="form-check-input m-0" type="checkbox" value="" id="flexCheckDefault">
+                <label class="form-check-label font-weight-bolder text-white mb-0" for="flexCheckDefault">
+                    Показать неактивные
+                </label>
+            </div>
+        </div>
+        <div v-if="showInactive" style="opacity: 0.5">
+            <div class="row m-0 pt-4 align-items-stretch">
+                <div v-for="project in projectsInactive" class="projects__card__wrap col-md-8 col-lg-6 col-xxl-5 mb-4">
+                    <div class="card h-100">
+                        <div class="card-body p-3">
+                            <div class="d-flex mt-n2">
+                                <div v-avatar="{ background: project.color, name: project.name }" class="projects__card__avatar avatar avatar-xl bg-gradient-dark border-radius-xl p-2 mt-n4"></div>
+                                <div class="ms-3 my-auto projects__card__name__wrap">
+                                    <a :href="project.link" class="projects__card__name"><h6 v-tLength="10" class="mb-0">{{ project.name }}</h6></a>
+                                </div>
+                                <div class="projects__card__status mx-auto my-auto">
+                            <span v-if="project.status" class="badge badge-dot">
+                                <i class="bg-success"></i>
+                                <span class="text-dark text-xs">Активен</span>
+                            </span>
+                                    <span v-if="!project.status" class="badge badge-dot">
+                                <i class="bg-danger"></i>
+                                <span class="text-dark text-xs">Приостановлен</span>
+                            </span>
+                                </div>
+                                <div class="align-items-center d-flex justify-content-center px-2">
+<!--                                    <div class="form-check form-switch ps-0">-->
+<!--                                        <input @change="switchProject(project.id)" class="form-check-input ms-auto" type="checkbox" id="flexSwitchCheckDefault" :checked="project.status">-->
+<!--                                    </div>-->
+                                </div>
+                                <div class="ms-auto">
+                                    <button @click="dropdown($event)" class="projects__dropdown btn btn-link text-secondary ps-0 pe-2">
+                                        <ul class="projects__dropdown__menu">
+                                            <li class="projects__dropdown__item"><a :href=" project.link ">Журнал</a></li>
+                                            <li @click="dropdown($event)" class="projects__dropdown__item">
+                                                <ul class="projects__dropdown__menu">
+                                                    <li class="projects__dropdown__title">Удалить проект?</li>
+                                                    <li @click="deleteProject(project.id, $event)" class="projects__dropdown__item">Да</li>
+                                                    <li class="projects__dropdown__item">Нет</li>
+                                                </ul>
+                                                <span>Удалить проект</span>
+                                            </li>
+                                        </ul>
+                                        <i class="fa fa-ellipsis-v text-lg" aria-hidden="true"></i>
+                                    </button>
+                                </div>
+                            </div>
+                            <hr class="horizontal dark">
+
+                            <div class="projects__card__row">
+                                <div class="projects__card__box">
+                                    <div class="projects__card__box__header">
+                                        <div class="projects__card__box__status">
+                                    <span v-if="project.emailSend.enabled" class="badge badge-dot">
+                                        <i class="bg-success"></i>
+                                    </span>
+                                            <span v-if="!project.emailSend.enabled" class="badge badge-dot">
+                                        <i class="bg-danger"></i>
+                                    </span>
+                                        </div>
+                                        <h5 class="projects__card__box__title">E-mail:</h5>
+                                    </div>
+
+                                    <ul class="projects__card__box__content">
+                                        <li v-tLength="16" v-for="email in project.emailSend.emailsList" class="projects__card__box__item">{{ email[0] }}</li>
+                                        <li v-if="project.emailSend.emailsList.length === 0" class="projects__card__box__item">Список пуст</li>
+                                    </ul>
+                                </div>
+
+                                <div class="projects__card__line"></div>
+
+                                <div class="projects__card__box">
+                                    <div class="projects__card__box__header">
+                                        <h5 class="projects__card__box__title">Вебхуки:</h5>
+                                    </div>
+
+                                    <ul class="projects__card__box__content projects__card__box__content--right">
+                                        <li v-for="webhook in project.webhooks" class="projects__card__box__item">
+                                            <div class="projects__card__box__status">
+                                        <span v-if="webhook.enabled" class="projects__card__dot badge badge-dot">
+                                            <i class="bg-success"></i>
+                                        </span>
+                                                <span v-if="!webhook.enabled" class="projects__card__dot badge badge-dot">
+                                            <i class="bg-danger"></i>
+                                        </span>
+                                            </div>
+                                            <span>{{ webhook.name }}</span>
+                                        </li>
+                                        <li v-if="project.webhooks.length === 0" class="projects__card__box__item">Список пуст</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <hr class="horizontal dark">
+                            <div class="row">
+                                <div class="col-4">
+                                    <div v-if="!stateProjectsLeadsCount" class="spinner-border text-default m-auto" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <h6 v-if="stateProjectsLeadsCount" class="text-sm mb-0">{{ stateProjectsLeadsCount[project.id].totalLeads }}</h6>
+                                    <p class="text-secondary text-sm font-weight-normal mb-0">Лидов всего</p>
+                                </div>
+                                <div class="col-4">
+                                    <div v-if="!stateProjectsLeadsCount" class="spinner-border text-default m-auto" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                    <h6 v-if="stateProjectsLeadsCount" class="text-sm mb-0">{{ stateProjectsLeadsCount[project.id].leadsToday }}</h6>
+                                    <p class="text-secondary text-sm font-weight-normal mb-0">Лидов сегодня</p>
+                                </div>
+                                <div class="col-4 text-end">
+                                    <h6 v-date="project.created_at" class="text-sm mb-0"></h6>
+                                    <p class="text-secondary text-sm font-weight-normal mb-0">Дата создания</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+
+export default {
+  name: 'ProjectsCards',
+    data() {
+      return {
+          showInactive: true
+      }
+    },
+    methods: {
+        dropdown (event) {
+            return this.$store.dispatch('dropdown', event)
+        },
+        deleteProject (id, event) {
+            event.stopPropagation()
+            event.stopImmediatePropagation()
+            return this.$store.dispatch('deleteProject', id)
+        },
+        async switchProject (id) {
+            await this.$store.dispatch('switchProject', id)
+            await this.$store.dispatch('getProjects')
+            await this.$store.dispatch('getLeadsCount')
+        }
+    },
+  computed: {
+      projectsActive() {
+          const projects = this.stateFilteredProjects.filter(el => {
+              return el.status
+          })
+          return projects
+      },
+      projectsInactive() {
+          const projects = this.stateFilteredProjects.filter(el => {
+              return !el.status
+          })
+          return projects
+      },
+      stateProjectsLeadsCount () {
+          return this.$store.getters.stateProjectsLeadsCount
+      },
+      stateFilteredProjects () {
+        return this.$store.getters.stateFilteredProjects
+    }
+  }
+}
+
+</script>
+
+<style scoped>
+.projects__card__avatar {
+    background-image: none;
+    font-weight: 600;
+}
+.projects__card__status {
+    min-width: 101px;
+}
+
+.projects__card__name {
+    overflow: hidden;
+}
+.projects__card__line {
+    position: absolute;
+    width: 2px;
+    background-color: #7b809a;
+    border-radius: 50%;
+    height: 100%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.projects__card__row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    position: relative;
+}
+.projects__card__box {
+    width: 45%;
+    word-wrap: break-word;
+}
+.projects__card__box__header {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+.projects__card__box__title {
+    margin: 0;
+}
+.projects__card__box__content {
+    padding: 0;
+    padding-left: 12px;
+    margin: 0;
+    list-style-type: none;
+}
+.projects__card__box__content--right {
+    padding: 0;
+}
+.projects__card__box__item {
+    display: flex;
+    line-height: 110%;
+    margin-bottom: 5px;
+}
+.projects__card__dot {
+    padding: 0;
+}
+@media screen and (min-width: 1700px) {
+    .projects__card__wrap {
+        width: 33.3%;
+    }
+}
+@media screen and (max-width: 450px) {
+    .projects__card__box {
+        overflow: hidden;
+    }
+}
+@media screen and (max-width: 380px) {
+    .projects__card__status {
+        min-width: 0;
+    }
+    .projects__card__name {
+        display: block;
+        max-width: 45px;
+        word-wrap: normal;
+    }
+    .projects__card__name__wrap {
+        margin-left: 0 !important;
+    }
+}
+</style>

@@ -72,8 +72,15 @@
                                     <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Регион</p>
                                     <div class="journal__col-resize"></div>
                                 </th>
+
+
                                 <th v-if="columns.comment_crm" class="p-2 lh-1 cursor-pointer text-uppercase text-center text-xxs font-weight-bolder">
                                     <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Комментарий</p>
+                                    <div class="journal__col-resize"></div>
+                                </th>
+
+                                <th v-if="columns.comment_data" class="p-2 lh-1 cursor-pointer text-uppercase text-center text-xxs font-weight-bolder">
+                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Комментарий к заявке</p>
                                     <div class="journal__col-resize"></div>
                                 </th>
 
@@ -183,7 +190,13 @@
                                         <span class="material-icons">add</span>
                                     </span>
                                 </td>
-
+                                <td
+                                    v-if="columns.comment_data"
+                                    class="text-sm text-center font-weight-normal mb-0 overflow-hidden"
+                                    style="width: 300px; min-width: 300px; max-width: 3000px; text-overflow: ellipsis"
+                                >
+                                    <span :title="lead.comment">{{ lead.comment }}</span>
+                                </td>
                                 <td
                                     v-if="columns.email"
                                     class="text-sm text-center font-weight-normal mb-0 overflow-hidden"
@@ -373,6 +386,9 @@ export default {
         stateProjectJour () {
             return this.$store.getters.stateProjectJour
         }
+    },
+    mounted() {
+        //console.log(this.columns)
     }
 }
 </script>

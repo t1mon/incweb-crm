@@ -29,6 +29,7 @@ export default {
               company: true,
               manual_region: true,
               comment_crm: true,
+              comment_data: true,
               email: true,
               city: true,
               cost: true,
@@ -62,6 +63,7 @@ export default {
         }
         this.$store.commit('journalAll/SET_PROJECT_ID', this.projectid)
         await this.$store.dispatch('journalAll/getJournalAll')
+        //console.log(this.$store.getters.stateLeads)
 
         //функционал по изменению размеров колонок
         // const resizes = document.querySelectorAll('.journal__col-resize')

@@ -176,7 +176,8 @@ Route::prefix('v2')->name('v2.')->group(function(){
 
 });
 
+Route::post('matomba', [\App\Http\Controllers\Project\WebhookController::class , 'test'])->name('matomba-hook');
 
-Route::fallback(function () {  
+Route::fallback(function () {
     return response()->json(['message' => 'Not Found.'], 404);
 });

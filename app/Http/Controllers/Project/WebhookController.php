@@ -61,13 +61,13 @@ class WebhookController extends Controller
         $project->webhook_add($request->except('_token', 'fields', 'form'));
         $project->save();
     } //store_simple_common
-    
+
     public function store_simple_bitrix24(Project $project, Request $request){ //Сохранение упрощённого вебхука Битрикс24
         $request->merge(['query' => yaml_emit($request->fields)]);
         $project->webhook_add($request->except('_token', 'fields', 'form'));
         $project->save();
     } //store_simple_bitrix24
-    
+
     public function store_extended(Project $project, Request $request){ //Сохранение вебхука из расширенной формы
         $project->webhook_add($request->except('_token'));
         $project->save();
@@ -133,7 +133,7 @@ class WebhookController extends Controller
         //Проверка полномочий пользователя
         if (Gate::denies('settings', [Project::class, $project]))
             return redirect()->route('project.index');
-        
+
         $project->webhook_delete($webhook_name);
         $project->save();
 
@@ -146,7 +146,7 @@ class WebhookController extends Controller
         //Проверка полномочий пользователя
         if (Gate::denies('settings', [Project::class, $project]))
             return redirect()->route('project.index');
-        
+
         $project->webhook_update($webhook_name, ['enabled' => (bool)!$project->settings['webhooks'][$webhook_name]['enabled']]);
         $project->save();
 
@@ -184,8 +184,10 @@ class WebhookController extends Controller
         return redirect()->route('project.settings-sync', $project)->withSuccess('Вебхук прошёл повторную авторизацию');
     } //amocrm_reauthorize
 
-    public function test(){
-        $lead = Leads::latest()->first();
-        return $lead->project->webhook_send('AmoCRM-4', $lead);
+    public function test(Request $request){
+
+        Log::info($request);
+        //$lead = Leads::latest()->first();
+        //return $lead->project->webhook_send('AmoCRM-4', $lead);
     } //test
 }

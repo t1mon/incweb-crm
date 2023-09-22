@@ -10,6 +10,7 @@
 
             <div class="d-flex flex-row flex-sm-row justify-content-between justify-content-sm-end align-items-end">
                 <div class="d-flex flex-column flex-xxl-row align-items-start m-0 me-sm-2">
+                    <clear-local-storage></clear-local-storage>
                     <clear-filters></clear-filters>
                     <columns-settings :columns="columns" @changeColumnsSettings="changeColumnsSettings"></columns-settings>
                 </div>
@@ -26,6 +27,7 @@
 <script>
 import JournalPanelFilter from "./JournalPanelFilter";
 import ClearFilters from "./ClearFilters";
+import ClearLocalStorage from "./ClearLocalStorage.vue";
 import ManualLeads from "./ManualLeads";
 import ColumnsSettings from "./ColumnsSettings.vue";
 
@@ -35,7 +37,8 @@ export default {
         JournalPanelFilter,
         ClearFilters,
         ManualLeads,
-        ColumnsSettings
+        ColumnsSettings,
+        ClearLocalStorage
     },
     props: {
         columns: {

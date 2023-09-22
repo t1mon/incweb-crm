@@ -17,7 +17,7 @@
             @auth()
             <li class="nav-item mt-0">
                 <a data-bs-toggle="collapse" href="#ProfileNav" class="nav-link text-white m-0 rounded-0 px-2" aria-controls="ProfileNav" role="button" aria-expanded="false">
-                    <img src="{{ asset('media/img/avatar.jpg') }}" class="avatar">
+{{--                    <img src="{{ asset('media/img/avatar.jpg') }}" class="avatar">--}}
                     <span class="nav-link-text ps-1"> {{ Auth::user()->name }} </span>
                 </a>
                 <div class="collapse" id="ProfileNav" style="">

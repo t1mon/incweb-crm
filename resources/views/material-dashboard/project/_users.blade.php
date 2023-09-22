@@ -1,6 +1,6 @@
 {{--Объявление полей журнала (чтобы быстро добавлять/удалять в дальнейшем--}}
 @php
-    $journal_fields = ['id', 'phone', 'entries', 'class_id', 'comment_crm', 'owner', 'company', 'nextcall_date', 'email', 'city', 'manual_city', 'cost', 'host', 'referrer', 'utm_source', 'utm_medium', 'utm_campaign', 'source'];
+    $journal_fields = ['id', 'phone', 'entries', 'class_id', 'comment_crm', 'comment', 'owner', 'company', 'nextcall_date', 'email', 'city', 'manual_city', 'cost', 'host', 'referrer', 'utm_source', 'utm_medium', 'utm_campaign', 'source'];
 @endphp
 
 {{--Форма для добавления нового пользователя--}}
@@ -109,7 +109,7 @@
                                         'class' => 'btn btn-danger btn-sm',
                                         'type' => 'submit',
                                         'data-confirm' => __('forms.user-permissions.delete'),
-                                        ( ($permission->isWatcher() or $permission->isOwner()) and $permission->user->id != $project->user->id) ? '' : 'disabled'
+                                        ( $permission->user->id != $project->user->id) ? '' : 'disabled'
                                     ]) !!}
                                 {!! Form::close() !!}
                             </td>

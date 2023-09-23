@@ -172,6 +172,7 @@ Route::prefix('v2')->name('v2.')->group(function(){
             Route::post('webhook', [\App\Http\Controllers\Api\V2\Project\Integrations\Telegram\WebhookController::class, 'getIncomingRequest'])->name('webhook');
         });
 
+        Route::post('motomba', Api\V2\Project\Integrations\Motomba\WebhookController::class)->name('motomba');
     });
 
 });

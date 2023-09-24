@@ -18,19 +18,19 @@ class WebhookController extends Controller
     {
         $request->validate(rules: [
             'service' => 'required',
-            'answers' => 'required',
+            //'answers' => 'required',
             'contacts' => 'required',
         ]);
 
         // Поиск интеграции по service
         $matombaUrl = 'https://' . $request->service . '.mtmba.ru';
         $host = Host::where('host', $matombaUrl)->with('project')->first();
-        if(is_null($host))
+        if (is_null($host))
             return response(content: 'Интеграция отсутствует', status: 404);
 
 
         // Проверка, включен ли проект
-        if(!$host->project->settings['enabled'])
+        if (!$host->project->settings['enabled'])
             return response(content: 'Проект отключён', status: 403);
 
         // Определение количества вхождений
@@ -38,28 +38,29 @@ class WebhookController extends Controller
         $entries = 1;
         $status = Leads::LEAD_NEW;
 
-        if(!is_null($lead))
-        {
-            if($host->project->settings['leadValidDays'] > 0){ //Если выставлен срок годности лида
+        if (!is_null($lead)) {
+            if ($host->project->settings['leadValidDays'] > 0) { //Если выставлен срок годности лида
                 // Если срок годности лда уже истёк, создать новый лид
-                if( Carbon::now()->greaterThan(Carbon::parse($lead->created_at)->addDays($host->project->settings['leadValidDays'])) ){
+                if (Carbon::now()->greaterThan(Carbon::parse($lead->created_at)->addDays($host->project->settings['leadValidDays']))) {
                     $entries = $lead->entries + 1;
                     $status = Leads::LEAD_EXISTS;
                 }
             }
         }
-
+        $answersHumanized = [];
         // Компоновка ответов в читаемый вид
-        $answersHumanized = array_map(
-            callback: function($item){
-                $answers = implode(', ',array_map(callback: function ($item_answer){
-                    return $item_answer;
-                }, array:  $item['a'] ));
-                return 'Вопрос: ' . $item['q'] . ', Ответ: ' . $answers;
-            },
+        if ($request->filled('answers')){
+            $answersHumanized = array_map(
+                callback: function ($item) {
+                    $answers = implode(', ', array_map(callback: function ($item_answer) {
+                        return $item_answer;
+                    }, array: $item['a']));
+                    return 'Вопрос: ' . $item['q'] . ', Ответ: ' . $answers;
+                },
 
-            array: $request->answers
-        );
+                array: $request->answers
+            );
+        }
 
         if ($request->filled('contacts.more'))
             $answersHumanized[] = 'Собственное поле: ' . $request->contacts['more'];

@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Project\Integrations\Matomba;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class Create extends FormRequest
 {
@@ -25,7 +26,13 @@ class Create extends FormRequest
     {
         return [
             'project_id' => 'required|exists:projects,id',
-            'service' => 'required|string',
+            'host' => [
+                'required',
+                'url',
+                Rule::unique('hosts')->where(function($query){
+                    return $query->where(['host' => $this->host, 'project_id' => $this->project_id]);
+                })
+            ],
         ];
     }
 }

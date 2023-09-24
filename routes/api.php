@@ -50,7 +50,7 @@ Route::prefix('v1')->namespace('Api\V1')->group(function () {
         Route::apiResource('project/{project}/users', 'Project\UserPermissionsController')->only(['index', 'store', 'update', 'destroy']);
 
         //Классы лидов
-        Route::apiResource('project/{project}/class', 'Project\Lead\z')->only(['store', 'update', 'destroy']);
+        // Route::apiResource('project/{project}/class', 'Project\Lead\z')->only(['store', 'update', 'destroy']);
         Route::post('project/{project}/journal/{lead}/class/assign', 'Project\Lead\LeadClassController@assign')->name('class-assign');
 
         //Комментарии к лидам
@@ -172,11 +172,13 @@ Route::prefix('v2')->name('v2.')->group(function(){
             Route::post('webhook', [\App\Http\Controllers\Api\V2\Project\Integrations\Telegram\WebhookController::class, 'getIncomingRequest'])->name('webhook');
         });
 
+        Route::post('matomba/{project}/webhook', Api\V2\Project\Integrations\Motomba\WebhookController::class)->name('matomba.webhook');
     });
 
 });
 
+//Route::post('matomba', [\App\Http\Controllers\Project\WebhookController::class , 'test'])->name('matomba-hook');
 
-Route::fallback(function () {  
+Route::fallback(function () {
     return response()->json(['message' => 'Not Found.'], 404);
 });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Project\EmailController;
 use App\Http\Controllers\Project\TelegramIDController;
 use App\Http\Controllers\Project\HostController;
 use App\Http\Controllers\Project\Integrations\Calltracking\PhoneController;
+use App\Http\Controllers\Project\Integrations\MatombaController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\LeadClassController;
 use App\Http\Controllers\Project\UserPermissionsController;
@@ -83,6 +84,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 Route::get('mango/{project_id}/create', [MangoController::class, 'create'])->name('mango.create');
                 Route::get('mango/{mango}/toggle', [MangoController::class, 'toggle'])->name('mango.toggle');
                 Route::resource('mango', MangoController::class)->except(['index', 'create']);
+
+                //Matomba
+                Route::get('matomba/{project_id}/index', [MatombaController::class, 'index'])->name('matomba.index');
+                Route::get('matomba/{project_id}/create', [MatombaController::class, 'create'])->name('matomba.create');
+                Route::resource('matomba', MatombaController::class)->except(['index', 'create', 'show']);
 
                 //Отслеживание звонков
                 Route::prefix('calltracking')->as('calltracking.')->group(function(){

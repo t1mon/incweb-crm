@@ -24,6 +24,13 @@
                 Mango Office
             </a>
         </li>
+
+        {{-- Matomba --}}
+        <li class="nav-item">
+            <a  class="nav-link" data-bs-toggle="tab" href="#matomba">
+                Matomba
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -42,6 +49,11 @@
     {{--Mango Office--}}
     <div class="tab-pane fade show" id="mango" role="tabpanel">
         <a href="{{route('project.integrations.mango.index', $project->id)}}" class="link-primary">Интеграции с Mango Office</a>
+    </div>
+
+    {{--Matomba--}}
+    <div class="tab-pane fade show" id="matomba" role="tabpanel">
+        <a href="{{route('project.integrations.matomba.index', $project->id)}}" class="link-primary">Интеграции с Matomba</a>
     </div>
 </div>
 

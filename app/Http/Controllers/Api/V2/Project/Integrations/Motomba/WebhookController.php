@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers\Api\V2\Project\Integrations\Motomba;
 
+use App\Events\Leads\LeadAdded;
+use App\Events\Leads\LeadCreated;
+use App\Events\Leads\LeadExists;
 use App\Http\Controllers\Controller;
 use App\Models\Leads;
 use App\Models\Project\Host;
@@ -49,16 +52,24 @@ class WebhookController extends Controller
         // Компоновка ответов в читаемый вид
         $answersHumanized = array_map(
             callback: function($item){
-                return 'Вопрос: ' . $item['q'] . ', Ответ: ' . $item['a'];
+                $answers = implode(', ',array_map(callback: function ($item_answer){
+                    return $item_answer;
+                }, array:  $item['a'] ));
+                return 'Вопрос: ' . $item['q'] . ', Ответ: ' . $answers;
             },
 
             array: $request->answers
         );
 
+        if ($request->filled('contacts.more'))
+            $answersHumanized[] = 'Собственное поле: ' . $request->contacts['more'];
+
+
         // Создание лида
-        Leads::create([
-            'name' => $request->contacts['name'],
+       $lead =  Leads::create([
+            'name' => $request->contacts['name'] ?? 'Не заполнено',
             'phone' => $request->contacts['phone'],
+            'email' => $request->contacts['mail'] ?? null,
             'host' => $host->host,
             'comment' => implode(separator: '; ', array: $answersHumanized),
             'project_id' => $host->project_id,
@@ -66,8 +77,13 @@ class WebhookController extends Controller
             'status' => $status,
             'referrer' => $request->filled('extra') && isset($request->extra['referer']) ? $request->extra['referer'] : null,
         ]);
-        
-        // TODO Рассылка по синхронизации
+
+        event(new LeadAdded($lead));
+
+        if($lead->entries === 1) //Если лид новый, сделать рассылку
+            event(new LeadCreated($lead));
+        else
+            event(new LeadExists($lead));
 
         return response(content: 'Лид добавлен', status: 201);
     }

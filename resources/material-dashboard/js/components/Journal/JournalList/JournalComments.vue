@@ -2,7 +2,7 @@
     <!-- Modal -->
     <div class="modal fade" id="journalComments" tabindex="-1" role="dialog" aria-labelledby="journalCommentsLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content bg-dark rounded-0">
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-normal" id="journalCommentsLabel">Комментарий:</h5>
                     <button ref="closeComments" type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
@@ -13,19 +13,19 @@
                     <div v-if="stateLoader" class="spinner-border text-primary d-block m-auto" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
-                    <div v-if="!stateLoader" class="input-group input-group-dynamic">
+                    <div v-if="!stateLoader" class="input-group">
                         <textarea
                             v-model="comment"
-                            class="form-control" rows="5" placeholder="Введите комментарий" spellcheck="false"
+                            class="form-control text-white" rows="5" placeholder="Введите комментарий" spellcheck="false"
                         ></textarea>
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
                     <button
                         @click="addDeleteComment"
                         :disabled="stateLoader"
                         type="button"
-                        class="btn bg-gradient-primary m-0">Сохранить</button>
+                        class="btn bg-success w-50 rounded-0 text-white m-0">Сохранить</button>
                 </div>
             </div>
         </div>

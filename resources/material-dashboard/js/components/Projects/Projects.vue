@@ -1,14 +1,17 @@
 <template>
     <div>
         <div v-show="stateProjects && stateProjects.length > 0" class="projects">
-            <div class="projects__row">
-                <projects-search></projects-search>
-
-                <projects-tabs></projects-tabs>
+            <div class="">
+                <div class="text-left d-flex align-items-center justify-content-between mb-2 flex-wrap gap-2">
+                    <h5 class="m-0">Проекты</h5>
+                    <projects-search></projects-search>
+                    <a href="/project/create" class="btn bg-gradient-info rounded-0 mb-0 mt-0 mt-lg-0 p-2 px-4">
+                        <i class="material-icons text-white position-relative text-md">add</i> Добавить
+                    </a>
+                </div>
             </div>
 
-            <projects-list ref="hide" class="projects__content--show" v-if="!checkCards"></projects-list>
-            <projects-cards ref="hide" class="projects__content--show" v-if="checkCards"></projects-cards>
+            <projects-list ref="hide"></projects-list>
         </div>
         <div v-if="stateProjects && stateProjects.length === 0">
             <h2 class="projects__title projects__title--empty">Нет ни одного проекта!</h2>
@@ -23,8 +26,6 @@
 
 <script>
 import ProjectsList from './ProjectsList'
-import ProjectsCards from './ProjectsCards'
-import ProjectsTabs from './ProjectsTabs'
 import ProjectsSearch from './ProjectsSearch'
 import Spinner from '../Others/Spinner'
 
@@ -32,8 +33,6 @@ export default {
   name: 'Index',
   components: {
     ProjectsList,
-    ProjectsCards,
-    ProjectsTabs,
     ProjectsSearch,
     Spinner
   },
@@ -78,13 +77,6 @@ export default {
 
 .projects {
     position: relative;
-}
-
-.projects__row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 20px;
 }
 
 @media screen and (max-width: 575px) {

@@ -1,18 +1,14 @@
 <template>
-  <div class="col-auto filter">
-    <div class="ms-md-auto d-flex align-items-center">
-      <div class="input-group input-group-outline">
-        <label class="form-label">Filter projects</label>
-        <input
-          id="form-control"
-          v-model="filter"
-          :disabled="stateIsLoading"
-          type="text"
-          class="form-control"
-        >
-      </div>
-    </div>
-  </div>
+<div class="input-group w-auto project-search">
+    <input
+      id="form-control"
+      v-model="filter"
+      :disabled="stateIsLoading"
+      type="text"
+      class="form-control border rounded-0 p-1 px-2 text-light"
+      placeholder="Нати проект"
+    >
+</div>
 </template>
 
 <script>
@@ -49,6 +45,10 @@ export default {
 @media screen and (max-width: 575px) {
     .filter {
         width: 150px;
+    }
+    .project-search {
+        order: 3;
+        width: 100% !important;
     }
 }
 </style>

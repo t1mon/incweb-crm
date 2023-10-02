@@ -1,7 +1,7 @@
 <template>
     <div class="modal fade" id="journalRegion" tabindex="-1" role="dialog" aria-labelledby="journalRegionLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content bg-dark rounded-0">
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-normal" id="journalRegionLabel">Регион:</h5>
                     <button ref="closeRegion" type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
@@ -14,15 +14,15 @@
                             v-model="region"
                             placeholder="Введите регион"
                             type="text"
-                            class="form-control"
+                            class="form-control text-white"
                         >
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
                     <button
                         @click="addDeleteRegion"
                         type="button"
-                        class="btn bg-gradient-primary m-0">Сохранить</button>
+                        class="btn bg-success w-50 rounded-0 m-0 text-white">Сохранить</button>
                 </div>
             </div>
         </div>

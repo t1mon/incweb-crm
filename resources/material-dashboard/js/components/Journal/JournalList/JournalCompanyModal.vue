@@ -1,7 +1,7 @@
 <template>
     <div class="modal fade" id="journalCompany" tabindex="-1" role="dialog" aria-labelledby="journalCompanyLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
+            <div class="modal-content bg-dark rounded-0">
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-normal" id="journalCompanyLabel">Компания:</h5>
                     <button ref="closeCompany" type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
@@ -14,15 +14,15 @@
                             v-model="company"
                             placeholder="Введите компанию"
                             type="text"
-                            class="form-control"
+                            class="form-control text-white "
                         >
                     </div>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
                     <button
                         @click="addDeleteCompany"
                         type="button"
-                        class="btn bg-gradient-primary m-0">Сохранить</button>
+                        class="btn bg-gradient-success rounded-0 w-50 m-0">Сохранить</button>
                 </div>
             </div>
         </div>

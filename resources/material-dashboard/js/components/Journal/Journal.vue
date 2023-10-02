@@ -21,7 +21,7 @@ export default {
       return {
           columns: {
               created_at: true,
-              nextcall_date: true,
+              nextcall_date: false,
               name: true,
               classes: true,
               phone: true,
@@ -99,6 +99,7 @@ export default {
         if(projectLS && JSON.parse(projectLS).columns) {
             this.columns = null
             this.columns = JSON.parse(projectLS).columns
+            this.columns.nextcall_date = false  // принудительно отключаем
         } else {
             projectLS = `projects${this.projectid}`
             const projectInfo = {

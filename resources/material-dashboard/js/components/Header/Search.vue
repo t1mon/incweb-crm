@@ -1,17 +1,36 @@
 <template>
-    <form :class="{ 'search--active' : focus || stateHeaderSearchPopup }" @submit.prevent="headerSearch(value)" action="#" class="search ms-md-auto pe-md-3 d-flex align-items-center">
-        <div class="input-group input-group-outline">
+<!--    <form :class="{ 'search&#45;&#45;active' : focus || stateHeaderSearchPopup }" @submit.prevent="headerSearch(value)" action="#" class="search d-flex align-items-center">-->
+<!--        <div class="input-group input-group-outline">-->
+<!--            <header-search-popup v-if="stateHeaderSearchPopup"></header-search-popup>-->
+<!--            <button class="search__button">-->
+<!--                <span class="material-icons text-light">search</span>-->
+<!--            </button>-->
+<!--            <label class="form-label">Поиск по сайтам</label>-->
+<!--            <input-->
+<!--                v-model="value"-->
+<!--                @focus="focus = true"-->
+<!--                @blur="focus = false"-->
+<!--                :style="stateHeaderSearchPopup ? 'border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important;' : '' "type="text" class="form-control">-->
+<!--        </div>-->
+<!--    </form>-->
+    <div :class="{ 'search--active' : focus || stateHeaderSearchPopup }" class="search">
+        <form @submit.prevent="headerSearch(value)"  class="input-group">
             <header-search-popup v-if="stateHeaderSearchPopup"></header-search-popup>
             <button class="search__button">
-                <span class="material-icons">search</span>
+                <span class="material-icons text-light">search</span>
             </button>
-            <label class="form-label">Search here</label>
             <input
+                :class="{ 'border-success' : focus || stateHeaderSearchPopup }"
+                v-model="value"
                 @focus="focus = true"
                 @blur="focus = false"
-                :style="stateHeaderSearchPopup ? 'border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important;' : '' " v-model="value" type="text" class="form-control">
-        </div>
-    </form>
+                :style="stateHeaderSearchPopup ? 'border-bottom-left-radius: 0 !important; border-bottom-right-radius: 0 !important;' : '' "
+                type="text"
+                class="form-control border rounded-0 p-1 px-2 text-light"
+                placeholder="Поиск по сайтам"
+            >
+        </form>
+    </div>
 </template>
 
 <script>
@@ -46,7 +65,8 @@ export default {
     transition: 0.5s;
 }
 .search--active {
-    width: 85%;
+    width: 100%;
+    max-width: 500px;
 }
 .is-focused .headerSearchPopup {
     border-color: #e91e63;
@@ -70,9 +90,10 @@ export default {
 .input-group.input-group-outline .form-control {
     padding-right: 25px !important;
 }
-@media screen and (max-width: 767px) {
-    .search-active {
-        width: 170%;
+@media screen and (max-width: 575px) {
+    .search {
+        order: 3;
+        width: 100%;
     }
 }
 </style>

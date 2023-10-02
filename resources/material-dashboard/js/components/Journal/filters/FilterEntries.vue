@@ -1,5 +1,5 @@
 <template>
-    <div class="px-2">
+    <div class="px-2 pt-2">
         <div class="form-check m-0 p-0 d-flex align-items-center mb-2">
             <input
                 v-model="entries"
@@ -42,7 +42,7 @@
         <hr class="my-1">
         <button
             @click.prevent="setEntries()"
-            class="btn btn-primary mb-0 py-1 px-3 w-100"
+            class="btn btn-info rounded-0 mb-0 py-1 px-3 w-100 mb-2"
         >Отфильтровать</button>
     </div>
 </template>

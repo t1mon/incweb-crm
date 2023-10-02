@@ -2,7 +2,7 @@
     <div v-if="stateLeads" class="journal">
         <div class="row journal__box">
             <div class="col-12 journal__wrap">
-                <div class="card journal__card">
+                <div class="card journal__card rounded-0">
                     <div class="table-responsive">
                         <table class="journal__table table align-items-center mb-0">
                             <thead class="journal__thead">
@@ -164,13 +164,12 @@
                                     <a :href="'tel: ' + lead.phone" class="mb-0 font-weight-normal text-sm">{{ phoneFormat(lead.phone) }}</a>
                                 </td>
                                 <td v-if="columns.entries">
-                                    <div class="text-center">
-                                      <span class="badge badge-dot">
-                                          <i v-if="lead.entries === 1" class="bg-success"></i>
-                                          <i v-if="lead.entries === 2" class="bg-warning"></i>
-                                          <i v-if="lead.entries > 2" class="bg-danger"></i>
-                                        <span class="text-dark text-xs"> {{ lead.entries }}</span>
-                                      </span>
+                                    <div
+                                        style="width: 25px; height: 25px"
+                                        :class="{ 'border-success text-success' : lead.entries === 1, 'border-warning text-warning' : lead.entries === 2, 'border-danger text-danger' : lead.entries >2 }"
+                                        class="border rounded-circle d-flex align-items-center justify-content-center"
+                                    >
+                                        <span class="text-sm"> {{ lead.entries }}</span>
                                     </div>
                                 </td>
                                 <journal-company-td v-if="columns.company" :companyBack="lead.company" :leadId="lead.id"></journal-company-td>
@@ -186,17 +185,21 @@
                                         v-if="lead.comment_crm"
                                         :title="lead.comment_crm.text"
                                     >{{ lead.comment_crm.text }}</span>
-                                    <span v-else>
-                                        <span class="material-icons">add</span>
+                                    <span v-else style="width: 20px; height: 20px" class="border border-success rounded-circle d-flex align-items-center justify-content-center m-auto">
+                                        <span class="material-icons text-success">add</span>
                                     </span>
                                 </td>
+
                                 <td
                                     v-if="columns.comment_data"
-                                    class="text-sm text-center font-weight-normal mb-0 overflow-hidden"
-                                    style="width: 300px; min-width: 300px; max-width: 3000px; text-overflow: ellipsis"
+                                    @click="setComment(lead.comment)"
+                                    class="text-sm text-center font-weight-normal mb-0 overflow-hidden cursor-pointer"
+                                    style="width: 300px; min-width: 300px; max-width: 300px; text-overflow: ellipsis"
+                                    data-bs-toggle="modal" data-bs-target="#journalComment"
                                 >
                                     <span :title="lead.comment">{{ lead.comment }}</span>
                                 </td>
+
                                 <td
                                     v-if="columns.email"
                                     class="text-sm text-center font-weight-normal mb-0 overflow-hidden"
@@ -278,6 +281,7 @@
         <journal-region-modal ref="journalRegionModal"></journal-region-modal>
         <journal-comments ref="journalCommentsModal"></journal-comments>
         <journal-company-modal ref="journalCompanyModal"></journal-company-modal>
+        <journal-comment v-model="comment" ></journal-comment>
     </div>
 </template>
 
@@ -290,6 +294,7 @@ import JournalRegionModal from "./JournalRegionModal";
 import JournalRegionTd from "./JournalRegionTd"
 import JournalCompanyTd from "./JournalCompany.vue";
 import JournalCompanyModal from "./JournalCompanyModal.vue";
+import JournalComment from "./JournalComment";
 
 export default {
     name: "Journal",
@@ -301,7 +306,8 @@ export default {
         JournalRegionModal,
         JournalRegionTd,
         JournalCompanyTd,
-        JournalCompanyModal
+        JournalCompanyModal,
+        JournalComment,
     },
     props: {
         columns: {
@@ -315,7 +321,8 @@ export default {
           first: false,
           second: false,
           region: '',
-          leadIdRegion: ''
+          leadIdRegion: '',
+          comment: ''
       }
     },
     methods: {
@@ -374,6 +381,9 @@ export default {
             if (!sum) return
             const sumStr = sum.toString()
             return sumStr.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
+        },
+        setComment(comment) {
+            this.comment = comment
         }
     },
     computed: {
@@ -403,11 +413,8 @@ export default {
 th {
     position: relative;
 }
-th, td {
-    border-width: 1px;
-}
 .journal {
-    height: calc(100vh - 160px);
+    height: calc(100vh - 136px);
 }
 .journal__col-resize {
     position: absolute;
@@ -514,12 +521,7 @@ th, td {
 }
 @media screen and (max-width: 991px) {
     .journal {
-        height: calc(100vh - 205px);
-    }
-}
-@media screen and (max-width: 767px) {
-    .journal {
-        height: calc(100vh - 310px);
+        height: calc(100vh - 206px);
     }
 }
 </style>

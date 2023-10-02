@@ -6,7 +6,6 @@ export default {
   },
   state () {
     return {
-      cards: false,
       endpoint: '/api/v1/project',
       projects: null,
       searchProjects: '',
@@ -19,9 +18,6 @@ export default {
   getters: {
     stateProjectsLeadsCount: state => {
       return state.projectsLeadsCount
-    },
-    stateCards: state => {
-      return state.cards
     },
     stateSearchProjects: state => {
       return state.searchProjects
@@ -37,12 +33,6 @@ export default {
     }
   },
   mutations: {
-    checkCards (state) {
-      state.cards = true
-    },
-    checkList (state) {
-      state.cards = false
-    },
     updateMessage (state, value) {
       state.searchProjects = value
     }

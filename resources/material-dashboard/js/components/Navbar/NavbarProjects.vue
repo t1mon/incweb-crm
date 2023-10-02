@@ -1,5 +1,5 @@
 <template>
-    <ul class="nav ">
+    <ul class="nav flex-column">
         <li
             v-for="project in projectsActive"
             :class="{ 'active' : stateProjectId === project.id }"
@@ -8,15 +8,16 @@
                 :href="'/project/' + project.id + '/journal'"
                 :class="{ 'active' : stateProjectId === project.id }"
                 style="white-space: normal"
-                class="align-items-start nav-link text-white m-0 rounded-0 p-2 mw-100"
+                class="align-items-start nav-link text-white m-0 rounded-0 p-1 mw-100 text-sm"
             >
                 <span class="sidenav-mini-icon font-weight-bolder me-1">{{project.id}})</span>
                 <span class="">{{project.name}}</span>
             </a>
+            <hr class="horizontal light m-0">
         </li>
-        <div class="bg-secondary w-100 py-2">
-            <div class="form-check m-0 d-flex align-items-center">
-                <input v-model="showInactive" class="form-check-input m-0" type="checkbox" value="" id="flexCheckDefault">
+        <div class="border w-100 p-1">
+            <div class="form-check m-0 p-0 d-flex align-items-center">
+                <input v-model="showInactive" class="form-check-input m-0 rounded-0" type="checkbox" value="" id="flexCheckDefault">
                 <label class="form-check-label font-weight-bolder text-white mb-0" for="flexCheckDefault">
                     Показать неактивные
                 </label>
@@ -31,11 +32,12 @@
                     :href="'/project/' + project.id + '/journal'"
                     :class="{ 'active' : stateProjectId === project.id }"
                     style="white-space: normal"
-                    class="align-items-start nav-link text-white m-0 rounded-0 p-2 mw-100"
+                    class="align-items-start nav-link text-white m-0 rounded-0 p-1 mw-100 text-sm"
                 >
                     <span class="sidenav-mini-icon font-weight-bolder me-1">{{project.id}})</span>
                     <span class="">{{project.name}}</span>
                 </a>
+                <hr class="horizontal light m-0">
             </li>
         </div>
     </ul>

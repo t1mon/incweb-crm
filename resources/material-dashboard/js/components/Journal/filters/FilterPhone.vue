@@ -1,13 +1,13 @@
 <template>
-    <div class="px-2 d-flex flex-column">
+    <div class="px-2 pt-2 d-flex flex-column">
         <input
             v-model="phone"
             @input="phoneNum"
             placeholder="Введите телефон"
             type="text"
-            class="border border-danger rounded-2 bg-transparent text-secondary px-1 mb-2"
+            class="border border-success outline-none bg-transparent text-white p-1 mb-2"
         >
-        <button @click.prevent="setPhone()" class="btn btn-primary mb-0 py-1 px-3 w-100">Отфильтровать</button>
+        <button @click.prevent="setPhone()" class="btn btn-info rounded-0 mb-0 py-1 px-3 w-100 mb-2">Отфильтровать</button>
     </div>
 </template>
 

@@ -1,5 +1,5 @@
 <template>
-    <div class="filters border py-2">
+    <div class="filters border p-0">
         <div>
             <filter-asc-desc v-if="ascDesc" :sort_order="ascDesc.sort_order" :sort_by="ascDesc.sort_by"></filter-asc-desc>
             <filter-name v-if="name"></filter-name>

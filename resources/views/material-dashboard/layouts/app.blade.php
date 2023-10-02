@@ -33,14 +33,12 @@
     <link href="{{ mix('/css/nucleo-svg.css') }}" rel="stylesheet">
     <link href="{{ mix('/css/material-dashboard-app.css') }}" rel="stylesheet">
 </head>
-<body  class="g-sidenav-show g-sidenav-pinned bg-gray-200">
+<body  class="g-sidenav-show g-sidenav-pinned bg-gray-200 dark-version">
 <div id="app">
 
     @include('material-dashboard.shared.navbar-vertical-left')
 
     <main class="main-content position-relative max-height-vh-100 h-100 border-radius-lg ">
-
-        @include('material-dashboard.shared.navbar-main-horizontal')
 
         <div class="container-fluid px-3">
             @yield('content')

@@ -1,14 +1,14 @@
 <nav class="navbar navbar-dark bg-dark fixed-top navbar-expand-md">
-    <div class="container">
+    <div class="container justify-content-between">
         <!-- Branding Image -->
-        {{ link_to_route('home', config('app.name', 'Laravel'), [], ['class' => 'navbar-brand']) }}
+        {{ link_to_route('home', config('app.name', 'Laravel'), [], ['class' => 'navbar-brand text-white']) }}
 
         <!-- Collapsed Hamburger -->
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="d-flex" id="navbarCollapse">
             @admin
                 <ul class="navbar-nav">
                     <li class="nav-item">
@@ -19,8 +19,8 @@
 
             <ul class="navbar-nav ml-auto">
                 @guest
-                    <li class="nav-item">{{ link_to_route('login', __('auth.login'), [], ['class' => 'nav-link']) }}</li>
-                    <li class="nav-item">{{ link_to_route('register', __('auth.register'), [], ['class' => 'nav-link']) }}</li>
+                    <li class="nav-item">{{ link_to_route('login', 'Войти', [], ['class' => 'nav-link text-white']) }}</li>
+                    <li class="nav-item">{{ link_to_route('register', 'Регистрация', [], ['class' => 'nav-link text-white']) }}</li>
                 @else
                     <li class="nav-item dropdown">
                         <a v-pre href="#" class="nav-link dropdown-toggle" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

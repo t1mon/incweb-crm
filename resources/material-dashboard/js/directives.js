@@ -93,7 +93,7 @@ export default function directives (app) {
       } else {
         name = `${arr[0].charAt(0).toUpperCase()}`
       }
-      el.style.backgroundColor = '#' + binding.value.background
+      // el.style.backgroundColor = '#' + binding.value.background
       el.textContent = name
     }
   })

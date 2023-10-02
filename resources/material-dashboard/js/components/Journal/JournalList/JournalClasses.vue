@@ -1,20 +1,20 @@
 <template>
     <td v-if="lead" class="text-white text-center">
-        <div v-select class="select">
-            <span
+        <div class="dropdown">
+            <a
                 :style="`background: #${findClass(lead.class_id).color}; color: ${findClass(lead.class_id) ? '#ffffff' : ''}`"
-                class="select__title">{{ findClass(lead.class_id) ? findClass(lead.class_id).name : 'Не задан' }}</span>
-            <span class="material-icons select__arrow">expand_more</span>
-            <div class="select__content">
+                :id="'dropdownClasses' + lead.id"
+                class="border border-success w-100 d-block"
+                data-bs-toggle="dropdown" aria-expanded="false" href=""
+            >{{ findClass(lead.class_id) ? findClass(lead.class_id).name : 'Не задан' }}</a>
+            <div class="dropdown-menu dropdown-menu-dark border border-success p-0" aria-labelledby="dropdownProjectMenu">
                 <div
-                    @click="getLeadClass(stateProjectJour.id, lead.id, 0)"
-                    class="select__option"
-                >Не задан</div>
-                <div v-for="projectClass in stateProjectJour.classes" @click="getLeadClass(stateProjectJour.id, lead.id, projectClass.id)" class="select__option">
-                    <div class="journal__row">
+                    v-for="projectClass in stateProjectJour.classes"
+                    @click="getLeadClass(stateProjectJour.id, lead.id, projectClass.id)"
+                    :class="{'bg-secondary' : lead.class_id === projectClass.id}"
+                    class="d-flex justify-content-between align-items-center p-1 border-bottom border-success journal__class-item">
                         <span class="journal__class-name">{{ projectClass.name }}</span>
                         <span :style="'background:' + ' ' + '#' + projectClass.color" class="journal__class-color"></span>
-                    </div>
                 </div>
             </div>
         </div>
@@ -67,13 +67,15 @@ export default {
     width: calc(100% - 20px);
     white-space: normal;
 }
+.journal__class-item:hover {
+    background: #7b809a;
+}
+.journal__class-item:last-child{
+    border: none !important;
+}
 .journal__class-color {
     width: 15px;
     height: 15px;
-    border-radius: 2px;
-}
-.journal__row {
-    display: flex;
-    justify-content: space-between;
+    display: block;
 }
 </style>

@@ -1,12 +1,12 @@
 <template>
-    <div class="card">
-        <div class="table-responsive">
+    <div class="card rounded-0">
+            <div class="overflow-auto pb-3">
             <table class="table align-items-center mb-0">
-                <thead class="position-sticky top-0 left-0 bg-white" style="z-index: 2">
+                <thead class="position-sticky top-0 left-0" style="z-index: 2">
                     <tr>
     <!--                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">@lang('projects.attributes.name')</th>-->
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Имя</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">status</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Статус</th>
     <!--                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">@lang('projects.attributes.leads_all')</th>-->
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center ps-2">Лидов всего</th>
     <!--                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">@lang('projects.attributes.leads_today')</th>-->
@@ -79,7 +79,7 @@
                 </tbody>
             </table>
         </div>
-        <div class="bg-secondary w-100 py-2">
+        <div class="border w-100 py-2">
             <div class="form-check m-0 d-flex align-items-center">
                 <input v-model="showInactive" class="form-check-input m-0" type="checkbox" value="" id="flexCheckDefault">
                 <label class="form-check-label font-weight-bolder text-white mb-0" for="flexCheckDefault">
@@ -87,13 +87,13 @@
                 </label>
             </div>
         </div>
-        <div v-if="showInactive" class="table-responsive">
+        <div v-if="showInactive" class="overflow-auto pb-3">
             <table class="table align-items-center mb-0">
-                <thead class="position-sticky top-0 left-0 bg-white border-bottom border-dark" style="z-index: 2">
+                <thead class="position-sticky top-0 left-0 border-bottom border-dark" style="z-index: 2">
                     <tr>
                         <!--                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">@lang('projects.attributes.name')</th>-->
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder">Имя</th>
-                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">status</th>
+                        <th class="text-uppercase text-secondary text-xxs font-weight-bolder ps-2">Статус</th>
                         <!--                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">@lang('projects.attributes.leads_all')</th>-->
                         <th class="text-uppercase text-secondary text-xxs font-weight-bolder text-center ps-2">Лидов всего</th>
                         <!--                    <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">@lang('projects.attributes.leads_today')</th>-->
@@ -221,15 +221,17 @@ export default {
 <style>
 
 .projects__card__avatar {
-    border-radius: 0.75rem;
-    width: 74px;
-    height: 74px;
-    margin-right: 16px;
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
     display: flex;
     align-items: center;
     justify-content: center;
     font-weight: 600;
     color: #ffffff;
+    border: 2px solid #fff;
+    border-radius: 50%;
+    font-size: 14px;
 }
 .projects__card__status {
     width: 101px;

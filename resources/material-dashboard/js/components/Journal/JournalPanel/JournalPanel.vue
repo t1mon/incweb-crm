@@ -1,22 +1,20 @@
 <template>
 
-    <div v-if="stateProjectJour" class="row filter-by-date">
-        <div class="d-flex justify-content-between flex-column flex-sm-row align-items-sm-end">
-            <div class="journal__date__box align-items-start align-items-lg-end flex-column flex-lg-row mb-2 mb-sm-0">
-                <h5 class="m-0 me-3">{{ stateProjectJour.name }}</h5>
+    <div v-if="stateProjectJour" class="d-flex flex-column flex-lg-row justify-content-between align-items-stretch gap-2 mb-2">
+        <div class="d-flex align-items-stretch justify-content-between gap-2">
+            <h5 class="m-0 w-50 w-md-25 w-lg-auto text-sm d-flex align-items-center">{{ stateProjectJour.name }}</h5>
 
-                <journal-panel-filter></journal-panel-filter>
+            <journal-panel-filter></journal-panel-filter>
+        </div>
+
+        <div class="d-flex flex-column-reverse flex-lg-row just align-items-stretch gap-2">
+            <div class="d-flex flex-row-reverse flex-lg-row justify-content-between align-items-stretch gap-2">
+                <clear-filters></clear-filters>
+                <columns-settings :columns="columns" @changeColumnsSettings="changeColumnsSettings"></columns-settings>
             </div>
-
-            <div class="d-flex flex-row flex-sm-row justify-content-between justify-content-sm-end align-items-end">
-                <div class="d-flex flex-column flex-xxl-row align-items-start m-0 me-sm-2">
-                    <clear-filters></clear-filters>
-                    <columns-settings :columns="columns" @changeColumnsSettings="changeColumnsSettings"></columns-settings>
-                </div>
-                <div class="d-flex flex-column flex-md-row">
-                    <manual-leads></manual-leads>
-                    <button @click.prevent="exportJournal()" class="journal__date__button--last btn btn-primary mb-0 py-1 px-3" > Скачать записи </button>
-                </div>
+            <div class="d-flex gap-2 justify-content-between">
+                <manual-leads></manual-leads>
+                <button @click.prevent="exportJournal()" class="journal__date__button--last btn btn-success rounded-0 mb-0 py-1 px-3 w-50 w-md-25 w-lg-auto" > Скачать записи </button>
             </div>
         </div>
     </div>
@@ -74,19 +72,12 @@ export default {
 </script>
 
 <style scoped>
-.filter-by-date {
-    margin-bottom: 5px;
-}
 .form-control {
     padding: 0 !important;
 }
 
 .journal__date__dates {
     margin-right: 16px;
-}
-
-.journal__date__box {
-    display: flex;
 }
 
 .journal__date__button {

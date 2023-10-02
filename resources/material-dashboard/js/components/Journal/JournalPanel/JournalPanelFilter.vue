@@ -1,12 +1,12 @@
 <template>
-    <div class="dropdown border border-1 rounded-2 border-primary">
+    <div data-britva-popup class="border border-1 border-success d-flex justify-content-center align-items-center w-50 w-md-25 w-lg-auto">
 
-        <p class="m-0 cursor-pointer px-1 text-sm dropdown-toggle" id="filterDate" data-bs-toggle="dropdown" aria-expanded="false">
+        <p data-britva-popup-trigger class="m-0 cursor-pointer px-1 text-sm text-success">
             {{ period }}
         </p>
 
-        <div class="dropdown-menu p-2 border border-1 rounded-2 border-primary" aria-labelledby="filterDate">
-
+        <div data-britva-popup-menu class="britva__popup-menu pt-5">
+            <i data-britva-popup-close class="material-icons-round britva__popup-menu__close">close</i>
             <div class="d-flex gap-2 mb-2">
                 <div
                     v-for="(column, columnIndex) in filterColumns"
@@ -14,25 +14,25 @@
                     <p
                         v-for="(item, itemIndex) in column"
                         @click="getPeriod(columnIndex, itemIndex)"
-                        :class="{'bg-success' : item.active}"
-                        class="text-sm m-0 bg-secondary text-white text-nowrap px-2 py-1 rounded-2">{{ item.text }}</p>
+                        :class="{'bg-success text-white' : item.active}"
+                        class="text-sm m-0 border border-success text-success text-nowrap px-2 py-1 cursor-pointer">{{ item.text }}</p>
                 </div>
             </div>
 
-            <div class="m-0 text-nowrap px-2 py-1 border border-1 rounded-2 border-primary">
-                <p class="text-sm mb-1 text-center fw-normal">ПЕРИОД</p>
+            <div class="m-0 text-nowrap px-2 py-1 border border border-info">
+                <p class="text-sm mb-1 text-center fw-normal text-info">ПЕРИОД</p>
 
                 <div class="d-flex flex-column flex-sm-row gap-2 mb-2">
-                    <div class="px-1 d-flex align-items-end border border-1 rounded-2">
-                        <label class="m-0 me-2" for="from">C</label>
-                        <input v-model="dateFrom" class="form-control p-0" id="from" type="date">
+                    <div class="px-1 d-flex align-items-end border border-info w-100">
+                        <label class="m-0 me-2 text-info" for="from">C</label>
+                        <input v-model="dateFrom" class="form-control p-0 text-info" id="from" type="date">
                     </div>
-                    <div class="px-1 d-flex align-items-end border border-1 rounded-2">
-                        <label class="m-0 me-2" for="to">По</label>
-                        <input v-model="dateTo" class="form-control p-0" id="to" type="date">
+                    <div class="px-1 d-flex align-items-end border border-info w-100">
+                        <label class="m-0 me-2 text-info" for="to">По</label>
+                        <input v-model="dateTo" class="form-control p-0 text-info" id="to" type="date">
                     </div>
                 </div>
-                <button @click="getPeriod()" class="btn col-12 m-0 btn-primary py-1 rounded-2"> Применить </button>
+                <button @click="getPeriod()" class="btn col-12 m-0 btn-info py-1 rounded-0"> Применить </button>
             </div>
         </div>
 

@@ -9,8 +9,8 @@
             v-if="company"
             :title="company"
         >{{ company }}</span>
-        <span v-else>
-        <span class="material-icons">add</span>
+        <span v-else style="width: 20px; height: 20px" class="border border-success rounded-circle d-flex align-items-center justify-content-center m-auto">
+        <span class="material-icons text-success">add</span>
         </span>
     </td>
 </template>

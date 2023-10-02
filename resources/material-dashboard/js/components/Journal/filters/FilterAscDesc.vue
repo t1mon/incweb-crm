@@ -1,7 +1,7 @@
 <template>
     <div
         @click="reverse"
-         class="d-flex justify-content-center align-items-start text-xxs"
+         class="d-flex justify-content-center align-items-start text-xxs p-2 text-white hover-secondary"
     >
         <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" fill="currentColor" class="bi bi-arrow-down-up me-1" viewBox="0 0 16 16">
           <path fill-rule="evenodd" d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z"/>
@@ -9,7 +9,7 @@
         <span v-if="stateParams.sort_by === sort_by">{{ stateParams.sort_order === 'asc' ? 'По убыванию' : 'По возрастанию' }}</span>
         <span v-else>{{ sort_order === 'asc' ? 'По возрастанию' : 'По убыванию' }}</span>
     </div>
-    <hr class="my-1">
+    <hr class="m-0">
 </template>
 
 <script>

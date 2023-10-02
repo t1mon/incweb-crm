@@ -1,6 +1,6 @@
 <template>
-    <div v-if="stateLoader" class="spinner-wrap">
-        <div class="spinner"></div>
+    <div v-if="stateLoader" class="loader-wrap">
+        <div class="loader"></div>
     </div>
 </template>
 
@@ -17,59 +17,42 @@ export default {
 
 <style scoped>
 
-@keyframes spin {
-    0% {transform: rotate(0deg);}
-    100% {transform: rotate(360deg);}
-}
-
-.spinner-wrap {
+.loader-wrap {
     position: fixed;
     left: 0;
     right: 0;
     top: 0;
     bottom: 0;
-    background-color: rgba(0, 0, 0, 0.7);
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 2000;
 }
 
-.spinner {
-    position: absolute;
-    height: 60px;
-    width: 60px;
-    border: 3px solid transparent;
-    border-top-color: #A04668;
-    top: 50%;
-    left: 50%;
-    margin: -30px;
+.loader {
+    width: 48px;
+    height: 48px;
     border-radius: 50%;
-    animation: spin 2s linear infinite;
+    display: inline-block;
+    position: relative;
+    border: 10px solid;
+    box-sizing: border-box;
+    animation: animloader 1s linear infinite alternate;
 }
-
-.spinner::before, .spinner::after {
-    content:'';
-    position: absolute;
-    border: 3px solid transparent;
-    border-radius: 50%;
-}
-
-.spinner::before{
-    border-top-color: #254E70;
-    top: -12px;
-    left: -12px;
-    right: -12px;
-    bottom: -12px;
-    animation: spin 3s linear infinite;
-}
-
-.spinner::after{
-    border-top-color: #FFFBFE;
-    top: 6px;
-    left: 6px;
-    right: 6px;
-    bottom: 6px;
-    animation: spin 4s linear infinite;
+@keyframes animloader {
+    0% {
+        border-color: white rgba(255, 255, 255, 0) rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
+    }
+    33% {
+        border-color: white white rgba(255, 255, 255, 0) rgba(255, 255, 255, 0);
+    }
+    66% {
+        border-color: white white white rgba(255, 255, 255, 0);
+    }
+    100% {
+        border-color: white white white white;
+    }
 }
 </style>

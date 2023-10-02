@@ -1,18 +1,19 @@
 <template>
     <div v-if="stateProjectJour" class="journal__paginate__row">
 
-        <h6 class="journal__paginate__total m-0">Всего записей: {{ stateProjectJour.leads.meta.total }}</h6>
+        <h6 class="journal__paginate__total m-0 text-sm">Всего записей: {{ stateProjectJour.leads.meta.total }}</h6>
 
         <div class="journal__paginate__box">
             <nav>
                 <ul class="pagination m-0 flex-wrap">
                     <li
                         v-for="link in stateProjectJour.leads.meta.links"
-                        class="page-item paginate__link"
-                        :class="{ 'active' : link.active }"
+                        class="page-item cursor-pointer"
                         @click="getLeads(link.url)"
                     >
-                        <span class="page-link">{{ link.label.replace(/[a-zA-Z]/g, '') }}</span>
+                        <span
+                            :class="{ 'bg-info text-white' : link.active }"
+                            class="page-link border-0">{{ link.label.replace(/[a-zA-Z]/g, '') }}</span>
                     </li>
                 </ul>
             </nav>
@@ -55,9 +56,6 @@ export default {
     align-items: center;
     justify-content: center;
     margin-top: 5px;
-}
-.paginate__link {
-    cursor: pointer;
 }
 @media screen and (max-width: 991px) {
     .journal__paginate__row {

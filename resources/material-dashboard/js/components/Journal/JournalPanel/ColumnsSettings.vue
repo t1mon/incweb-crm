@@ -1,21 +1,28 @@
 <template>
-    <div class="dropdown cursor-pointer">
-        <button class="dropdown-toggle btn btn-info mb-0 py-1 px-3" id="columnSettings" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Настроить столбцы</button>
-        <div class="dropdown-menu px-2" aria-labelledby="columnSettings">
+    <div data-britva-popup class="cursor-pointer w-50 w-md-25 w-lg-auto">
+        <button data-britva-popup-trigger class="btn btn-info rounded-0 mb-0 py-1 px-3 h-100 w-100">Настроить столбцы</button>
+        <div data-britva-popup-menu class="britva__popup-menu">
+
+            <i data-britva-popup-close class="material-icons-round britva__popup-menu__close">close</i>
+
             <div
                 v-for="(column, columnIndex) in columns"
-                class="form-check m-0 p-0 d-flex align-items-center mb-2">
-                <input
-                    @change="changeColumnsSettings(columnIndex)"
-                    v-model="columnsSettings"
-                    :value="columnIndex"
-                    :id="columnIndex"
-                    class="form-check-input m-0 me-1"
-                    type="checkbox"
-                >
-                <label class="form-check-label m-0 text-xxs lh-sm d-flex align-items-center" :for="columnIndex">
-                    {{ columnIndex }}
-                </label>
+                :class="{'d-none' : columnIndex === 'nextcall_date'}"
+                class="mb-2">
+                <div  class="form-check m-0 p-0 d-flex align-items-center pb-1">
+                    <input
+                        @change="changeColumnsSettings(columnIndex)"
+                        v-model="columnsSettings"
+                        :value="columnIndex"
+                        :id="columnIndex"
+                        class="form-check-input m-0 me-1"
+                        type="checkbox"
+                    >
+                    <label class="form-check-label m-0 text-xxs lh-sm d-flex align-items-center" :for="columnIndex">
+                        {{ columnIndex }}
+                    </label>
+                </div>
+                <hr class="horizontal light m-0">
             </div>
         </div>
     </div>

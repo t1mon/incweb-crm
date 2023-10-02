@@ -14,23 +14,16 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
-    <link href="{{ mix('/css/app.css') }}" rel="stylesheet">
+    <link href="{{ mix('/css/material-dashboard-app.css') }}" rel="stylesheet">
 </head>
-<body class="bg-light">
+<body>
+
+
+
     <div id="app">
         @include('shared/navbar')
-
-        <div class="container">
-            @include('shared/alerts')
-
-            <div class="row">
-                <div class="col-md-12">
-                    @yield('content')
-                </div>
-            </div>
-        </div>
-
-        @include('shared/footer')
+        @include('shared/alerts')
+        @yield('content')
     </div>
 
     <!-- Scripts -->

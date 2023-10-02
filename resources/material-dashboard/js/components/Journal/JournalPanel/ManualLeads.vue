@@ -1,8 +1,7 @@
 <template>
     <button
-        class="btn btn-info m-0 mb-1 mb-md-0 me-md-2 py-1 px-3 d-flex align-items-center"
-        data-bs-toggle="modal" data-bs-target="#journalManualLeads"
-    >
+        class="btn btn-info rounded-0 m-0 gap-2 py-1 px-3 d-flex justify-content-center align-items-center w-50 w-md-25 w-lg-auto"
+        data-bs-toggle="modal" data-bs-target="#journalManualLeads">
         Добавить лид
         &nbsp;
         <i class="material-icons-round text-sm"><span class="material-symbols-outlined">add_circle</span></i>
@@ -10,7 +9,7 @@
 
     <div class="modal fade" id="journalManualLeads" tabindex="-1" role="dialog" aria-labelledby="journalCommentsLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered" role="document">
-            <form @submit.prevent="addLead" action="#" class="modal-content">
+            <form @submit.prevent="addLead" action="#" class="modal-content rounded-0 bg-dark">
                 <div class="modal-header">
                     <h5 class="modal-title font-weight-normal" id="journalCommentsLabel">Добавление лида</h5>
                     <button ref="closeManualLeads" type="button" class="btn-close text-dark" data-bs-dismiss="modal" aria-label="Close">
@@ -20,41 +19,41 @@
                 <div class="modal-body">
 
                     <div class="d-flex justify-content-between flex-column flex-sm-row">
-                        <div class="journal__manual-leads__modal__box p-1 pb-2 m-1 bg-light rounded-2">
+                        <div class="journal__manual-leads__modal__box p-1 pb-2 m-1">
                             <div
                                 :class="{'is-invalid' : v$.name.$invalid && v$.$dirty}"
-                                class="input-group input-group-dynamic mb-1">
-                                <span class="input-group-text text-danger" id="manualLeadsName">*</span>
+                                class="input-group mb-2">
+                                <span style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%)" class="input-group-text text-danger" id="manualLeadsName">*</span>
                                 <input
                                     v-model="name"
-                                    type="text" class="form-control" placeholder="Имя" aria-describedby="manualLeadsName">
+                                    type="text" class="form-control text-white border p-1 rounded-2" placeholder="Имя" aria-describedby="manualLeadsName">
 
                                 <div class="invalid-feedback" v-if="v$.name.required.$invalid && v$.$dirty">Обязательное поле.</div>
                             </div>
 
-                            <div class="input-group input-group-dynamic mb-1">
+                            <div class="input-group mb-2">
                                 <input
                                     v-model="surname"
-                                    type="text" class="form-control" placeholder="Фамилия">
+                                    type="text" class="form-control text-white border p-1 rounded-2" placeholder="Фамилия">
                             </div>
 
-                            <div class="input-group input-group-dynamic">
+                            <div class="input-group">
                                 <input
                                     v-model="patronymic"
-                                    type="text" class="form-control" placeholder="Отчество">
+                                    type="text" class="form-control text-white border p-1 rounded-2" placeholder="Отчество">
                             </div>
                         </div>
 
-                        <div class="journal__manual-leads__modal__box p-1 pb-2 m-1 bg-light rounded-2">
+                        <div class="journal__manual-leads__modal__box p-1 pb-2 m-1">
                             <div
                                 :class="{'is-invalid' : v$.phone.$invalid && v$.$dirty}"
-                                class="input-group input-group-dynamic mb-1">
-                                <span class="input-group-text text-danger" id="manualLeadsPhone">*</span>
+                                class="input-group mb-2">
+                                <span style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%)" class="text-danger" id="manualLeadsPhone">*</span>
                                 <input
                                     v-model="phone"
                                     v-maska
                                     data-maska="+7 (###) ###-####"
-                                    type="text" class="form-control" placeholder="Телефон" aria-describedby="manualLeadsPhone">
+                                    type="text" class="form-control text-white border p-1 rounded-2" placeholder="Телефон" aria-describedby="manualLeadsPhone">
 
                                 <div class="invalid-feedback" v-if="v$.phone.required.$invalid && v$.$dirty">Обязательное поле.</div>
                                 <div class="invalid-feedback" v-if="v$.phone.minLength.$invalid && v$.$dirty">Неверный формат</div>
@@ -62,38 +61,38 @@
 
                             <div
                                 :class="{'is-invalid' : v$.email.$invalid && v$.$dirty}"
-                                class="input-group input-group-dynamic mb-1">
+                                class="input-group mb-2">
                                 <input
                                     v-model="email"
-                                    type="text" class="form-control" placeholder="E-mail">
+                                    type="text" class="form-control text-white border p-1" placeholder="E-mail">
 
                                 <div class="invalid-feedback" v-if="v$.email.email.$invalid && v$.$dirty">Неверный формат</div>
                             </div>
 
-                            <div class="input-group input-group-dynamic">
+                            <div class="input-group">
                                 <input
                                     v-model="owner"
-                                    type="text" class="form-control" placeholder="Владелец лида">
+                                    type="text" class="form-control text-white border p-1" placeholder="Владелец лида">
                             </div>
                         </div>
 
-                        <div class="journal__manual-leads__modal__box p-1 pb-2 m-1 bg-light rounded-2">
-                            <div class="input-group input-group-dynamic mb-1">
+                        <div class="journal__manual-leads__modal__box p-1 m-1">
+                            <div class="input-group mb-2">
                                 <input
                                     v-model="cost"
-                                    type="text" class="form-control" placeholder="Стоимость">
+                                    type="text" class="form-control text-white border p-1" placeholder="Стоимость">
                             </div>
 
-                            <div class="input-group input-group-dynamic mb-1">
+                            <div class="input-group mb-2">
                                 <input
                                     v-model="city"
-                                    type="text" class="form-control" placeholder="Город">
+                                    type="text" class="form-control text-white border p-1" placeholder="Город">
                             </div>
 
-                            <div class="input-group input-group-dynamic">
+                            <div class="input-group">
                                 <input
                                     v-model="region"
-                                    type="text" class="form-control" placeholder="Регион">
+                                    type="text" class="form-control text-white border p-1" placeholder="Регион">
                             </div>
                         </div>
 
@@ -101,115 +100,115 @@
 
                     <div class="d-flex justify-content-between flex-column flex-sm-row">
 
-                        <div class="journal__manual-leads__modal__box p-1 pb-2 m-1 bg-light rounded-2">
-                            <div class="input-group input-group-dynamic mb-1">
+                        <div class="journal__manual-leads__modal__box p-1 m-1">
+                            <div class="input-group mb-2">
                                 <input
                                     v-model="company"
-                                    type="text" class="form-control" placeholder="Компания">
+                                    type="text" class="form-control text-white border p-1" placeholder="Компания">
                             </div>
 
                             <div
                                 :class="{'is-invalid' : v$.ip.$invalid && v$.$dirty}"
-                                class="input-group input-group-dynamic mb-1">
+                                class="input-group mb-2">
                                 <input
                                     v-model="ip"
-                                    type="text" class="form-control" placeholder="IP">
+                                    type="text" class="form-control text-white border p-1" placeholder="IP">
 
                                 <div class="invalid-feedback" v-if="v$.ip.isIP.$invalid && v$.$dirty">Неверный формат</div>
                             </div>
 
-                            <div class="input-group input-group-dynamic">
+                            <div class="input-group">
                                 <input
                                     v-model="referrer"
-                                    type="text" class="form-control" placeholder="Реферрер">
+                                    type="text" class="form-control text-white border p-1" placeholder="Реферрер">
                             </div>
                         </div>
 
-                        <div class="journal__manual-leads__modal__box p-1 pb-2 m-1 bg-light rounded-2">
+                        <div class="journal__manual-leads__modal__box p-1 m-1">
 
                             <div
                                 :class="{'is-invalid' : v$.host.$invalid && v$.$dirty}"
-                                class="input-group input-group-dynamic mb-1">
+                                class="input-group mb-2">
                                 <input
                                     v-model="host"
-                                    type="text" class="form-control" placeholder="Посадочная">
+                                    type="text" class="form-control text-white border p-1" placeholder="Посадочная">
 
                                 <div class="invalid-feedback" v-if="v$.host.url.$invalid && v$.$dirty">Неверный формат</div>
                             </div>
 
-                            <div class="input-group input-group-dynamic mb-1">
+                            <div class="input-group mb-2">
                                 <input
                                     v-model="source"
-                                    type="text" class="form-control" placeholder="Источник">
+                                    type="text" class="form-control text-white border p-1" placeholder="Источник">
                             </div>
 
-                            <div class="input-group input-group-dynamic">
+                            <div class="input-group">
                                 <input
                                     v-model="utmTerm"
-                                    type="text" class="form-control" placeholder="utmTerm">
+                                    type="text" class="form-control text-white border p-1" placeholder="utmTerm">
                             </div>
                         </div>
 
-                        <div class="journal__manual-leads__modal__box p-1 pb-2 m-1 bg-light rounded-2">
+                        <div class="journal__manual-leads__modal__box p-1 m-1">
 
-                            <div class="input-group input-group-dynamic mb-1">
+                            <div class="input-group mb-2">
                                 <input
                                     v-model="utmMedium"
-                                    type="text" class="form-control" placeholder="utmMedium">
+                                    type="text" class="form-control text-white border p-1" placeholder="utmMedium">
                             </div>
 
-                            <div class="input-group input-group-dynamic mb-1">
+                            <div class="input-group mb-2">
                                 <input
                                     v-model="utmSource"
-                                    type="text" class="form-control" placeholder="utmSource">
+                                    type="text" class="form-control text-white border p-1" placeholder="utmSource">
                             </div>
 
-                            <div class="input-group input-group-dynamic">
+                            <div class="input-group">
                                 <input
                                     v-model="utmCampaign"
-                                    type="text" class="form-control" placeholder="utmCampaign">
+                                    type="text" class="form-control text-white border p-1" placeholder="utmCampaign">
                             </div>
                         </div>
                     </div>
 
                     <div class="d-flex justify-content-between flex-column flex-sm-row">
-                        <div class="journal__manual-leads__modal__box p-1 pb-2 m-1 bg-light rounded-2">
+                        <div class="journal__manual-leads__modal__box p-1 m-1">
 
-                            <div class="input-group input-group-dynamic mb-2">
+                            <div class="input-group mb-2">
                                 <input
                                     v-model="utmContent"
-                                    type="text" class="form-control" placeholder="utmContent">
+                                    type="text" class="form-control text-white border p-1" placeholder="utmContent">
                             </div>
 
-                            <div class="input-group input-group-dynamic mb-2">
+                            <div class="input-group mb-2">
                                 <input
                                     v-model="urlQueryString"
-                                    type="text" class="form-control" placeholder="urlQueryString">
+                                    type="text" class="form-control text-white border p-1" placeholder="urlQueryString">
                             </div>
 
-                            <div class="input-group input-group-dynamic flex-column">
-                                <span class="text-xs">Дата следующего звонка</span>
-                                <input
-                                    v-model="nextCallDate"
-                                    type="datetime-local" class="form-control w-100 pt-0" placeholder="Дата следующего звонка">
-                            </div>
+<!--                            <div class="input-group flex-column border p-1 rounded-2">-->
+<!--                                <span class="text-xs">Дата следующего звонка</span>-->
+<!--                                <input-->
+<!--                                    v-model="nextCallDate"-->
+<!--                                    type="datetime-local" class="form-control w-100 pt-0 text-white" placeholder="Дата следующего звонка">-->
+<!--                            </div>-->
                         </div>
 
-                        <div class="journal__manual-leads__modal__box--comment p-1 pb-2 m-1 bg-light rounded-2">
-                            <div class="input-group input-group-dynamic h-100">
+                        <div class="journal__manual-leads__modal__box--comment p-1 pb-2 m-1">
+                            <div class="input-group h-100">
                                 <textarea
                                     v-model="comment"
-                                    type="text" class="form-control" placeholder="Комментарий">
+                                    type="text" class="form-control text-white border p-2" placeholder="Комментарий">
                                 </textarea>
                             </div>
                         </div>
                     </div>
 
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer justify-content-center">
                     <button
                         type="submit"
-                        class="btn bg-gradient-primary m-0">Сохранить</button>
+                        class="btn bg-success w-50 rounded-0 text-white m-0">Сохранить</button>
                 </div>
             </form>
         </div>

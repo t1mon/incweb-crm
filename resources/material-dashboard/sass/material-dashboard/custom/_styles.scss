@@ -216,6 +216,64 @@
     display: block;
 }
 
+.avatar {
+    width: 30px;
+    height: 30px;
+}
+
+.dropdown .dropdown-menu {
+    inset: 0px 0px auto auto;
+}
+
+//britva
+
+.britva {
+    &__popup-menu {
+        position: fixed;
+        top: 0;
+        width: calc(100% - 20px);
+        max-width: 400px;
+        height: 100vh;
+        z-index: 201;
+        overflow: auto;
+        left: 50%;
+        transform: translateX(-50%);
+        opacity: 0;
+        visibility: hidden;
+        transition: 0.3s;
+        background-image: linear-gradient(195deg, #42424a 0%, #191919 100%);
+        padding: 30px 20px 20px;
+        &--active {
+            opacity: 1;
+            visibility: visible;
+        }
+        &__close {
+            position: absolute;
+            left: 50%;
+            top: 5px;
+            transform: translateX(-50%);
+            cursor: pointer;
+            color: red;
+        }
+    }
+}
+
+th, td {
+    border-width: 1px !important;
+}
+
+.cursor-pointer {
+    cursor: pointer !important;
+}
+
+.hover-secondary:hover {
+    background: #7b809a !important;
+}
+.outline-none:focus {
+    outline: none !important;
+    border-radius: 0 !important;
+}
+
 // animations
 
 @keyframes showDropMenu {

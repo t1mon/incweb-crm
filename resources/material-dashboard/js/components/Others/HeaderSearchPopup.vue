@@ -1,5 +1,5 @@
 <template>
-   <div class="headerSearchPopup">
+   <div class="headerSearchPopup border-success">
        <span @click="closeHeaderSearchPopup" class="headerSearchPopup__close material-icons">close</span>
        <p class="headerSearchPopup__title">Ссылки:</p>
        <div class="headerSearchPopup__content">
@@ -93,7 +93,6 @@ export default {
 }
 .headerSearchPopup__ul {
     list-style-type: none;
-    padding: 0;
     margin: 0;
     padding: 0 12px 12px;
 }

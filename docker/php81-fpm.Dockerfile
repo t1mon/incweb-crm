@@ -18,14 +18,16 @@ RUN apt-get update && apt-get install -y \
                                        libpq-dev\
                                        libyaml-dev \
 && docker-php-ext-install pdo pdo_mysql \
-&& docker-php-ext-configure intl \
-&& docker-php-ext-install intl \
 && apt install -y libmagickwand-dev --no-install-recommends \
 && pecl install imagick \
 && docker-php-ext-enable imagick \
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
 && docker-php-ext-install -j$(nproc) gd \
 && docker-php-ext-install exif
+
+RUN docker-php-ext-configure pcntl --enable-pcntl \
+  && docker-php-ext-install \
+    pcntl
 
 RUN  pecl install yaml && docker-php-ext-enable yaml
 

@@ -29,6 +29,7 @@ services:
       - redis
     restart: unless-stopped
   redis:
+    container_name: redis-alpine
     image: i386/redis:6.0.19-alpine
     ports:
       - "6379:6379"

@@ -1,5 +1,6 @@
 import './bootstrap'
 import './popper'
 import './vue'
-import './material-dashboard'
 import './assets/popup'
+//import './material-dashboard'
+

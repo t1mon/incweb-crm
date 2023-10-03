@@ -42,6 +42,7 @@ class FindEntries implements ShouldQueue
         // Поиск дублей
         $previousLead = Leads::where('id', '!=', $this->lead->id)
             ->where(['project_id' => $this->lead->project_id, 'phone' => $this->lead->phone])
+            ->latest()
             ->first();
         
         // Если дубли отсутствуют, запустить событие "Новый лид"

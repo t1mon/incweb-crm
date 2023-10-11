@@ -39,16 +39,21 @@ class WebhookController extends Controller
         $status = Leads::LEAD_NEW;
 
         if (!is_null($lead)) {
-            if ($host->project->settings['leadValidDays'] > 0) { //Если выставлен срок годности лида
-                // Если срок годности лда уже истёк, создать новый лид
+            if ($host->project->settings['leadValidDays'] === 0) { //Если выставлен срок годности лида
+                $entries = $lead->entries + 1;
+                $status = Leads::LEAD_EXISTS;
+            }
+            else{
+                // Если срок годности лида уже истёк, создать новый лид
                 if (Carbon::now()->greaterThan(Carbon::parse($lead->created_at)->addDays($host->project->settings['leadValidDays']))) {
                     $entries = $lead->entries + 1;
                     $status = Leads::LEAD_EXISTS;
                 }
             }
         }
-        $answersHumanized = [];
+
         // Компоновка ответов в читаемый вид
+        $answersHumanized = [];
         if ($request->filled('answers')){
             $answersHumanized = array_map(
                 callback: function ($item) {

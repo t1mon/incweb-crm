@@ -33,7 +33,7 @@
     <link href="{{ mix('/css/nucleo-svg.css') }}" rel="stylesheet">
     <link href="{{ mix('/css/material-dashboard-app.css') }}" rel="stylesheet">
 </head>
-<body  class="g-sidenav-show g-sidenav-pinned bg-gray-200 dark-version">
+<body  class="g-sidenav-show g-sidenav-pinned bg-gray-20">
 <div id="app">
 
     @include('material-dashboard.shared.navbar-vertical-left')

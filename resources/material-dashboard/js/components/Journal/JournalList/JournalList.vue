@@ -132,7 +132,7 @@
                             </tr>
                             </thead>
                             <tbody class="journal__tbody">
-                            <tr v-for="(lead, index) in stateLeads">
+                            <tr v-for="(lead, index) in stateLeads" :key="lead.id">
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">

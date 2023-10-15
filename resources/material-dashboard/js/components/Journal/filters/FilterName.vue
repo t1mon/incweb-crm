@@ -4,7 +4,7 @@
             v-model="name"
             placeholder="Введите имя"
             type="text"
-            class="border border-success outline-none bg-transparent text-white p-1 mb-2"
+            class="border border-success outline-none bg-transparent text-secondary p-1 mb-2"
         >
         <button @click.prevent="setName()" class="btn btn-info rounded-0 mb-0 py-1 px-3 w-100 mb-2" >Отфильтровать</button>
     </div>

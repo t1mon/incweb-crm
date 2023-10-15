@@ -10,7 +10,8 @@ export default {
         name: '',
         classes: [],
         phone: '',
-        entries: ''
+        entries: '',
+        hosts: null
       }
     }
   },
@@ -35,9 +36,18 @@ export default {
     },
     stateParamsPhone(state) {
       return state.params.phone
+    },
+    stateParamsHosts(state) {
+      return state.params.hosts
     }
   },
   mutations: {
+    SET_HOSTS(state, hosts) {
+      state.params.hosts = hosts.map(host => {
+        return host
+      })
+      localStorage.setItem('hosts', JSON.stringify(hosts))
+    },
     SET_ENTRIES(state, entries) {
       state.params.entries = entries
       localStorage.setItem('entries', entries)
@@ -79,7 +89,8 @@ export default {
         name: '',
         classes: [],
         phone: '',
-        entries: ''
+        entries: '',
+        hosts: [],
       }
       localStorage.removeItem('date_from')
       localStorage.removeItem('date_to')
@@ -91,6 +102,7 @@ export default {
       localStorage.removeItem('classes')
       localStorage.removeItem('phone')
       localStorage.removeItem('entries')
+      localStorage.removeItem('hosts')
     }
   }
 }

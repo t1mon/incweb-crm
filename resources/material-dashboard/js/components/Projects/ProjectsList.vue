@@ -82,7 +82,7 @@
         <div class="border w-100 py-2">
             <div class="form-check m-0 d-flex align-items-center">
                 <input v-model="showInactive" class="form-check-input m-0" type="checkbox" value="" id="flexCheckDefault">
-                <label class="form-check-label font-weight-bolder text-white mb-0" for="flexCheckDefault">
+                <label class="form-check-label font-weight-bolder text-secondary mb-0" for="flexCheckDefault">
                     Показать неактивные
                 </label>
             </div>

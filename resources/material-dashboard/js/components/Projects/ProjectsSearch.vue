@@ -5,7 +5,7 @@
       v-model="filter"
       :disabled="stateIsLoading"
       type="text"
-      class="form-control border rounded-0 p-1 px-2 text-light"
+      class="form-control border border-secondary rounded-0 p-1 px-2 text-secondary"
       placeholder="Нати проект"
     >
 </div>

@@ -45,12 +45,12 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         LeadCreated::class => [
+            FindRegion::class,
             SendTelegramData::class, //Старая версия интеграции Telegram
             SendLeadDataToTG::class, //Новая версии интеграции Telegram
             SendSMSData::class,
-            SendWebhookData::class,
             SendMangoData::class,
-            FindRegion::class,
+            SendWebhookData::class,
         ],
 
         LeadExists::class => [

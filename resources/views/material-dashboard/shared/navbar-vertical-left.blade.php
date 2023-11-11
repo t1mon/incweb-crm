@@ -3,13 +3,13 @@
 {{--    dd(request()->route()->named('project.*'))--}}
 {{--}}--}}
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 rounded-0 border-radius-xl fixed-start bg-gradient-dark" id="sidenav-main">
-    <div class="sidenav-header h-auto">
-        <i class="fas fa-times p-3 cursor-pointer text-white opacity-5 position-absolute end-0 top-0 d-xl-none" aria-hidden="true" id="iconSidenav"></i>
+    <div class="sidenav-header h-auto d-flex align-items-center justify-content-between">
         <a class="navbar-brand m-0 p-3" href="{{ route('home') }}">
             <!--GIT ИЗМЕНЕНИЯ <img src="{{ asset('media/img/logo/logo.svg') }}" class="navbar-brand-img h-100" alt="main_logo">
             <span class="ms-1 font-weight-bold text-white">PRO</span> -->
             <span class="ms-1 font-weight-bold text-white">MLeads</span>
         </a>
+        <i class="sidenav-close material-icons-round opacity-10 p-2">close</i>
     </div>
     <hr class="horizontal light m-0">
     <div class="collapse navbar-collapse  w-auto h-auto max-height-vh-100 h-100" id="sidenav-collapse-main">

@@ -12,6 +12,7 @@ use App\Models\Project\Host;
 use App\Models\Project\Integrations\Matomba;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class WebhookController extends Controller
 {
@@ -23,7 +24,7 @@ class WebhookController extends Controller
         ]);
 
         // Поиск интеграции по service
-        $matombaUrl = 'https://' . $request->service . '.mtmba.ru';
+        $matombaUrl = Str::of($request->service)->slug('-') . '.mtmba.ru';
         $host = Host::where('host', $matombaUrl)->with('project')->first();
         if (is_null($host))
             return response(content: 'Интеграция отсутствует', status: 404);

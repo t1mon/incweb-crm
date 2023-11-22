@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Project\Integrations\Matomba\Create as CreateRequest;
 use App\Models\Project\Host;
 use App\Models\Project\Project;
+use Illuminate\Support\Str;
 
 class MatombaController extends Controller
 {
@@ -14,7 +15,7 @@ class MatombaController extends Controller
         $project = Project::findOrFail($project_id);
 
         $matombas = Host::where('project_id', $project_id)
-            ->where('host', 'like', 'https://%.mtmba.ru')
+            ->where('host', 'like', '%.mtmba.ru')
             ->get();
 
         $webhookUrl = route(name: 'v2.integrations.matomba.webhook', parameters: $project_id);
@@ -24,6 +25,7 @@ class MatombaController extends Controller
 
     public function create(int $project_id)
     {
+        //dd(Str::of('Кредиты МСК Сергей')->slug('-'));
         $project = Project::findOrFail($project_id);
         return view(view: 'material-dashboard.project.integrations.matomba.create', data: compact('project'));
     } // create
@@ -32,7 +34,7 @@ class MatombaController extends Controller
     {
         Host::create([
             'project_id' => $request->project_id,
-            'host' => $request->host,
+            'host' => Str::of($request->host)->slug('-').'.mtmba.ru',
             'user_id' => auth()->id(),
         ]);
 
@@ -41,8 +43,8 @@ class MatombaController extends Controller
 
     public function edit(int $matomba)
     {
-        $matomba = Host::with('project')->findOrFail($matomba);
 
+        $matomba = Host::with('project')->findOrFail($matomba);
         return view(
             view: 'material-dashboard.project.integrations.matomba.edit',
             data: [
@@ -58,7 +60,7 @@ class MatombaController extends Controller
 
         $matomba->update([
             'project_id' => $request->project_id,
-            'host' => $request->host,
+            'host' => Str::of($request->host)->slug('-').'.mtmba.ru',
             'user_id' => auth()->id(),
         ]);
 

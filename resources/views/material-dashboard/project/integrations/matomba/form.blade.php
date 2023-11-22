@@ -4,7 +4,7 @@
     </div>
     <div class="col">
         <div class="input-group input-group-outline">
-            {!! Form::text('host', $matomba?->service ?? null, ['class' => 'form-control', 'id' => 'host', 'placeholder' => 'Service (Id квиза)']) !!}
+            {!! Form::text('host', $matomba?->host ?? null, ['class' => 'form-control', 'id' => 'host', 'placeholder' => 'Название проекта']) !!}
         </div>
     </div>
 </div>

@@ -28,7 +28,7 @@
     <div class="col-auto">
         <a href="{{route('project.integrations.matomba.create', $project->id)}}" class="btn btn-primary">
             Добавить
-        </a> 
+        </a>
     </div>
 </div>
 
@@ -42,29 +42,29 @@
                         <th colspan="2">Действия</th>
                     </tr>
                 </thead>
-    
+
                 <tbody>
                     @foreach ($matombas as $matomba)
                         <tr>
                             <td>{{$matomba->host}}</td>
-                            
-                            <td>
-                                <a href="{{route('project.integrations.matomba.edit', $matomba->id)}}" class="btn btn-info">
-                                    <i class="fa fa-pencil fs-6" aria-hidden="true"></i>
-                                </a>
-                            </td>
-    
+
+{{--                            <td>--}}
+{{--                                <a href="{{route('project.integrations.matomba.edit', $matomba->id)}}" class="btn btn-info">--}}
+{{--                                    <i class="fa fa-pencil fs-6" aria-hidden="true"></i>--}}
+{{--                                </a>--}}
+{{--                            </td>--}}
+
                             <td>
                                 <form action="{{route('project.integrations.matomba.destroy', $matomba->id)}}" method="POST">
                                     @csrf
                                     @method('DELETE')
-                                    
+
                                     <button type="submit" class="btn btn btn-primary">
                                         <i class="fa fa-trash fs-6" aria-hidden="true"></i>
                                     </button>
                                 </form>
                             </td>
-                            
+
                         </tr>
                     @endforeach
                 </tbody>

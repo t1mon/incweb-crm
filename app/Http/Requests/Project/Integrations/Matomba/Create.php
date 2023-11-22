@@ -28,7 +28,6 @@ class Create extends FormRequest
             'project_id' => 'required|exists:projects,id',
             'host' => [
                 'required',
-                'url',
                 Rule::unique('hosts')->where(function($query){
                     return $query->where(['host' => $this->host, 'project_id' => $this->project_id]);
                 })

@@ -2,17 +2,17 @@
     <div class="px-2 pt-2 d-flex flex-column">
         <div
             v-for="(host, hostIndex) in allHosts"
-            :key="host.id"
+            :key="host"
             class="form-check m-0 p-0 d-flex align-items-center mb-2">
             <input
                 v-model="hosts"
-                :value="host.host"
-                :id="'host' + host.id"
+                :value="host"
+                :id="'id' + host"
                 class="form-check-input m-0 me-1"
                 type="checkbox"
             >
-            <label class="form-check-label m-0 text-xxs lh-sm d-flex align-items-center" :for="'host' + host.id">
-                {{ host.host }}
+            <label class="form-check-label m-0 text-xxs lh-sm d-flex align-items-center" :for="'id' + host">
+                {{ host }}
             </label>
         </div>
         <button @click.prevent="setHosts()" class="btn btn-info rounded-0 mb-0 py-1 px-3 w-100 mb-2">Отфильтровать</button>
@@ -57,9 +57,10 @@ export default {
         $('#filterHost').on('hidden.bs.dropdown', () => {
             this.hosts = this.stateParamsHosts
         })
-        axios.get(`/api/v1/project/${this.projectid}/hosts`)
+        axios.get(`/api/v2/project/${this.projectid}/journal/variants`, { params: { column: 'host'  } })
             .then(response => {
-                this.allHosts = response.data.data
+                console.log(response)
+                this.allHosts = response.data
             })
     }
 }

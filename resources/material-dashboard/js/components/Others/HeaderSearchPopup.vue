@@ -98,7 +98,7 @@ export default {
     padding: 0 12px 12px;
 }
 .headerSearchPopup__li span:hover {
-    color: #e91e63 !important;
+    color: #4e98fc !important;
 }
 .headerSearchPopup__li {
     color: #495057 !important;

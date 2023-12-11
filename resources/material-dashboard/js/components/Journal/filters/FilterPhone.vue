@@ -60,6 +60,6 @@ input::placeholder {
     color: #7B809A;
 }
 input:focus {
-    border-color: #e91e63;
+    border-color: #4e98fc;
 }
 </style>

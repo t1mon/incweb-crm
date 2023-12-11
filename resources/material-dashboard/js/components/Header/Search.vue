@@ -49,7 +49,7 @@ export default {
     width: 85%;
 }
 .is-focused .headerSearchPopup {
-    border-color: #e91e63;
+    border-color: #4e98fc;
 }
 
 .search__button {

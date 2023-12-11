@@ -21,7 +21,7 @@ export default {
       return {
           columns: {
               created_at: true,
-              nextcall_date: true,
+              //nextcall_date: true,
               name: true,
               classes: true,
               phone: true,

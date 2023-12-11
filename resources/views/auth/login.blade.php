@@ -24,13 +24,13 @@
                 @enderror
             </div>
 
-            <div class="form-group">
-                <div class="checkbox">
-                    <label>
-                        {!! Form::checkbox('remember', null, old('remember')) !!} @lang('auth.remember_me')
-                    </label>
-                </div>
-            </div>
+{{--            <div class="form-group">--}}
+{{--                <div class="checkbox">--}}
+{{--                    <label>--}}
+{{--                        {!! Form::checkbox('remember', null, old('remember')) !!} @lang('auth.remember_me')--}}
+{{--                    </label>--}}
+{{--                </div>--}}
+{{--            </div>--}}
 
             <div class="form-group">
                 {!! Form::submit(__('auth.login'), ['class' => 'btn btn-primary']) !!}

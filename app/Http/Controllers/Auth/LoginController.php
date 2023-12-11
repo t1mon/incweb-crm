@@ -39,6 +39,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('material-dashboard.auth.login');
+        //return view('material-dashboard.auth.login');
+        return view('auth.login');
     }
 }

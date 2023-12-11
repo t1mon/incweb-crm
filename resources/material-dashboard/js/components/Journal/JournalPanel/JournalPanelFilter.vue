@@ -312,6 +312,6 @@ export default {
 
 <style scoped>
 .dropdown-menu::before {
-    color: #e91e63
+    color: #4e98fc
 }
 </style>

@@ -47,7 +47,7 @@
 }
 .select {
     background-color: #FFFFFF;
-    border: 1px solid #e91e63;
+    border: 1px solid #4e98fc;
     border-radius: 4px;
     cursor: pointer;
     padding: 4px;
@@ -69,7 +69,7 @@
     box-shadow: 0 0 5px rgba(0,0,0, 0.5);
 }
 .select--active .select__content {
-    border: 1px solid #e91e63;
+    border: 1px solid #4e98fc;
     border-top: none;
     box-shadow: 0 0 5px rgba(0,0,0, 0.7);
 }
@@ -106,12 +106,12 @@
     z-index: 199;
 }
 .select__option {
-    border-bottom: 1px solid #e91e63;
+    border-bottom: 1px solid #4e98fc;
     padding: 4px;
     text-align: left;
 }
 .select__option:first-child {
-    border-top: 1px solid #e91e63;
+    border-top: 1px solid #4e98fc;
 }
 .select__option:last-child {
     border-bottom: none;

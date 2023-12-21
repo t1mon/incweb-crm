@@ -53,13 +53,11 @@ export default {
         }
     },
     mounted() {
-        console.log(this.projectid)
         $('#filterHost').on('hidden.bs.dropdown', () => {
             this.hosts = this.stateParamsHosts
         })
         axios.get(`/api/v2/project/${this.projectid}/journal/variants`, { params: { column: 'host'  } })
             .then(response => {
-                console.log(response)
                 this.allHosts = response.data
             })
     }

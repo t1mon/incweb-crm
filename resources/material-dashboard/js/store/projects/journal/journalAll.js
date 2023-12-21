@@ -36,6 +36,7 @@ export default {
       const phoneLS = localStorage.getItem('phone')
       const entriesLS = localStorage.getItem('entries')
       const hostsLS = localStorage.getItem('hosts')
+      const companyLS = localStorage.getItem('company')
 
       if(classesLS && JSON.parse(classesLS).length > 0) params.class = JSON.parse(classesLS)
       // if (date_fromLS && date_toLS) {
@@ -50,6 +51,7 @@ export default {
       if (phoneLS) params.phone = phoneLS
       if (entriesLS) params.entry_filter = entriesLS
       if(hostsLS && JSON.parse(hostsLS).length > 0) params.host = JSON.parse(hostsLS)
+      if(companyLS) params.company = companyLS
 
       //Записываем данные с хранилища vuex
       if(filterParams.classes.length > 0) params.class = filterParams.classes
@@ -66,11 +68,13 @@ export default {
       if (filterParams.entries) params.entry_filter = filterParams.entries
       if (data && data.page) params.page = data.page
       if(filterParams.hosts && filterParams.hosts.length > 0) params.host = filterParams.hosts
+      if(filterParams.company) params.company = filterParams.company
       await axios
         .get(url, {
           params: params
         })
         .then(data => {
+          // console.log(data)
           data.data.data.classes.unshift({
             color: "",
             id: "",

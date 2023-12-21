@@ -222,6 +222,22 @@
     display: none;
 }
 
+//vue-tel-input
+
+.vue-tel-input--custom {
+    width: max-content;
+    padding: 5px;
+    .vti__dropdown {
+        padding: 0;
+    }
+    .vti__dropdown-arrow {
+        display: none;
+    }
+    input {
+        padding: 0;
+    }
+}
+
 // animations
 
 @keyframes showDropMenu {

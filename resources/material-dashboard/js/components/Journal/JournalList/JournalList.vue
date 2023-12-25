@@ -140,7 +140,7 @@
                             </tr>
                             </thead>
                             <tbody class="journal__tbody">
-                            <tr v-for="(lead, index) in stateLeads" :key="lead.id">
+                            <tr v-for="(lead, index) in leads" :key="lead.id">
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
@@ -169,7 +169,12 @@
 <!--                                </td>-->
                                 <journal-classes v-if="columns.classes" :lead="lead"></journal-classes>
                                 <td v-if="columns.phone" class="align-middle text-center text-sm">
-                                    <a :href="'tel: ' + lead.phone" class="mb-0 font-weight-normal text-sm">{{ phoneFormat(lead.phone) }}</a>
+                                    <vue-tel-input
+                                        :disabled="true"
+                                        class="vue-tel-input--custom"
+                                        v-model="lead.phone"
+                                    ></vue-tel-input>
+                                    <!--<a :href="'tel: ' + lead.phone" class="mb-0 font-weight-normal text-sm">{{ phoneFormat(lead.phone) }}</a>-->
                                 </td>
                                 <td v-if="columns.entries">
                                     <div
@@ -333,8 +338,17 @@ export default {
           second: false,
           region: '',
           leadIdRegion: '',
-          comment: ''
+          comment: '',
+          leads: null
       }
+    },
+    watch: {
+        stateLeads(leads) {
+            this.leads = leads.map(el => {
+                el.phone = '+' + String(el.phone)
+                return el
+            })
+        }
     },
     methods: {
         async deleteLead(leadId) {

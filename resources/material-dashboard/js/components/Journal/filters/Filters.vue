@@ -7,6 +7,7 @@
             <filter-phone v-if="filterPhone"></filter-phone>
             <filter-entries v-if="filterEntries"></filter-entries>
             <filter-hosts :projectid="projectid" v-if="filterHosts"></filter-hosts>
+            <filter-company :projectid="projectid" v-if="filterCompany"></filter-company>
         </div>
     </div>
 </template>
@@ -18,9 +19,10 @@ import filterClass from "./FilterClass";
 import filterPhone from "./FilterPhone";
 import filterEntries from "./FilterEntries";
 import filterHosts from "./FilterHosts";
+import filterCompany from "./FilterCompany";
 
 export default {
-    props: ['ascDesc', 'name', 'filterClass', 'filterPhone', 'filterEntries', 'filterHosts', 'projectid'],
+    props: ['ascDesc', 'name', 'filterClass', 'filterPhone', 'filterEntries', 'filterHosts', 'filterCompany', 'projectid'],
     name: "Filters",
     components: {
         filterAscDesc,
@@ -28,7 +30,8 @@ export default {
         filterClass,
         filterPhone,
         filterEntries,
-        filterHosts
+        filterHosts,
+        filterCompany
     }
 }
 </script>

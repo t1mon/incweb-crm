@@ -64,8 +64,14 @@
                                     ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
-                                <th v-if="columns.company" class="p-2 lh-1 cursor-pointer text-uppercase text-center text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Компания</p>
+                                <th v-if="columns.company" class="dropdown text-center p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterCompany" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Компания</p>
+                                    <filter-app
+                                        :filterCompany="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterCompany"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.manual_region" class="p-2 lh-1 cursor-pointer text-uppercase text-center text-xxs font-weight-bolder">
@@ -140,7 +146,7 @@
                             </tr>
                             </thead>
                             <tbody class="journal__tbody">
-                            <tr v-for="(lead, index) in stateLeads" :key="lead.id">
+                            <tr v-for="(lead, index) in leads" :key="lead.id">
                                 <td>
                                     <div class="d-flex px-2 py-1">
                                         <div class="d-flex flex-column justify-content-center">
@@ -169,7 +175,12 @@
 <!--                                </td>-->
                                 <journal-classes v-if="columns.classes" :lead="lead"></journal-classes>
                                 <td v-if="columns.phone" class="align-middle text-center text-sm">
-                                    <a :href="'tel: ' + lead.phone" class="mb-0 font-weight-normal text-sm">{{ phoneFormat(lead.phone) }}</a>
+                                    <vue-tel-input
+                                        :disabled="true"
+                                        class="vue-tel-input--custom"
+                                        v-model="lead.phone"
+                                    ></vue-tel-input>
+<!--                                    <a :href="'tel: ' + lead.phone" class="mb-0 font-weight-normal text-sm">{{ phoneFormat(lead.phone) }}</a>-->
                                 </td>
                                 <td v-if="columns.entries">
                                     <div class="text-center">
@@ -326,8 +337,17 @@ export default {
           first: false,
           second: false,
           region: '',
-          leadIdRegion: ''
+          leadIdRegion: '',
+          leads: null
       }
+    },
+    watch: {
+        stateLeads(leads) {
+            this.leads = leads.map(el => {
+                el.phone = '+' + String(el.phone)
+                return el
+            })
+        }
     },
     methods: {
         async deleteLead(leadId) {
@@ -379,7 +399,7 @@ export default {
         },
         phoneFormat(phone) {
             if (!phone) return
-            return phone.toString().replace(/(\d{1})(\d{3})(\d{3})(\d{4})/, '+7 ($2) $3-$4')
+            return phone.toString().replace(/(\d{1})(\d{3})(\d{3})(\d{4})/, '+$1 ($2) $3-$4')
         },
         sumFormat(sum) {
             if (!sum) return

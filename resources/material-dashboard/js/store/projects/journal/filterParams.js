@@ -3,6 +3,7 @@ export default {
   state() {
     return {
       params: {
+        company: '',
         date_from: '',
         date_to: '',
         sort_by: '',
@@ -16,6 +17,9 @@ export default {
     }
   },
   getters: {
+    stateParamsCompany(state) {
+      return state.params.company
+    },
     stateParamsHosts(state) {
       return state.params.hosts
     },
@@ -42,6 +46,10 @@ export default {
     }
   },
   mutations: {
+    SET_COMPANY(state, company) {
+      state.params.company = company
+      localStorage.setItem('company', company)
+    },
     SET_HOSTS(state, hosts) {
       state.params.hosts = hosts.map(host => {
         return host
@@ -91,6 +99,7 @@ export default {
         phone: '',
         entries: '',
         hosts: [],
+        company: '',
       }
       localStorage.removeItem('date_from')
       localStorage.removeItem('date_to')
@@ -103,6 +112,7 @@ export default {
       localStorage.removeItem('phone')
       localStorage.removeItem('entries')
       localStorage.removeItem('hosts')
+      localStorage.removeItem('company')
     }
   }
 }

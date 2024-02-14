@@ -225,25 +225,15 @@
                                         <span
                                             :ref="'comment' + lead.id"
                                             class="text-sm text-center font-weight-normal d-block p-2"
-                                            :title="lead.comment">{{ lead.comment }} Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque delectus ea expedita fuga fugit illo in, maiores neque optio perferendis quae quo reiciendis tenetur? Alias esse similique ut veniam vero? </span>
+                                            :title="lead.comment">{{ lead.comment }} </span>
 
                                         <span
-                                            v-if="showFullComment('comment' + lead.id)"
-                                            style="
-                                                font-size: 13px;
-                                                position: absolute;
-                                                left: 0;
-                                                bottom: 0;
-                                                color: green;
-                                                text-decoration: underline;
-                                                display: block;
-                                                width: 100%;
-                                                text-align: center;
-                                                padding: 20px 10px 5px;
-                                                background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 15px, #fff 30px);
-                                            "
+                                            v-if="stateShowFullComment('comment' + lead.id)"
+                                            class="journal__comment__show"
                                         >
-                                            <span @click="" class="cursor-pointer">Показать полностью</span>
+                                            <span
+                                                data-bs-toggle="modal" data-bs-target="#journalShowInfoModal"
+                                                @click="showFullComment('Комментарий', lead.comment)" class="cursor-pointer">Показать полностью</span>
                                         </span>
 
                                     </span>
@@ -326,6 +316,7 @@
             </div>
         </div>
 
+        <modal-info :content="modalInfoContent"></modal-info>
         <journal-region-modal ref="journalRegionModal"></journal-region-modal>
         <journal-comments ref="journalCommentsModal"></journal-comments>
         <journal-company-modal ref="journalCompanyModal"></journal-company-modal>
@@ -341,6 +332,7 @@ import JournalRegionModal from "./JournalRegionModal";
 import JournalRegionTd from "./JournalRegionTd"
 import JournalCompanyTd from "./JournalCompany.vue";
 import JournalCompanyModal from "./JournalCompanyModal.vue";
+import ModalInfo from "./ModalInfo.vue";
 
 export default {
     name: "Journal",
@@ -352,7 +344,8 @@ export default {
         JournalRegionModal,
         JournalRegionTd,
         JournalCompanyTd,
-        JournalCompanyModal
+        JournalCompanyModal,
+        ModalInfo
     },
     props: {
         projectid: {
@@ -370,7 +363,8 @@ export default {
           second: false,
           region: '',
           leadIdRegion: '',
-          leads: null
+          leads: null,
+          modalInfoContent: {}
       }
     },
     watch: {
@@ -438,12 +432,16 @@ export default {
             const sumStr = sum.toString()
             return sumStr.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
         },
-        showFullComment(ref) {
+        stateShowFullComment(ref) {
             if (this.$refs[ref]) {
                 return this.$refs[ref][0].scrollHeight > this.$refs[ref][0].parentElement.clientHeight
             }
             return false
         },
+        showFullComment(title, text) {
+            this.modalInfoContent.title = title
+            this.modalInfoContent.text = text
+        }
     },
     computed: {
         stateProjectId() {
@@ -567,6 +565,19 @@ th, td {
 }
 .journal__sort__input:checked + .journal__sort__ok {
     display: block;
+}
+.journal__comment__show {
+    font-size: 13px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: green;
+    text-decoration: underline;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 20px 10px 5px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 15px, #fff 30px);
 }
 .table-responsive {
     padding-top: 50px;

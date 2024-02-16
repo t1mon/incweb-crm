@@ -38,6 +38,7 @@ export default {
       const hostsLS = localStorage.getItem('hosts')
       const companyLS = localStorage.getItem('company')
       const regionsLS = localStorage.getItem('regions')
+      const emailLS = localStorage.getItem('email')
 
       if(classesLS && JSON.parse(classesLS).length > 0) params.class = JSON.parse(classesLS)
       // if (date_fromLS && date_toLS) {
@@ -54,6 +55,7 @@ export default {
       if(hostsLS && JSON.parse(hostsLS).length > 0) params.host = JSON.parse(hostsLS)
       if(companyLS) params.company = companyLS
       if(regionsLS && JSON.parse(regionsLS).length > 0) params.manual_region = JSON.parse(regionsLS)
+      if(emailLS && JSON.parse(emailLS).length > 0) params.email = JSON.parse(emailLS)
 
       //Записываем данные с хранилища vuex
       if(filterParams.classes.length > 0) params.class = filterParams.classes
@@ -72,6 +74,7 @@ export default {
       if(filterParams.hosts && filterParams.hosts.length > 0) params.host = filterParams.hosts
       if(filterParams.company) params.company = filterParams.company
       if(filterParams.regions.length > 0) params.manual_region = filterParams.regions
+      if(filterParams.email.length > 0) params.email = filterParams.email
       await axios
         .get(url, {
           params: params

@@ -98,10 +98,17 @@
                                     <div class="journal__col-resize"></div>
                                 </th>
 
-                                <th v-if="columns.email" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">E-MAIl</p>
+                                <th v-if="columns.email" class="dropdown p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterEmail" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">E-MAIl</p>
+                                    <filter-app
+                                        :filterEmail="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterEmail"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
+
                                 <th v-if="columns.city" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
                                     <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Город</p>
                                     <div class="journal__col-resize"></div>

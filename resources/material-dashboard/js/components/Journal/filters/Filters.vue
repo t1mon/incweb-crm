@@ -9,6 +9,7 @@
             <filter-hosts :projectid="projectid" v-if="filterHosts"></filter-hosts>
             <filter-company :projectid="projectid" v-if="filterCompany"></filter-company>
             <filter-regions :projectid="projectid" v-if="filterRegions"></filter-regions>
+            <filter-email :projectid="projectid" v-if="filterEmail"></filter-email>
         </div>
     </div>
 </template>
@@ -22,9 +23,21 @@ import filterEntries from "./FilterEntries";
 import filterHosts from "./FilterHosts";
 import filterCompany from "./FilterCompany";
 import filterRegions from "./FilterRegions";
+import filterEmail from "./FilterEmail";
 
 export default {
-    props: ['ascDesc', 'name', 'filterClass', 'filterPhone', 'filterEntries', 'filterHosts', 'filterCompany', 'filterRegions', 'projectid'],
+    props: [
+        'ascDesc',
+        'name',
+        'filterClass',
+        'filterPhone',
+        'filterEntries',
+        'filterHosts',
+        'filterCompany',
+        'filterRegions',
+        'filterEmail',
+        'projectid'
+    ],
     name: "Filters",
     components: {
         filterAscDesc,
@@ -34,7 +47,8 @@ export default {
         filterEntries,
         filterHosts,
         filterCompany,
-        filterRegions
+        filterRegions,
+        filterEmail
     }
 }
 </script>

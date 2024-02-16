@@ -3,6 +3,7 @@ export default {
   state() {
     return {
       params: {
+        cities: [],
         email: '',
         regions: [],
         company: '',
@@ -19,6 +20,9 @@ export default {
     }
   },
   getters: {
+    stateParamsCities(state) {
+      return state.params.cities
+    },
     stateParamsEmail(state) {
       return state.params.email
     },
@@ -54,6 +58,12 @@ export default {
     }
   },
   mutations: {
+    SET_CITIES(state, arr) {
+      state.params.cities = arr.map(id => {
+        return id
+      })
+      localStorage.setItem('cities', JSON.stringify(arr))
+    },
     SET_EMAIL(state, email) {
       state.params.email = email
       localStorage.setItem('email', email)
@@ -120,6 +130,7 @@ export default {
         company: '',
         regions: [],
         email: '',
+        cities: [],
       }
       localStorage.removeItem('date_from')
       localStorage.removeItem('date_to')
@@ -135,6 +146,7 @@ export default {
       localStorage.removeItem('company')
       localStorage.removeItem('regions')
       localStorage.removeItem('email')
+      localStorage.removeItem('cities')
     }
   }
 }

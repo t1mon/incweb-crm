@@ -109,8 +109,14 @@
                                     <div class="journal__col-resize"></div>
                                 </th>
 
-                                <th v-if="columns.city" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Город</p>
+                                <th v-if="columns.city" class="dropdown p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterCity" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Город</p>
+                                    <filter-app
+                                        :filterCity="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterCity"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.cost" class="p-2 lh-1 text-center cursor-pointer text-uppercase text-xxs font-weight-bolder">

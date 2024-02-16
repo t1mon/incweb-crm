@@ -230,12 +230,12 @@
                                         style="min-width: 300px; max-width: 300px; max-height: 100px; white-space: normal"
                                     >
                                         <span
-                                            :ref="'comment' + lead.id"
+                                            :id="'comment' + lead.id"
                                             class="text-sm text-center font-weight-normal d-block p-2"
                                             :title="lead.comment">{{ lead.comment }} </span>
 
                                         <span
-                                            v-if="stateShowFullComment('comment' + lead.id)"
+                                            v-if="lead.commentShow"
                                             class="journal__comment__show"
                                         >
                                             <span
@@ -439,18 +439,24 @@ export default {
             const sumStr = sum.toString()
             return sumStr.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
         },
-        stateShowFullComment(ref) {
-            if (this.$refs[ref]) {
-                return this.$refs[ref][0].scrollHeight > this.$refs[ref][0].parentElement.clientHeight
-            }
-            return false
-        },
         showFullComment(title, text) {
             this.modalInfoContent.title = title
             this.modalInfoContent.text = text
         }
     },
     computed: {
+        stateShowFullComment(ref) {
+                const comment = document.getElementById(ref)
+                console.log(comment.scrollHeight, comment.parentElement.clientHeight)
+                return comment.scrollHeight > comment.parentElement.clientHeight
+            // return
+            // if (this.$refs[ref] && this.$refs[ref][0]) {
+            //     console.log(this.$refs[ref][0].scrollHeight > this.$refs[ref][0].parentElement.clientHeight)
+            //     return this.$refs[ref][0].scrollHeight > this.$refs[ref][0].parentElement.clientHeight
+            // }
+            // return false
+        },
+
         stateProjectId() {
             return this.$store.getters['journalAll/stateProjectId']
         },
@@ -463,6 +469,14 @@ export default {
     },
     mounted() {
         //console.log(this.columns)
+    },
+    updated() {
+        if(this.leads) {
+            this.leads.forEach( lead => {
+                const comment = document.getElementById('comment' + lead.id)
+                lead.commentShow = comment.scrollHeight > comment.parentElement.clientHeight
+            })
+        }
     }
 }
 </script>

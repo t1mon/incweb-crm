@@ -3,7 +3,7 @@ export default {
   state() {
     return {
       params: {
-        email: [],
+        email: '',
         regions: [],
         company: '',
         date_from: '',
@@ -54,11 +54,9 @@ export default {
     }
   },
   mutations: {
-    SET_EMAIL(state, arr) {
-      state.params.email = arr.map(id => {
-        return id
-      })
-      localStorage.setItem('email', JSON.stringify(arr))
+    SET_EMAIL(state, email) {
+      state.params.email = email
+      localStorage.setItem('email', email)
     },
     SET_REGIONS(state, arr) {
       state.params.regions = arr.map(id => {
@@ -121,7 +119,7 @@ export default {
         hosts: [],
         company: '',
         regions: [],
-        email: [],
+        email: '',
       }
       localStorage.removeItem('date_from')
       localStorage.removeItem('date_to')

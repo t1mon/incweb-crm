@@ -194,8 +194,8 @@ class Leads extends Model
     public function scopeEmail($query, string|array $email)
     {
         return is_array($email)
-            ? $query->whereIn('owner', $email)
-            : $query->where('owner', $email);
+            ? $query->whereIn('email', $email)
+            : $query->where('email', $email);
     } //scopeEmail
 
     public function scopeCity($query, string|array $city)

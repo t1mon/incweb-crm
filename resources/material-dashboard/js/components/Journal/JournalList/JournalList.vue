@@ -119,8 +119,15 @@
                                     ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
-                                <th v-if="columns.cost" class="p-2 lh-1 text-center cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Сумма сделки</p>
+
+                                <th v-if="columns.cost" class="dropdown p-2 lh-1 text-center cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterCost" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Сумма сделки</p>
+                                    <filter-app
+                                        :filterCost="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterCost"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
 
@@ -135,28 +142,64 @@
                                     <div class="journal__col-resize"></div>
                                 </th>
 
-                                <th v-if="columns.referrer" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Реферрер</p>
+                                <th v-if="columns.referrer" class="dropdown p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterReferrer" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Реферрер</p>
+                                    <filter-app
+                                        :filterReferrer="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterReferrer"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
-                                <th v-if="columns.utm_term" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">[UTM_TERM]</p>
+                                <th v-if="columns.utm_term" class="dropdown p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterUTMTerm" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">[UTM_TERM]</p>
+                                    <filter-app
+                                        :filterUTMTerm="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterUTMTerm"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.utm_medium" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">[UTM_MEDIUM]</p>
+                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterUTMMedium" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">[UTM_MEDIUM]</p>
+                                    <filter-app
+                                        :filterUTMMedium="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterUTMMedium"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.utm_source" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">[UTM_SOURCE]</p>
+                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterUTMSource" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">[UTM_SOURCE]</p>
+                                    <filter-app
+                                        :filterUTMSource="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterUTMSource"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.utm_campaign" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">[UTM_CAMPAIGN]</p>
+                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterUTMSource" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">[UTM_CAMPAIGN]</p>
+                                    <filter-app
+                                        :filterUTMCampaign="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterUTMCampaign"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.source" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">ИСТОЧНИК</p>
+                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterSource" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">ИСТОЧНИК</p>
+                                    <filter-app
+                                        :filterSource="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterSource"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
 

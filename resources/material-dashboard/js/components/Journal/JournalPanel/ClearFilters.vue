@@ -24,7 +24,7 @@ export default {
                             break
                         }
                     }
-                    if (typeof(params[key]) === "string") {
+                    if (typeof(params[key]) === "string" || typeof(params[key]) === "number") {
                         if(params[key]) {
                             searchParams = true
                             break

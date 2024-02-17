@@ -11,6 +11,13 @@
             <filter-regions :projectid="projectid" v-if="filterRegions"></filter-regions>
             <filter-email :projectid="projectid" v-if="filterEmail"></filter-email>
             <filter-city :projectid="projectid" v-if="filterCity"></filter-city>
+            <filter-cost :projectid="projectid" v-if="filterCost"></filter-cost>
+            <filter-referrer :projectid="projectid" v-if="filterReferrer"></filter-referrer>
+            <filter-utm-term :projectid="projectid" v-if="filterUTMTerm"></filter-utm-term>
+            <filter-utm-medium :projectid="projectid" v-if="filterUTMMedium"></filter-utm-medium>
+            <filter-utm-source :projectid="projectid" v-if="filterUTMSource"></filter-utm-source>
+            <filter-utm-campaign :projectid="projectid" v-if="filterUTMCampaign"></filter-utm-campaign>
+            <filter-source :projectid="projectid" v-if="filterSource"></filter-source>
         </div>
     </div>
 </template>
@@ -26,6 +33,13 @@ import filterCompany from "./FilterCompany";
 import filterRegions from "./FilterRegions";
 import filterEmail from "./FilterEmail";
 import filterCity from "./FilterCity";
+import filterCost from "./FilterCost";
+import filterReferrer from "./FilterReferrer";
+import filterUtmTerm from "./FilterUTMTerm";
+import filterUtmMedium from "./FilterUTMMedium";
+import filterUtmSource from "./FilterUTMSource";
+import filterUtmCampaign from "./FilterUTMCampaign";
+import filterSource from "./FilterSource";
 
 export default {
     props: [
@@ -39,6 +53,13 @@ export default {
         'filterRegions',
         'filterEmail',
         'filterCity',
+        'filterCost',
+        'filterReferrer',
+        'filterUTMTerm',
+        'filterUTMMedium',
+        'filterUTMSource',
+        'filterUTMCampaign',
+        'filterSource',
         'projectid'
     ],
     name: "Filters",
@@ -52,7 +73,14 @@ export default {
         filterCompany,
         filterRegions,
         filterEmail,
-        filterCity
+        filterCity,
+        filterCost,
+        filterReferrer,
+        filterUtmTerm,
+        filterUtmMedium,
+        filterUtmSource,
+        filterSource,
+        filterUtmCampaign
     }
 }
 </script>

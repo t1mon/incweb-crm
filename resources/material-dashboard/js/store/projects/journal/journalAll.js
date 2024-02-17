@@ -40,6 +40,14 @@ export default {
       const regionsLS = localStorage.getItem('regions')
       const emailLS = localStorage.getItem('email')
       const citiesLS = localStorage.getItem('cities')
+      const cost_fromLS = localStorage.getItem('cost_from')
+      const cost_toLS = localStorage.getItem('cost_to')
+      const referrerLS = localStorage.getItem('referrer')
+      const utm_termLS = localStorage.getItem('utm_term')
+      const utm_mediumLS = localStorage.getItem('utm_medium')
+      const utm_sourceLS = localStorage.getItem('utm_source')
+      const utm_campaignLS = localStorage.getItem('utm_campaign')
+      const sourceLS = localStorage.getItem('source')
 
       if(classesLS && JSON.parse(classesLS).length > 0) params.class = JSON.parse(classesLS)
       // if (date_fromLS && date_toLS) {
@@ -58,6 +66,15 @@ export default {
       if(regionsLS && JSON.parse(regionsLS).length > 0) params.manual_region = JSON.parse(regionsLS)
       if(emailLS) params.email = emailLS
       if(citiesLS && JSON.parse(citiesLS).length > 0) params.city = JSON.parse(citiesLS)
+      if(cost_fromLS) params.cost_from = cost_fromLS
+      if(cost_toLS) params.cost_to = cost_toLS
+      if(referrerLS) params.referrer = referrerLS
+      if(utm_termLS && JSON.parse(utm_termLS).length > 0) params.utm_term = JSON.parse(utm_termLS)
+      if(utm_mediumLS && JSON.parse(utm_mediumLS).length > 0) params.utm_medium = JSON.parse(utm_mediumLS)
+      if(utm_sourceLS && JSON.parse(utm_sourceLS).length > 0) params.utm_source = JSON.parse(utm_sourceLS)
+      if(utm_campaignLS && JSON.parse(utm_campaignLS).length > 0) params.utm_campaign = JSON.parse(utm_campaignLS)
+      if(sourceLS) params.source = sourceLS
+
 
       //Записываем данные с хранилища vuex
       if(filterParams.classes.length > 0) params.class = filterParams.classes
@@ -78,6 +95,14 @@ export default {
       if(filterParams.regions.length > 0) params.manual_region = filterParams.regions
       if(filterParams.email) params.email = filterParams.email
       if(filterParams.cities.length > 0) params.city = filterParams.cities
+      if(filterParams.cost_from) params.cost_from = filterParams.cost_from
+      if(filterParams.cost_to) params.cost_to = filterParams.cost_to
+      if(filterParams.referrer) params.referrer = filterParams.referrer
+      if(filterParams.utm_term.length > 0) params.utm_term = filterParams.utm_term
+      if(filterParams.utm_medium.length > 0) params.utm_medium = filterParams.utm_medium
+      if(filterParams.utm_source.length > 0) params.utm_source = filterParams.utm_source
+      if(filterParams.utm_campaign.length > 0) params.utm_campaign = filterParams.utm_campaign
+      if(filterParams.source) params.source = filterParams.source
       await axios
         .get(url, {
           params: params

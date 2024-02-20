@@ -28,7 +28,7 @@
         <div class="collapse navbar-collapse mt-sm-0 mt-2 me-md-0 me-sm-4" id="navbar">
 
 
-{{--            <ul class="navbar-nav  justify-content-end">--}}
+            <ul class="navbar-nav  justify-content-end">
 {{--                <li class="nav-item">--}}
 {{--                    <a href="../../pages/authentication/signin/illustration.html" class="nav-link text-body p-0 position-relative" target="_blank">--}}
 {{--                        <i class="material-icons me-sm-1">--}}
@@ -36,15 +36,15 @@
 {{--                        </i>--}}
 {{--                    </a>--}}
 {{--                </li>--}}
-{{--                <li class="sidenav-burger nav-item d-xl-none ps-3 d-flex align-items-center">--}}
-{{--                    <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">--}}
-{{--                        <div class="sidenav-toggler-inner">--}}
-{{--                            <i class="sidenav-toggler-line"></i>--}}
-{{--                            <i class="sidenav-toggler-line"></i>--}}
-{{--                            <i class="sidenav-toggler-line"></i>--}}
-{{--                        </div>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
+                <li class="sidenav-burger nav-item d-xl-none ps-3 d-flex align-items-center">
+                    <a href="javascript:;" class="nav-link text-body p-0" id="iconNavbarSidenav">
+                        <div class="sidenav-toggler-inner">
+                            <i class="sidenav-toggler-line"></i>
+                            <i class="sidenav-toggler-line"></i>
+                            <i class="sidenav-toggler-line"></i>
+                        </div>
+                    </a>
+                </li>
 {{--                <li class="nav-item px-3">--}}
 {{--                    <a href="javascript:;" class="nav-link text-body p-0">--}}
 {{--                        <i class="material-icons fixed-plugin-button-nav cursor-pointer">--}}
@@ -101,7 +101,7 @@
 {{--                        </li>--}}
 {{--                    </ul>--}}
 {{--                </li>--}}
-{{--            </ul>--}}
+            </ul>
         </div>
     </div>
 </nav>

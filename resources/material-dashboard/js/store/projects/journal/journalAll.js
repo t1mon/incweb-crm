@@ -73,7 +73,7 @@ export default {
       if(utm_mediumLS && JSON.parse(utm_mediumLS).length > 0) params.utm_medium = JSON.parse(utm_mediumLS)
       if(utm_sourceLS && JSON.parse(utm_sourceLS).length > 0) params.utm_source = JSON.parse(utm_sourceLS)
       if(utm_campaignLS && JSON.parse(utm_campaignLS).length > 0) params.utm_campaign = JSON.parse(utm_campaignLS)
-      if(sourceLS) params.source = sourceLS
+      if(sourceLS && JSON.parse(sourceLS).length > 0) params.source = JSON.parse(sourceLS)
 
 
       //Записываем данные с хранилища vuex
@@ -102,7 +102,7 @@ export default {
       if(filterParams.utm_medium.length > 0) params.utm_medium = filterParams.utm_medium
       if(filterParams.utm_source.length > 0) params.utm_source = filterParams.utm_source
       if(filterParams.utm_campaign.length > 0) params.utm_campaign = filterParams.utm_campaign
-      if(filterParams.source) params.source = filterParams.source
+      if(filterParams.source.length > 0) params.source = filterParams.source
       await axios
         .get(url, {
           params: params

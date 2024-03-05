@@ -3,7 +3,7 @@ export default {
   state() {
     return {
       params: {
-        source: '',
+        source: [],
         utm_campaign: [],
         utm_source: [],
         utm_medium: [],
@@ -90,9 +90,11 @@ export default {
     }
   },
   mutations: {
-    SET_SOURCE(state, source) {
-      state.params.source = source
-      localStorage.setItem('source', source)
+    SET_SOURCE(state, arr) {
+      state.params.source = arr.map(id => {
+        return id
+      })
+      localStorage.setItem('source', JSON.stringify(arr))
     },
     SET_UTM_CAMPAIGN(state, arr) {
       state.params.utm_campaign = arr.map(id => {
@@ -188,7 +190,7 @@ export default {
     },
     CLEAR_PARAMS(state) {
       state.params = {
-        source: '',
+        source: [],
         utm_campaign: [],
         utm_source: [],
         utm_medium: [],

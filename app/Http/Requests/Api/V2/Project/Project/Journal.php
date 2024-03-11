@@ -56,8 +56,8 @@ class Journal extends FormRequest
             'manual_region' => 'nullable|array',
             'manual_region.*' => 'string|max:256',
 
-            'referrer' => 'nullable|string|max:256',
-            'source' => 'nullable|max:256',
+            'referrer' => 'nullable|array',
+            'source' => 'nullable|array',
 
             'utm_medium' => 'nullable|array',
             'utm_medium.*' => 'string|max:512',

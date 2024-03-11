@@ -74,12 +74,20 @@
                                     ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
-                                <th v-if="columns.manual_region" class="p-2 lh-1 cursor-pointer text-uppercase text-center text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Регион</p>
+                                <th v-if="columns.manual_region" class="dropdown text-center p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterRegions" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Регион</p>
+                                    <filter-app
+                                        :filterRegions="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterRegions"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
-
-
+<!--                                <th v-if="columns.manual_region" class="p-2 lh-1 cursor-pointer text-uppercase text-center text-xxs font-weight-bolder">-->
+<!--                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Регион</p>-->
+<!--                                    <div class="journal__col-resize"></div>-->
+<!--                                </th>-->
                                 <th v-if="columns.comment_crm" class="p-2 lh-1 cursor-pointer text-uppercase text-center text-xxs font-weight-bolder">
                                     <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Комментарий</p>
                                     <div class="journal__col-resize"></div>
@@ -90,16 +98,36 @@
                                     <div class="journal__col-resize"></div>
                                 </th>
 
-                                <th v-if="columns.email" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">E-MAIl</p>
+                                <th v-if="columns.email" class="dropdown p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterEmail" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">E-MAIl</p>
+                                    <filter-app
+                                        :filterEmail="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterEmail"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
-                                <th v-if="columns.city" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Город</p>
+
+                                <th v-if="columns.city" class="dropdown p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterCity" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Город</p>
+                                    <filter-app
+                                        :filterCity="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterCity"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
-                                <th v-if="columns.cost" class="p-2 lh-1 text-center cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Сумма сделки</p>
+
+                                <th v-if="columns.cost" class="dropdown p-2 lh-1 text-center cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterCost" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Сумма сделки</p>
+                                    <filter-app
+                                        :filterCost="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterCost"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
 
@@ -114,28 +142,64 @@
                                     <div class="journal__col-resize"></div>
                                 </th>
 
-                                <th v-if="columns.referrer" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">Реферрер</p>
+                                <th v-if="columns.referrer" class="dropdown p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterReferrer" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">Реферрер</p>
+                                    <filter-app
+                                        :filterReferrer="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterReferrer"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
-                                <th v-if="columns.utm_term" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">[UTM_TERM]</p>
+                                <th v-if="columns.utm_term" class="dropdown p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
+                                    <p class="dropdown-toggle journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterUTMTerm" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">[UTM_TERM]</p>
+                                    <filter-app
+                                        :filterUTMTerm="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterUTMTerm"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.utm_medium" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">[UTM_MEDIUM]</p>
+                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterUTMMedium" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">[UTM_MEDIUM]</p>
+                                    <filter-app
+                                        :filterUTMMedium="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterUTMMedium"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.utm_source" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">[UTM_SOURCE]</p>
+                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterUTMSource" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">[UTM_SOURCE]</p>
+                                    <filter-app
+                                        :filterUTMSource="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterUTMSource"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.utm_campaign" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">[UTM_CAMPAIGN]</p>
+                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterUTMSource" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">[UTM_CAMPAIGN]</p>
+                                    <filter-app
+                                        :filterUTMCampaign="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterUTMCampaign"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
                                 <th v-if="columns.source" class="p-2 lh-1 cursor-pointer text-uppercase text-xxs font-weight-bolder">
-                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10">ИСТОЧНИК</p>
+                                    <p class="journal__th__header m-0 text-xxs font-weight-bolder opacity-10" id="filterSource" data-bs-toggle="dropdown" aria-expanded="false" data-bs-auto-close="outside">ИСТОЧНИК</p>
+                                    <filter-app
+                                        :filterSource="true"
+                                        :projectid="projectid"
+                                        class="dropdown-menu"
+                                        aria-labelledby="filterSource"
+                                    ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
 
@@ -209,12 +273,26 @@
                                         <span class="material-icons">add</span>
                                     </span>
                                 </td>
-                                <td
-                                    v-if="columns.comment_data"
-                                    class="text-sm text-center font-weight-normal mb-0 overflow-hidden"
-                                    style="width: 300px; min-width: 300px; max-width: 3000px; text-overflow: ellipsis"
-                                >
-                                    <span :title="lead.comment">{{ lead.comment }}</span>
+                                <td v-if="columns.comment_data" class="p-0 m-0">
+                                    <span
+                                        class="d-block overflow-hidden position-relative"
+                                        style="min-width: 300px; max-width: 300px; max-height: 100px; white-space: normal"
+                                    >
+                                        <span
+                                            :id="'comment' + lead.id"
+                                            class="text-sm text-center font-weight-normal d-block p-2"
+                                            :title="lead.comment">{{ lead.comment }} </span>
+
+                                        <span
+                                            v-if="lead.commentShow"
+                                            class="journal__comment__show"
+                                        >
+                                            <span
+                                                data-bs-toggle="modal" data-bs-target="#journalShowInfoModal"
+                                                @click="showFullComment('Комментарий', lead.comment)" class="cursor-pointer">Показать полностью</span>
+                                        </span>
+
+                                    </span>
                                 </td>
                                 <td
                                     v-if="columns.email"
@@ -294,6 +372,7 @@
             </div>
         </div>
 
+        <modal-info :content="modalInfoContent"></modal-info>
         <journal-region-modal ref="journalRegionModal"></journal-region-modal>
         <journal-comments ref="journalCommentsModal"></journal-comments>
         <journal-company-modal ref="journalCompanyModal"></journal-company-modal>
@@ -309,6 +388,7 @@ import JournalRegionModal from "./JournalRegionModal";
 import JournalRegionTd from "./JournalRegionTd"
 import JournalCompanyTd from "./JournalCompany.vue";
 import JournalCompanyModal from "./JournalCompanyModal.vue";
+import ModalInfo from "./ModalInfo.vue";
 
 export default {
     name: "Journal",
@@ -320,7 +400,8 @@ export default {
         JournalRegionModal,
         JournalRegionTd,
         JournalCompanyTd,
-        JournalCompanyModal
+        JournalCompanyModal,
+        ModalInfo
     },
     props: {
         projectid: {
@@ -338,7 +419,8 @@ export default {
           second: false,
           region: '',
           leadIdRegion: '',
-          leads: null
+          leads: null,
+          modalInfoContent: {}
       }
     },
     watch: {
@@ -405,9 +487,25 @@ export default {
             if (!sum) return
             const sumStr = sum.toString()
             return sumStr.replace(/(\d{1,3}(?=(?:\d\d\d)+(?!\d)))/g, "$1" + ' ')
+        },
+        showFullComment(title, text) {
+            this.modalInfoContent.title = title
+            this.modalInfoContent.text = text
         }
     },
     computed: {
+        stateShowFullComment(ref) {
+                const comment = document.getElementById(ref)
+                console.log(comment.scrollHeight, comment.parentElement.clientHeight)
+                return comment.scrollHeight > comment.parentElement.clientHeight
+            // return
+            // if (this.$refs[ref] && this.$refs[ref][0]) {
+            //     console.log(this.$refs[ref][0].scrollHeight > this.$refs[ref][0].parentElement.clientHeight)
+            //     return this.$refs[ref][0].scrollHeight > this.$refs[ref][0].parentElement.clientHeight
+            // }
+            // return false
+        },
+
         stateProjectId() {
             return this.$store.getters['journalAll/stateProjectId']
         },
@@ -420,6 +518,14 @@ export default {
     },
     mounted() {
         //console.log(this.columns)
+    },
+    updated() {
+        if(this.leads) {
+            this.leads.forEach( lead => {
+                const comment = document.getElementById('comment' + lead.id)
+                lead.commentShow = comment.scrollHeight > comment.parentElement.clientHeight
+            })
+        }
     }
 }
 </script>
@@ -529,6 +635,19 @@ th, td {
 }
 .journal__sort__input:checked + .journal__sort__ok {
     display: block;
+}
+.journal__comment__show {
+    font-size: 13px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    color: green;
+    text-decoration: underline;
+    display: block;
+    width: 100%;
+    text-align: center;
+    padding: 20px 10px 5px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.7) 15px, #fff 30px);
 }
 .table-responsive {
     padding-top: 50px;

@@ -8,7 +8,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 
 class ReadRepository{
-    
+
     public function query(): Builder
     {
         return Leads::query();
@@ -94,13 +94,13 @@ class ReadRepository{
         //Фильтрация по email
         if(!is_null($email))
             $leads->email($email);
-            
+
         //Фильтрация по сумме
         if(!is_null($cost_from))
-            $leads->where('cost', '>=', $cost_from);
-        
+            $leads->where('cost', '>=', (int) $cost_from);
+
         if(!is_null($cost_to))
-            $leads->where('cost', '<=', $cost_to);
+            $leads->where('cost', '<=', (int) $cost_to);
 
         //Фильтрация по городу
         if(!is_null($city))
@@ -121,11 +121,11 @@ class ReadRepository{
         //Фильтрация по рефереру
         if(!is_null($referrer))
             $leads->referrer($referrer);
-        
+
         //Фильтрация по источнику
         if(!is_null($source))
             $leads->source($source);
-            
+
         //Фильтрация по UTM-меткам
         if(!is_null($utm_medium))
             $leads->utmMedium($utm_medium);
@@ -138,10 +138,10 @@ class ReadRepository{
 
         if(!is_null($utm_content))
             $leads->utmContent($utm_content);
-            
+
         if(!is_null($utm_term))
-            $leads->utmContent($utm_term);
-        
+            $leads->utmTerm($utm_term);
+
         //Фильтрация по хосту
         if(!is_null($host))
             $leads->host($host);

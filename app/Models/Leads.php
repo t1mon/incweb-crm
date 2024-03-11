@@ -73,50 +73,50 @@ class Leads extends Model
         return (is_null($this->surname) ? '' : $this->surname) . $this->name . (is_null($this->patronymic) ? '' : $this->patronymic);
     } //getClientName
 
-    public function getUtmMediumAttribute(){
-        return
-            $this->utm_medium
-            ??
-            is_null($this->utm)
-                ? null
-                : (array_key_exists('utm_medium', $this->utm) ? $this->utm['utm_medium'] : null);
-    } //getUtmMediumAttribute
-
-    public function getUtmSourceAttribute(){
-        return
-            $this->utm_source
-            ??
-            is_null($this->utm)
-                ? null
-                : (array_key_exists('utm_source', $this->utm) ? $this->utm['utm_source'] : null);
-    } //getUtmSourceAttribute
-
-    public function getUtmCampaignAttribute(){
-        return
-            $this->utm_campaign
-            ??
-            is_null($this->utm)
-                ? null
-                : (array_key_exists('utm_campaign', $this->utm) ? $this->utm['utm_campaign'] : null);
-    } //getUtmCampaignAttribute
-
-    public function getUtmContentAttribute(){
-        return
-            $this->utm_content
-            ??
-            is_null($this->utm)
-                ? null
-                : (array_key_exists('utm_content', $this->utm) ? $this->utm['utm_content'] : null);
-    } //getUtmContentAttribute
-
-    public function getUtmTermAttribute(){
-        return
-            $this->utm_term
-            ??
-            is_null($this->utm)
-                ? null
-                : (array_key_exists('utm_term', $this->utm) ? $this->utm['utm_term'] : null);
-    } //getUtmTermAttribute
+//    public function getUtmMediumAttribute(){
+//        return
+//            $this->utm_medium
+//            ??
+//            is_null($this->utm)
+//                ? null
+//                : (array_key_exists('utm_medium', $this->utm) ? $this->utm['utm_medium'] : null);
+//    } //getUtmMediumAttribute
+//
+//    public function getUtmSourceAttribute(){
+//        return
+//            $this->utm_source
+//            ??
+//            is_null($this->utm)
+//                ? null
+//                : (array_key_exists('utm_source', $this->utm) ? $this->utm['utm_source'] : null);
+//    } //getUtmSourceAttribute
+//
+//    public function getUtmCampaignAttribute(){
+//        return
+//            $this->utm_campaign
+//            ??
+//            is_null($this->utm)
+//                ? null
+//                : (array_key_exists('utm_campaign', $this->utm) ? $this->utm['utm_campaign'] : null);
+//    } //getUtmCampaignAttribute
+//
+//    public function getUtmContentAttribute(){
+//        return
+//            $this->utm_content
+//            ??
+//            is_null($this->utm)
+//                ? null
+//                : (array_key_exists('utm_content', $this->utm) ? $this->utm['utm_content'] : null);
+//    } //getUtmContentAttribute
+//
+//    public function getUtmTermAttribute(){
+//        return
+//            $this->utm_term
+//            ??
+//            is_null($this->utm)
+//                ? null
+//                : (array_key_exists('utm_term', $this->utm) ? $this->utm['utm_term'] : null);
+//    } //getUtmTermAttribute
 
     public static function getFields() //Получить список полей лида
     {
@@ -194,8 +194,8 @@ class Leads extends Model
     public function scopeEmail($query, string|array $email)
     {
         return is_array($email)
-            ? $query->whereIn('owner', $email)
-            : $query->where('owner', $email);
+            ? $query->whereIn('email', $email)
+            : $query->where('email', $email);
     } //scopeEmail
 
     public function scopeCity($query, string|array $city)

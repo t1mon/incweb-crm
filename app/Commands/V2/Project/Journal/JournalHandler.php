@@ -66,6 +66,8 @@ class JournalHandler
             cost_to: $command->cost_to,
             city: $command->city,
             company: $command->company,
+            region: $command->region,
+            manual_region: $command->manual_region,
             referrer: $command->referrer,
             source: $command->source,
             utm_medium: $command->utm_medium,

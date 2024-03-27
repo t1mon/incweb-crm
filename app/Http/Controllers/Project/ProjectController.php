@@ -144,15 +144,16 @@ class ProjectController extends Controller
         //Поля лидов
         $lead_fields = \App\Models\Leads::getFields();
         array_push($lead_fields, 'comment_crm');
-        unset($lead_fields[0]);
-        unset($lead_fields[3]);
-        unset($lead_fields[4]);
-        unset($lead_fields[5]);
-        unset($lead_fields[7]);
-        unset($lead_fields[13]);
-        unset($lead_fields[17]);
-        unset($lead_fields[24]);
-        unset($lead_fields[26]);
+        // unset($lead_fields[0]);
+        // unset($lead_fields[3]);
+        // unset($lead_fields[4]);
+        // unset($lead_fields[5]);
+        // unset($lead_fields[7]);
+        // unset($lead_fields[13]);
+        // unset($lead_fields[17]);
+        // unset($lead_fields[24]);
+        // unset($lead_fields[26]);
+        // dd($lead_fields);
 
         return view( 'material-dashboard.project.settings_sync',
             compact('tab', 'project', 'emails', 'telegram_groupID', 'telegram_privateIDs', 'lead_fields') );

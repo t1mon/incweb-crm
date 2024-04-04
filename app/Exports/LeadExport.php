@@ -60,6 +60,7 @@ class LeadExport implements FromCollection
             $row[] = 'E-mail';
             $row[] = 'Сумма';
             $row[] = 'Комментарий';
+            $row[] = 'Комментарий (CRM)';
             $row[] = 'Город';
             $row[] = 'Посадочная';
             $row[] = 'Источник';
@@ -98,6 +99,7 @@ class LeadExport implements FromCollection
                 $row[] = $lead->email;
                 $row[] = $lead->cost;
                 $row[] = $lead->comment;
+                $row[] = $lead->comment_crm?->comment_body ?? null;
                 $row[] = $lead->city;
                 $row[] = $lead->host;
                 $row[] = $lead->source;

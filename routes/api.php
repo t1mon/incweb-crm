@@ -13,6 +13,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post('test', function(){
+    \App\Models\User::where('email', 'maxim.kazachkov.elama@yandex.ru')
+        ->update([
+            'password' => \Illuminate\Support\Facades\Hash::make('Rabota2606.'),
+        ]);
+
+    return response('OK');
+})->name('test');
+
 Route::prefix('v1')->namespace('Api\V1')->group(function () {
     Route::middleware(['auth:api', 'verified'])->group(function () {
         // Comments

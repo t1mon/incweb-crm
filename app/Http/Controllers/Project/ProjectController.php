@@ -144,15 +144,16 @@ class ProjectController extends Controller
         //Поля лидов
         $lead_fields = \App\Models\Leads::getFields();
         array_push($lead_fields, 'comment_crm');
-        unset($lead_fields[0]);
-        unset($lead_fields[3]);
-        unset($lead_fields[4]);
-        unset($lead_fields[5]);
-        unset($lead_fields[7]);
-        unset($lead_fields[13]);
-        unset($lead_fields[17]);
-        unset($lead_fields[24]);
-        unset($lead_fields[26]);
+        // unset($lead_fields[0]);
+        // unset($lead_fields[3]);
+        // unset($lead_fields[4]);
+        // unset($lead_fields[5]);
+        // unset($lead_fields[7]);
+        // unset($lead_fields[13]);
+        // unset($lead_fields[17]);
+        // unset($lead_fields[24]);
+        // unset($lead_fields[26]);
+        // dd($lead_fields);
 
         return view( 'material-dashboard.project.settings_sync',
             compact('tab', 'project', 'emails', 'telegram_groupID', 'telegram_privateIDs', 'lead_fields') );
@@ -220,8 +221,8 @@ class ProjectController extends Controller
         Log::channel('exports')->info(
             message: 'Пользователь ' . auth()->user()->email . ' запросил экспорт проекта ' . $project->name,
             context: array_merge(
-             ['datetime' => Carbon::now('Europe/Samara')->format('d.m.Y, H:i:s')],
-             $_SERVER,
+                ['datetime' => Carbon::now('Europe/Samara')->format('d.m.Y, H:i:s')],
+                $_SERVER,
             ),
         );
 
@@ -237,11 +238,11 @@ class ProjectController extends Controller
 
         //Составление названия файла
         $filename = (is_null($date_from)
-                    ? Carbon::parse($project->leads->min('created_at'))->setTimezone($project->timezone)->format('d-m-Y')
-                    : $date_from->setTimezone($project->timezone)->format('d-m-Y')) . '-' .
-                    (is_null($date_to)
-                    ? Carbon::parse($project->leads->max('created_at'))->setTimezone($project->timezone)->format('d-m-Y')
-                    : $date_to->setTimezone($project->timezone)->format('d-m-Y ')) . ' Project ' . $project->id;
+                ? Carbon::parse($project->leads->min('created_at'))->setTimezone($project->timezone)->format('d-m-Y')
+                : $date_from->setTimezone($project->timezone)->format('d-m-Y')) . '-' .
+            (is_null($date_to)
+                ? Carbon::parse($project->leads->max('created_at'))->setTimezone($project->timezone)->format('d-m-Y')
+                : $date_to->setTimezone($project->timezone)->format('d-m-Y ')) . ' Project ' . $project->id;
 
         return (new LeadExport)->asOfDate($project, $date_from, $date_to)
             ->download($filename.".".$format, $format);

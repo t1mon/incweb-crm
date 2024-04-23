@@ -56,27 +56,27 @@ class ParseIncomingCall
             try{
                 //Поиск номера трекинга
                 $phone = $phoneReadRepository->findByPhone(phone: $item['caller_did'], fail: true, with: 'project');
-    
-    
+
+
                 //Загрузка проекта
                 $project = $projectReadRepository->findById(id: $phone->project_id, fail: true);
-    
+
                 //Проверка проекта
                 if(!$project->settings['enabled']){
                     Journal::projectError($project, 'ПРОЕКТ ОТКЛЮЧЕН! Поступило уведомление с коллтрекинга по номеру ' . $item['caller_did'] . ', телефон лида ' . $item['caller_id']);
                     return;
                 }
-    
+
                 //Проверка хоста
-                $host = filter_var(value: $this->params['url'], filter: FILTER_VALIDATE_URL)
-                    ? parse_url(url: $this->params['url'])['host']
-                    : $this->params['url'];
-    
+                $host = filter_var(value: $item['url'], filter: FILTER_VALIDATE_URL)
+                    ? parse_url(url: $item['url'])['host']
+                    : $item['url'];
+
                 if(!$hostReadRepository->validateHost(project: $project, host: $host)){
                     Journal::projectError($project, 'ХОСТ ' . $host . ' НЕ НАЙДЕН! Поступило уведомление с коллтрекинга по номеру ' . $item['caller_did'] . ', телефон лида ' . $item['caller_id']);
                     return;
                 }
-    
+
                 //Создание лида
                 $lead = $leadRepository->add(
                     project: $project,
@@ -92,7 +92,7 @@ class ParseIncomingCall
                     utm_content: $item['utm_content'] ?? null,
                     url_query_string: $item['url_query_string'] ?? null,
                 );
-    
+
                 //Запись в лог звонков
                 $logRepository->create(
                     project: $project,
@@ -105,7 +105,7 @@ class ParseIncomingCall
                     message: 'CALL_TRACKING по номеру' . $item['caller_did'] . ' не подключен',
                     context: $item
                 );
-    
+
                 continue;
             }
         }

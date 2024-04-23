@@ -50,62 +50,64 @@ class ParseIncomingCall
     )
     {
         $originalJson = $this->params; //Сохраняем оригинальный JSON для записи в лог
-        $this->params = json_decode(json: $this->params, associative: true)[0];
+        $batch = json_decode(json: $this->params, associative: true);
 
-        try{
-            //Поиск номера трекинга
-            $phone = $phoneReadRepository->findByPhone(phone: $this->params['caller_did'], fail: true, with: 'project');
-
-
-            //Загрузка проекта
-            $project = $projectReadRepository->findById(id: $phone->project_id, fail: true);
-
-            //Проверка проекта
-            if(!$project->settings['enabled']){
-                Journal::projectError($project, 'ПРОЕКТ ОТКЛЮЧЕН! Поступило уведомление с коллтрекинга по номеру ' . $this->params['caller_did'] . ', телефон лида ' . $this->params['caller_id']);
-                return;
+        foreach($batch as $item){
+            try{
+                //Поиск номера трекинга
+                $phone = $phoneReadRepository->findByPhone(phone: $item['caller_did'], fail: true, with: 'project');
+    
+    
+                //Загрузка проекта
+                $project = $projectReadRepository->findById(id: $phone->project_id, fail: true);
+    
+                //Проверка проекта
+                if(!$project->settings['enabled']){
+                    Journal::projectError($project, 'ПРОЕКТ ОТКЛЮЧЕН! Поступило уведомление с коллтрекинга по номеру ' . $item['caller_did'] . ', телефон лида ' . $item['caller_id']);
+                    return;
+                }
+    
+                //Проверка хоста
+                $host = filter_var(value: $this->params['url'], filter: FILTER_VALIDATE_URL)
+                    ? parse_url(url: $this->params['url'])['host']
+                    : $this->params['url'];
+    
+                if(!$hostReadRepository->validateHost(project: $project, host: $host)){
+                    Journal::projectError($project, 'ХОСТ ' . $host . ' НЕ НАЙДЕН! Поступило уведомление с коллтрекинга по номеру ' . $item['caller_did'] . ', телефон лида ' . $item['caller_id']);
+                    return;
+                }
+    
+                //Создание лида
+                $lead = $leadRepository->add(
+                    project: $project,
+                    name: 'Без имени',
+                    phone: $item['caller_id'],
+                    host: $host,
+                    comment: 'CALL_TRACKING: ' . $item['caller_did'],
+                    source: Leads::SOURCE_CALL_TRACKING,
+                    utm_medium: $item['utm_medium'] ?? null,
+                    utm_term: $item['utm_term'] ?? null,
+                    utm_campaign: $item['utm_campaign'] ?? null,
+                    utm_source: $item['utm_source'] ?? null,
+                    utm_content: $item['utm_content'] ?? null,
+                    url_query_string: $item['url_query_string'] ?? null,
+                );
+    
+                //Запись в лог звонков
+                $logRepository->create(
+                    project: $project,
+                    phone: $phone,
+                    json: $originalJson
+                );
             }
-
-            //Проверка хоста
-            $host = filter_var(value: $this->params['url'], filter: FILTER_VALIDATE_URL)
-                ? parse_url(url: $this->params['url'])['host']
-                : $this->params['url'];
-
-            if(!$hostReadRepository->validateHost(project: $project, host: $host)){
-                Journal::projectError($project, 'ХОСТ ' . $host . ' НЕ НАЙДЕН! Поступило уведомление с коллтрекинга по номеру ' . $this->params['caller_did'] . ', телефон лида ' . $this->params['caller_id']);
-                return;
+            catch(ModelNotFoundException $e){
+                Log::warning(
+                    message: 'CALL_TRACKING по номеру' . $item['caller_did'] . ' не подключен',
+                    context: $item
+                );
+    
+                continue;
             }
-
-            //Создание лида
-            $lead = $leadRepository->add(
-                project: $project,
-                name: 'Без имени',
-                phone: $this->params['caller_id'],
-                host: $host,
-                comment: 'CALL_TRACKING: ' . $this->params['caller_did'],
-                source: Leads::SOURCE_CALL_TRACKING,
-                utm_medium: $this->params['utm_medium'] ?? null,
-                utm_term: $this->params['utm_term'] ?? null,
-                utm_campaign: $this->params['utm_campaign'] ?? null,
-                utm_source: $this->params['utm_source'] ?? null,
-                utm_content: $this->params['utm_content'] ?? null,
-                url_query_string: $this->params['url_query_string'] ?? null,
-            );
-
-            //Запись в лог звонков
-            $logRepository->create(
-                project: $project,
-                phone: $phone,
-                json: $originalJson
-            );
-        }
-        catch(ModelNotFoundException $e){
-            Log::warning(
-                message: 'CALL_TRACKING по номеру' . $this->params['caller_did'] . ' не подключен',
-                context: $this->params
-            );
-
-            return response('CALL_TRACKING по номеру' . $this->params['caller_did'] . ' не подключен');
         }
     }
 }

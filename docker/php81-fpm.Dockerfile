@@ -23,13 +23,16 @@ RUN apt-get update && apt-get install -y \
 && docker-php-ext-enable imagick \
 && docker-php-ext-configure gd --with-freetype --with-jpeg \
 && docker-php-ext-install -j$(nproc) gd \
-&& docker-php-ext-install exif
+&& docker-php-ext-install exif \
+&& docker-php-ext-install zip
 
 RUN docker-php-ext-configure pcntl --enable-pcntl \
   && docker-php-ext-install \
     pcntl
 
 RUN  pecl install yaml && docker-php-ext-enable yaml
+
+COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 WORKDIR /var/www/app
 

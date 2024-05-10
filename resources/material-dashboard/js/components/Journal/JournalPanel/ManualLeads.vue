@@ -46,18 +46,31 @@
                         </div>
 
                         <div class="journal__manual-leads__modal__box p-1 pb-2 m-1 bg-light rounded-2">
-                            <div
-                                :class="{'is-invalid' : v$.phone.$invalid && v$.$dirty}"
-                                class="input-group input-group-dynamic mb-1">
-                                <span class="input-group-text text-danger" id="manualLeadsPhone">*</span>
-                                <input
-                                    v-model="phone"
-                                    v-maska
-                                    data-maska="+7 (###) ###-####"
-                                    type="text" class="form-control" placeholder="Телефон" aria-describedby="manualLeadsPhone">
 
+<!--                            <div-->
+<!--                                :class="{'is-invalid' : v$.phone.$invalid && v$.$dirty}"-->
+<!--                                class="input-group input-group-dynamic mb-1">-->
+<!--                                <span class="input-group-text text-danger" id="manualLeadsPhone">*</span>-->
+<!--                                <input-->
+<!--                                    v-model="phone"-->
+<!--                                    v-maska-->
+<!--                                    data-maska="+7 (###) ###-####"-->
+<!--                                    type="text" class="form-control" placeholder="Телефон" aria-describedby="manualLeadsPhone">-->
+
+<!--                                <div class="invalid-feedback" v-if="v$.phone.required.$invalid && v$.$dirty">Обязательное поле.</div>-->
+<!--                                <div class="invalid-feedback" v-if="v$.phone.minLength.$invalid && v$.$dirty">Неверный формат</div>-->
+<!--                            </div>-->
+
+                            <div class="input-group input-group-dynamic mb-1">
+                                <span class="input-group-text text-danger" id="manualLeadsPhone">*</span>
+                                <vue-tel-input
+                                    @onInput="onInput"
+                                    v-model="phone"
+                                    :class="{'is-invalid':(v$.phone.required.$invalid && v$.$dirty) || (v$.$dirty && !phoneObject.valid)}"
+                                    class="vue-tel-input--manula-leads"
+                                ></vue-tel-input>
                                 <div class="invalid-feedback" v-if="v$.phone.required.$invalid && v$.$dirty">Обязательное поле.</div>
-                                <div class="invalid-feedback" v-if="v$.phone.minLength.$invalid && v$.$dirty">Неверный формат</div>
+                                <div class="invalid-feedback" v-else-if="v$.$dirty && !phoneObject.valid">Неверный формат</div>
                             </div>
 
                             <div
@@ -251,7 +264,12 @@ export default {
             utmContent: '',
             urlQueryString: '',
             nextCallDate: '',
-            comment: ''
+            comment: '',
+            phoneObject: {
+                formatted: '',
+                valid: false,
+                country: undefined,
+            },
         }
     },
     computed: {
@@ -260,6 +278,10 @@ export default {
         }
     },
     methods: {
+        onInput(formattedNumber, phoneObject) {
+            // console.log('onInput', formattedNumber, phoneObject);
+            this.phoneObject = phoneObject;
+        },
         clearData() {
             this.name = ''
             this.surname = ''
@@ -282,11 +304,14 @@ export default {
             this.utmContent = ''
             this.urlQueryString = ''
             this.nextCallDate = ''
-            this.comment = ''
+            this.comment = '',
+            this.phoneObject.formatted = '',
+            this.phoneObject.valid = false,
+            this.phoneObject.country = undefined
         },
         async addLead() {
             const result = await this.v$.$validate()
-            if (!result) {
+            if (!result || !this.phoneObject.valid) {
                 return
             }
 
@@ -350,7 +375,10 @@ export default {
     validations () {
         return {
             name: { required },
-            phone: { required, minLength: minLength(17) },
+            phone: {
+                required,
+                // minLength: minLength(17)
+            },
             email: { email },
             host: { url },
             ip: {
@@ -388,6 +416,11 @@ textarea {
 
 .modal-dialog {
     max-width: none;
+}
+.vue-tel-input {
+    border: none;
+    border-bottom: 1px solid #d2d2d2 !important;
+    padding-bottom: 3px;
 }
 
 @media screen and (min-width: 768px) {

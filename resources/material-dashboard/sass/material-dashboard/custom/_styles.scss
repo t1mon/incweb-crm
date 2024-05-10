@@ -238,6 +238,17 @@
     }
 }
 
+.vue-tel-input--manula-leads {
+    .vti__input {
+        background: transparent;
+        font-size: 0.875rem;
+        padding: 0;
+    }
+    .vti__dropdown {
+        padding: 8px 0;
+    }
+}
+
 // animations
 
 @keyframes showDropMenu {

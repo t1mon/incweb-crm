@@ -36,7 +36,7 @@ class AddManuallyHandler
             cost: $command->request->cost,
             email: $command->request->email,
             comment: $command->request->comment,
-            city: $command->request->city,
+            manual_city: $command->request->city,
             // region: null, //TODO решить вопрос автоматического выставления региона
             manual_region: $command->request->manual_region,
             company: $command->request->company,

@@ -21,10 +21,10 @@
                                     ></filter-app>
                                     <div class="journal__col-resize"></div>
                                 </th>
-<!--                                <th v-if="columns.nextcall_date" class="p-2 lh-1 cursor-pointer text-center text-uppercase text-xxs font-weight-bolder">-->
-<!--                                    <p class="journal__th__header dropdown-toggle m-0 text-xxs font-weight-bolder opacity-10">Дата следующего <br> звонка</p>-->
-<!--                                    <div class="journal__col-resize"></div>-->
-<!--                                </th>-->
+                                <th v-if="columns.nextcall_date" class="p-2 lh-1 cursor-pointer text-center text-uppercase text-xxs font-weight-bolder">
+                                    <p class="journal__th__header dropdown-toggle m-0 text-xxs font-weight-bolder opacity-10">Дата следующего <br> звонка</p>
+                                    <div class="journal__col-resize"></div>
+                                </th>
                                 <th v-if="columns.name" class="p-2 lh-1 dropdown cursor-pointer text-center text-uppercase text-xxs font-weight-bolder">
                                     <p class="journal__th__header dropdown-toggle m-0 text-xxs font-weight-bolder opacity-10" id="filterName" data-bs-toggle="dropdown" aria-expanded="false">Клиент</p>
                                     <filter-app
@@ -223,9 +223,9 @@
                                 <td v-if="columns.created_at">
                                     <p v-html="dateFormat(lead.created_at)" class="text-center text-sm font-weight-normal mb-0"></p>
                                 </td>
-<!--                                <td v-if="columns.nextcall_date" class="p-2">-->
-<!--                                    <call-back-date :callBack="lead.nextcall_date" :leadId="lead.id"></call-back-date>-->
-<!--                                </td>-->
+                                <td v-if="columns.nextcall_date" class="p-2">
+                                    <call-back-date :callBack="lead.nextcall_date" :leadId="lead.id"></call-back-date>
+                                </td>
                                 <td v-if="columns.name" style="text-overflow: ellipsis; width: 100px; max-width: 100px">
                                     <h6 :title="lead.name" class="text-center mb-0 font-weight-normal text-sm" style="text-overflow: ellipsis; overflow: hidden">
                                         {{  lead.name }}

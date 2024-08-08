@@ -31,6 +31,13 @@
                 Matomba
             </a>
         </li>
+
+        {{-- Гудок --}}
+        <li class="nav-item">
+            <a  class="nav-link" data-bs-toggle="tab" href="#gudok">
+                Гудок
+            </a>
+        </li>
     </ul>
 </div>
 
@@ -54,6 +61,11 @@
     {{--Matomba--}}
     <div class="tab-pane fade show" id="matomba" role="tabpanel">
         <a href="{{route('project.integrations.matomba.index', $project->id)}}" class="link-primary">Интеграции с Matomba</a>
+    </div>
+
+    {{--Гудок--}}
+    <div class="tab-pane fade show" id="gudok" role="tabpanel">
+        @include('material-dashboard.project.integrations.gudok')
     </div>
 </div>
 

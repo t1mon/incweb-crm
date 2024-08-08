@@ -78,6 +78,12 @@ return [
             'level' => 'debug',
         ],
 
+        //Лог для любой информаци, связанной с проектами
+        'projects' => [
+            'driver' => 'daily',
+            'path' => storage_path('logs/projects.log'),
+        ],
+
         //Лог для лидов через api
         'leads' => [
             'driver' => 'daily',

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\V2\Project\Integrations\GudokRequest;
 use App\Models\Project\Project;
 use App\Models\Project\Host;
+use App\Models\Project\Integrations\GudokToken;
 use App\Models\User;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Http;
@@ -18,19 +19,26 @@ class GudokController extends Controller
         return "crm$crmProjectId-gudok$gudokProjectId.ru";
     }
 
-    public function registerHost(GudokRequest $request, int|string $project)
+    public function registerHost(GudokRequest $request, int|string $project, int|string $token)
     {
-        $projectModel = Project::select(['id', 'settings'])->find($project);
+        $projectModel = Project::select('id')->find($project);
 
         if(is_null($projectModel)){
             Log::channel('projects')->error(message: '[Api/V2/GudokController::registerHost] Проект с id ' . $project . ' не найден');
             return response(content: 'Проект не найден', status: Response::HTTP_NOT_FOUND);
         }
 
-        if(!$projectModel->settings['enabled'])
-        {
-            Log::channel('projects')->warning(message: '[Api/V2/GudokController::registerHost] Проект #' . $projectModel->id . ' отключен');
-            return response(content: 'Проект отключен', status: Response::HTTP_FORBIDDEN);
+        $timestamp = now()->subMinutes(GudokToken::VALIDITY_PERIOD);
+        $token = GudokToken::where([
+            'project_id' => $project,
+            'token' => $token,
+            'used' => false,
+        ])
+        ->where('created_at', '>=', $timestamp)->first();
+
+        if(is_null($token)){
+            Log::error(message: 'Попытка зарегистрировать хост через недействительный токен', context: ['token' => $token]);
+            return response(content: 'Токен недействителен', status: Response::HTTP_FORBIDDEN);
         }
 
         $hostName = $this->_generateHost(crmProjectId: $projectModel->id, gudokProjectId: $request->project_id);
@@ -48,9 +56,11 @@ class GudokController extends Controller
             'user_id' => $user->id,
         ]);
 
+        $token->update(['used' => true]);
+
         Log::channel('projects')->info(
             message: '[Api/V2/GudokController::registerHost] Зарегистрирован хост ' . $host->host,
-            context: ['host' => $host->toArray()],
+            context: ['token' => $token->toArray(), 'host' => $host->toArray()],
         );
 
         return response(content: 'Хост зарегистрирован', status: Response::HTTP_CREATED);

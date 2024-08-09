@@ -184,7 +184,7 @@ Route::prefix('v2')->name('v2.')->group(function(){
         Route::post('matomba/{project}/webhook', Api\V2\Project\Integrations\Motomba\WebhookController::class)->name('matomba.webhook');
 
         Route::prefix('gudok')->name('gudok.')->group(function(){
-            Route::post(uri: '/{project}/register-host', action: [\App\Http\Controllers\Api\V2\Project\Integrations\GudokController::class, 'registerHost'])->name('register-host');
+            Route::post(uri: '/{project}/register-host/{token}', action: [\App\Http\Controllers\Api\V2\Project\Integrations\GudokController::class, 'registerHost'])->name('register-host');
             Route::post(uri: '/{project}/add-lead', action: [\App\Http\Controllers\Api\V2\Project\Integrations\GudokController::class, 'addLead'])->name('add-lead');
         });
     });

@@ -6,6 +6,7 @@ use App\Http\Controllers\Project\EmailController;
 use App\Http\Controllers\Project\TelegramIDController;
 use App\Http\Controllers\Project\HostController;
 use App\Http\Controllers\Project\Integrations\Calltracking\PhoneController;
+use App\Http\Controllers\Project\Integrations\GudokController;
 use App\Http\Controllers\Project\Integrations\MatombaController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\LeadClassController;
@@ -101,6 +102,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
                         Route::delete('destroy/{phone_id}', [PhoneController::class, 'destroy'])->name('destroy');
                     });
                 });
+
+                // Гудок
+                Route::get('gudok/{project}/create-token', [GudokController::class, 'createToken'])->name('gudok.create-token');
             });
         });
         

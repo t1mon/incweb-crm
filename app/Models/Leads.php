@@ -59,6 +59,8 @@ class Leads extends Model
         'host',
         'url_query_string',
         'nextcall_date',
+        'yandex_client_id',
+        'yandex_counter_id',
     ];
 
     protected $casts = [

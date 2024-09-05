@@ -70,6 +70,8 @@ class LeadExport implements FromCollection
             $row[] = 'UTM medium';
             $row[] = 'referrer';
             $row[] = 'ip';
+            $row[] = 'yandex_client_id';
+            $row[] = 'yandex_counter_id';
         }
         else{
             foreach($this->permissions->view_fields as $field)
@@ -113,6 +115,8 @@ class LeadExport implements FromCollection
                 // $row[] = $lead->utm['utm_medium'] ?? '';
                 $row[] = $lead->referrer;
                 $row[] = $lead->ip;
+                $row[] = $lead->yandex_client_id;
+                $row[] = $lead->yandex_counter_id;
             }
             else{
                 foreach($this->permissions->view_fields as $field)

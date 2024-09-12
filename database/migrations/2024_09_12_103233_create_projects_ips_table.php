@@ -23,6 +23,7 @@ class CreateProjectsIpsTable extends Migration
             $table->timestamps();
 
             $table->index(columns: ['project_id', 'created_at']);
+            $table->unique(columns: 'ip');
         });
     }
 

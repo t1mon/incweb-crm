@@ -13,6 +13,20 @@
             "database": "crm_test",
             "username": "test_usr",
             "password": "Rabota2606.?"
+        },
+        {
+            "mysqlOptions": {
+                "authProtocol": "default",
+                "enableSsl": "Disabled"
+            },
+            "previewLimit": 50,
+            "server": "194.67.86.190",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "CRM",
+            "database": "crm_db",
+            "username": "metrika_test",
+            "password": "ijUsVnGwT1xCylJ8"
         }
     ]
 }

@@ -27,6 +27,9 @@ class AddIpToBlacklist implements ShouldQueue
      */
     public function handle(LeadCreated $event)
     {
+        if(is_null($event->lead->ip))
+            return;
+
         $ip = Ip::query()->firstOrNew(
             attributes: [
                 'project_id' => $event->lead->project_id,

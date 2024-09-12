@@ -24,6 +24,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 
 use App\Listeners\Leads\SendMangoData;
+use App\Listeners\Project\Ip\AddIpToBlacklist;
 
 class EventServiceProvider extends ServiceProvider
 {
@@ -45,6 +46,7 @@ class EventServiceProvider extends ServiceProvider
         ],
 
         LeadCreated::class => [
+            AddIpToBlacklist::class,
             FindRegion::class,
             SendTelegramData::class, //Старая версия интеграции Telegram
             SendLeadDataToTG::class, //Новая версии интеграции Telegram

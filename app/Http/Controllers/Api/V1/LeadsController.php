@@ -36,6 +36,7 @@ class LeadsController extends Controller
 
     public function store(LeadsRequest $request)
     {
+        $request->merge(['ip' => $_SERVER['REMOTE_ADDR']]);
         $request->merge(['project_id' => Project::where('api_token', $request->api_token)->value('id')]);
 
         if(filter_var($request->host, FILTER_VALIDATE_URL)){

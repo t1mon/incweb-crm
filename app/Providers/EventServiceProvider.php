@@ -24,7 +24,7 @@ use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvi
 use Illuminate\Support\Facades\Event;
 
 use App\Listeners\Leads\SendMangoData;
-use App\Listeners\Project\Ip\AddIpToBlacklist;
+use App\Listeners\Project\Protection\Ip\AddIpToBlacklist;
 
 class EventServiceProvider extends ServiceProvider
 {

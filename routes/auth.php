@@ -8,6 +8,7 @@ use App\Http\Controllers\Project\HostController;
 use App\Http\Controllers\Project\Integrations\Calltracking\PhoneController;
 use App\Http\Controllers\Project\Integrations\GudokController;
 use App\Http\Controllers\Project\Integrations\MatombaController;
+use App\Http\Controllers\Project\Protection\IpController;
 use App\Http\Controllers\Project\ProjectController;
 use App\Http\Controllers\Project\LeadClassController;
 use App\Http\Controllers\Project\UserPermissionsController;
@@ -106,9 +107,12 @@ Route::middleware(['auth', 'verified'])->group(function () {
                 // Гудок
                 Route::get('gudok/{project}/create-token', [GudokController::class, 'createToken'])->name('gudok.create-token');
             });
-        });
-        
 
+            // Защита
+            Route::prefix('{project}/protection')->name('protection.')->group(function(){
+                Route::resource('ip', IpController::class)->except('show');
+            });
+        });
     });
 
     Route::resource('newsletter-subscriptions', NewsletterSubscriptionController::class)->only('store');

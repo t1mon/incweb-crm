@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Listeners\Project\Ip;
+namespace App\Listeners\Project\Prtection\Ip;
 
 use App\Events\Leads\LeadCreated;
-use App\Models\Project\Ip;
+use App\Models\Project\Protection\Ip;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 

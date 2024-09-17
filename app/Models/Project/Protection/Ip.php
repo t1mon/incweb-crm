@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models\Project;
+namespace App\Models\Project\Protection;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
@@ -27,6 +27,6 @@ class Ip extends Model
 
     public function project(): BelongsTo
     {
-        return $this->belongsTo(related: Project::class);
+        return $this->belongsTo(related: \App\Models\Project\Project::class);
     }
 }

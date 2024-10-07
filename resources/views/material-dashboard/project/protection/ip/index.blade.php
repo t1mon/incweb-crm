@@ -40,9 +40,9 @@
                                     <span class="text-secondary">Нет</span>
                                 @endif
                             </td>
-                            <td>{{$ip->block_until}}</td>
-                            <td>{{$ip->created_at}}</td>
-                            <td>{{$ip->created_at}}</td>
+                            <td>{{$ip->block_until_tz}}</td>
+                            <td>{{$ip->created_at_tz}}</td>
+                            <td>{{$ip->created_at_tz}}</td>
         
                             <td>
                                 <a href="{{route('project.protection.ip.edit', [$project->id, $ip->id])}}" class="btn btn-primary me-2">

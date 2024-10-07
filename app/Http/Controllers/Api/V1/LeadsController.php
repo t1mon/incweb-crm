@@ -39,16 +39,19 @@ class LeadsController extends Controller
     {
         $request->merge(['project_id' => Project::where('api_token', $request->api_token)->value('id')]);
 
-        if(!Ip::where(['project_id' => $request->project_id, 'enabled' => true, 'ip' => $request->ip])->where('block_until', '>', now())->exists())
+        if($request->has('ip'))
         {
-            Journal::leadError(['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id ], 'Лид не добавлен в проект: IP ' . $request->ip . ' заблокирован');
-            
-            return response()->json(['data' =>
-                [
-                    'status'  => Response::HTTP_FORBIDDEN,
-                    'message' => 'IP заблокирован',
-                ]
-            ], Response::HTTP_FORBIDDEN); 
+            if(!Ip::where(['project_id' => $request->project_id, 'enabled' => true, 'ip' => $request->ip])->where('block_until', '>', now())->exists())
+            {
+                Journal::leadError(['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id ], 'Лид не добавлен в проект: IP ' . $request->ip . ' заблокирован');
+                
+                return response()->json(['data' =>
+                    [
+                        'status'  => Response::HTTP_FORBIDDEN,
+                        'message' => 'IP заблокирован',
+                    ]
+                ], Response::HTTP_FORBIDDEN); 
+            }
         }
 
         if(filter_var($request->host, FILTER_VALIDATE_URL)){

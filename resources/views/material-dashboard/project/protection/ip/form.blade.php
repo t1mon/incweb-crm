@@ -16,7 +16,7 @@
 
 <div class="form-group my-2">
     <label for="enabled">Блокировать до</label>
-    <input type="datetime" name="block_until" id="block_until" class="form-control border p-2" value="{{isset($ip) ? $ip->block_until : now()->addDays(1)}}"></div>
+    <input type="datetime" name="block_until" id="block_until" class="form-control border p-2" value="{{isset($ip) ? $ip->block_until_tz : now($project->settings['timezone'])->addDays(1)}}"></div>
 
 <div class="my-2">
     <button type="submit" class="btn btn-primary mx-2">

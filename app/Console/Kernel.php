@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use App\Jobs\Protection\PruneIP;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -29,6 +30,8 @@ class Kernel extends ConsoleKernel
         $schedule->command('horizon:snapshot')->everyFiveMinutes();
         $schedule->command('telescope:prune')->daily()->at('03:00');
         $schedule->command('project:archive')->daily();
+    
+        $schedule->job(job: PruneIP::class)->daily();
     }
 
     /**

@@ -7,6 +7,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\LeadsRequest;
 use App\Http\Resources\Leads as LeadsResource;
 use App\Jobs\Api\V2\Lead\FindEntries;
+use App\Jobs\Protection\UpdatePhoneEntries;
 use App\Models\Project\Host;
 use App\Models\Leads;
 use App\Models\User;
@@ -20,6 +21,7 @@ use Illuminate\Support\Str;
 use App\Journal\Facade\Journal;
 use App\Models\Project\Integrations\Mango;
 use App\Models\Project\Protection\Ip;
+use App\Models\Project\Protection\Phone;
 use App\Services\Project\Integrations\MangoService;
 use Illuminate\Support\Facades\Http;
 
@@ -39,6 +41,22 @@ class LeadsController extends Controller
     {
         $request->merge(['project_id' => Project::where('api_token', $request->api_token)->value('id')]);
 
+        // Проверка защиты по номеру телефона
+        if(Phone::where(['project_id' => $request->project_id, 'phone' => $request->phone, 'enabled' => true])->exists())
+        {
+            Journal::leadError(['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id], 'Лид не добавлен в проект: Телефон ' . $request->ip . ' заблокирован');
+
+            UpdatePhoneEntries::dispatch(project_id: $request->project_id, phone: $request->phone);
+
+            return response()->json(['data' =>
+                [
+                    'status'  => Response::HTTP_FORBIDDEN,
+                    'message' => 'IP заблокирован',
+                ]
+            ], Response::HTTP_FORBIDDEN); 
+        }
+        
+        // Проверка защиты по IP
         if($request->has('ip'))
         {
             if(!Ip::where(['project_id' => $request->project_id, 'enabled' => true, 'ip' => $request->ip])->where('block_until', '>', now())->exists())

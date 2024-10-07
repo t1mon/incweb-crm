@@ -17,18 +17,9 @@
                         </div>
                     @endif
 
-                    <form action="{{route('project.protection.ip.update', [$project->id, $ip->id])}}" method="POST">
-                        @method('PUT')
-                        @include('material-dashboard.project.protection.ip.form')
+                    <form action="{{route('project.protection.phone.store', [$project->id])}}" method="POST">
+                        @include('material-dashboard.project.protection.phone.form')
                     </form>
-
-                    <div class="card-footer border text-center">
-                        <form action="{{route('project.protection.ip.destroy', [$project->id, $ip->id])}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Удалить</button>
-                        </form>
-                    </div>
                 </div>
             </div>
         </div>

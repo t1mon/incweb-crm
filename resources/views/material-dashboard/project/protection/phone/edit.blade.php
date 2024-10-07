@@ -17,18 +17,18 @@
                         </div>
                     @endif
 
-                    <form action="{{route('project.protection.ip.update', [$project->id, $ip->id])}}" method="POST">
+                    <form action="{{route('project.protection.phone.update', [$project->id, $phone->id])}}" method="POST">
                         @method('PUT')
-                        @include('material-dashboard.project.protection.ip.form')
+                        @include('material-dashboard.project.protection.phone.form')
                     </form>
+                </div>
 
-                    <div class="card-footer border text-center">
-                        <form action="{{route('project.protection.ip.destroy', [$project->id, $ip->id])}}" method="POST">
-                            @csrf
-                            @method('DELETE')
-                            <button type="submit" class="btn btn-danger">Удалить</button>
-                        </form>
-                    </div>
+                <div class="card-footer border text-center">
+                    <form action="{{route('project.protection.phone.destroy', [$project->id, $phone->id])}}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                    </form>
                 </div>
             </div>
         </div>

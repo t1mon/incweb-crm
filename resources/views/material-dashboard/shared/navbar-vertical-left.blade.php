@@ -103,6 +103,13 @@
                             </a>
                     </li>
 
+                    <li class="nav-item {{ request()->route()->named('project.protection.phone.index') ? 'active' : '' }}">
+                        <a class="nav-link m-0 rounded-0 {{ request()->route()->named('project.protection.phone.index') ? 'active' : '' }}" href="{{ route('project.protection.phone.index', $project ) }}">
+                            <i class="material-icons-round opacity-10">phone</i>
+                            <span class="nav-link-text ms-2 ps-1">Черный список телефонов</span>
+                        </a>
+                </li>
+
                     <li class="nav-item">
                             <a data-bs-toggle="collapse" href="#pagesExamples" class="nav-link text-white m-0 rounded-0" aria-controls="pagesExamples" role="button" aria-expanded="false">
                                 <i class="material-icons-round">settings</i>

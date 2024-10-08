@@ -34,8 +34,9 @@ class AddIpToBlacklist implements ShouldQueue
             attributes: [
                 'project_id' => $event->lead->project_id,
                 'ip' => $event->lead->ip,
-                'enabled' => true,
-            ]
+            ],
+
+            values: ['enabled' => true],
         );
 
         if($ip->enabled){

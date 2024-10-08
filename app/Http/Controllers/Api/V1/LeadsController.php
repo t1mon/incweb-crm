@@ -51,7 +51,7 @@ class LeadsController extends Controller
             return response()->json(['data' =>
                 [
                     'status'  => Response::HTTP_FORBIDDEN,
-                    'message' => 'IP заблокирован',
+                    'message' => 'Номер телефона заблокирован',
                 ]
             ], Response::HTTP_FORBIDDEN); 
         }
@@ -59,7 +59,7 @@ class LeadsController extends Controller
         // Проверка защиты по IP
         if($request->has('ip'))
         {
-            if(!Ip::where(['project_id' => $request->project_id, 'enabled' => true, 'ip' => $request->ip])->where('block_until', '>', now())->exists())
+            if(Ip::where(['project_id' => $request->project_id, 'enabled' => true, 'ip' => $request->ip])->where('block_until', '>', now())->exists())
             {
                 Journal::leadError(['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id ], 'Лид не добавлен в проект: IP ' . $request->ip . ' заблокирован');
                 

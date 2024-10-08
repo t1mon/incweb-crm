@@ -73,7 +73,7 @@ class PhoneController extends Controller
             'phone' => [
                 'required',
                 'regex:/^\d+$/s',
-                Rule::unique('projects_phones')->where('project_id', $project),
+                Rule::unique('projects_phones')->where('project_id', $project)->ignore(id: $phone),
             ],
 
             'enabled' => 'required|boolean',

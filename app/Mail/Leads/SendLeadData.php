@@ -41,23 +41,29 @@ class SendLeadData extends Mailable
 
         switch ($this->type) {
             case Project::TEMPLATE_MARKDOWN:
-                $from = env('MAIL_FROM_ADDRESS') ;
-                $sendName = 'IWeb';
+                $from = env('MAIL_FROM_ADDRESS');
+                $sendName = 'IncWeb';
                 $type = Project::TEMPLATE_MARKDOWN;
                 $template = Project::TEMPLATE_MARKDOWN;
                 break;
             case Project::TEMPLATE_VIEW:
-                $from = env('MAIL_FROM_ADDRESS2') ;
+                $from = env('MAIL_FROM_ADDRESS2');
                 $sendName = env('MAIL_SEND_NAME2');
                 $type = Project::TEMPLATE_VIEW;
                 $template = 'html';
                 break;
             case Project::TEMPLATE_TEXT:
-                $from = env('MAIL_FROM_ADDRESS2') ;
+                $from = env('MAIL_FROM_ADDRESS2');
                 $sendName = env('MAIL_SEND_NAME2');
                 $type = Project::TEMPLATE_TEXT;
                 $template = Project::TEMPLATE_TEXT;
                 break;
+            case Project::TEMPLATE_SENDS:
+                $from = env('MAIL_FROM_ADDRESS3');
+                $sendName = env('MAIL_SEND_NAME3');
+                $type = Project::TEMPLATE_TEXT;
+                $template = Project::TEMPLATE_SENDS;
+                break; 
             default:
                 $from = env('MAIL_FROM_ADDRESS2') ;
                 $sendName = env('MAIL_SEND_NAME2');

@@ -31,6 +31,7 @@ class Project extends Model
     const TEMPLATE_VIEW = 'view';
     const TEMPLATE_MARKDOWN = 'markdown';
     const TEMPLATE_TEXT = 'text';
+    const TEMPLATE_SENDS = 'sends';
 
     const DEFAULT_COLOR = '5F9EA0'; //Цвет иконки проекта по умолчанию
 

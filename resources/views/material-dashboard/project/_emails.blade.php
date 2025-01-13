@@ -35,7 +35,10 @@
                                         'class' => 'form-check-input'
                                     ])
                                 !!}
-                                {!! Form::label('template-text', 'Текст', ['class' => 'form-check-label me-2']) !!}
+                                {!! Form::label('template-text', 'Текст (' . env('MAIL_FROM_ADDRESS2')  . ')', ['class' => 'form-check-label me-2']) !!}
+
+                                <br>
+
                                 {!! Form::radio('settings[email][template]', 'view',
                                         $project->settings['email']['template'] === 'view' ? true : false,
                                     [
@@ -43,7 +46,9 @@
                                         'class' => 'form-check-input'
                                     ])
                                 !!}
-                                {!! Form::label('template-view', 'Упрощённый', ['class' => 'form-check-label me-2']) !!}
+                                {!! Form::label('template-view', 'Упрощённый (' . env('MAIL_FROM_ADDRESS2') . ')', ['class' => 'form-check-label me-2']) !!}
+
+                                <br>
 
                                 {!! Form::radio('settings[email][template]', 'markdown',
                                         $project->settings['email']['template'] === 'markdown' ? true : false,
@@ -52,7 +57,18 @@
                                         'class' => 'form-check-input',
                                     ])
                                 !!}
-                                {!! Form::label('template-markdown', 'Leads-Hunter', ['class' => 'form-check-label']) !!}
+                                {!! Form::label('template-markdown', 'Leads-Hunter (' . env('MAIL_FROM_ADDRESS') . ')', ['class' => 'form-check-label']) !!}
+
+                                <br>
+
+                                {!! Form::radio('settings[email][template]', 'sends',
+                                        $project->settings['email']['template'] === 'sends' ? true : false,
+                                    [
+                                        'id' => 'template-sends',
+                                        'class' => 'form-check-input'
+                                    ])
+                                !!}
+                                {!! Form::label('template-sends', 'Sends (' . env('MAIL_FROM_ADDRESS3') . ')', ['class' => 'form-check-label me-2']) !!}
                             </div>
                         </div>
 

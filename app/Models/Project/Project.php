@@ -265,16 +265,9 @@ class Project extends Model
             return $response;
         }
         catch(\Illuminate\Http\Client\ConnectionException | \Illuminate\Http\Client\RequestException $e){
-            $data = null;
-
-            if($e instanceof \Illuminate\Http\Client\ConnectionException)
-                $data = $response->json();
-            else
-                $data = $e->response;
-
             $this->webhook_update($name, ['enabled' => 0], true);
 
-            Journal::leadError($lead, "Ошибка отправления вебхука \"$name\": ".json_encode($data).". Вебхук автоматически отключен.");
+            Journal::leadError($lead, "Ошибка отправления вебхука \"$name\": ".json_encode($response->json()).". Вебхук автоматически отключен.");
 
             return $response;
         }

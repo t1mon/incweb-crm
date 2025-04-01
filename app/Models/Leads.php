@@ -25,6 +25,9 @@ class Leads extends Model
     const SOURCE_DIRECT_ENTRY = 'DIRECT_ENTRY';
     const SOURCE_CALL_TRACKING = 'CALL_TRACKING';
 
+    const CONVERSION_TYPE_ONLINE = 'CONVERSION_TYPE_ONLINE';
+    const CONVERSION_TYPE_OFFLINE = 'CONVERSION_TYPE_OFFLINE';
+
     /**
      * The attributes that are mass assignable.
      *
@@ -40,6 +43,7 @@ class Leads extends Model
         'full_name',
         'phone',
         'entries',
+        'conversion_type',
         'email',
         'cost',
         'comment',

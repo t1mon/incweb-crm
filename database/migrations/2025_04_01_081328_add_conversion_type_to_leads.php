@@ -15,6 +15,7 @@ class AddConversionTypeToLeads extends Migration
     {
         Schema::table('leads', function (Blueprint $table) {
             $table->string('conversion_type')->after('entries')->nullable();
+            $table->string('yandex_user_id')->after('yandex_counter_id')->nullable();
         });
     }
 
@@ -27,6 +28,7 @@ class AddConversionTypeToLeads extends Migration
     {
         Schema::table('leads', function (Blueprint $table) {
             $table->dropColumn('conversion_type');
+            $table->dropColumn('yandex_user_id');
         });
     }
 }

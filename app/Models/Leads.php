@@ -65,6 +65,7 @@ class Leads extends Model
         'nextcall_date',
         'yandex_client_id',
         'yandex_counter_id',
+        'yandex_user_id',
     ];
 
     protected $casts = [

@@ -248,22 +248,28 @@ class Project extends Model
                 $webhook->query = str_replace('$' . $field, $lead->$field, $webhook->query);
             }
         }
+        
+        $response = null;
 
         try{
             if($webhook->type === "amocrm")
-                return $this->webhook_send_amocrm($webhook);
+                $response = $this->webhook_send_amocrm($webhook);
+            else
+                $response = $this->doRequest(
+                    $webhook->url,
+                    isset($webhook->query) ? yaml_parse($webhook->query) : [],
+                    mb_strtolower($webhook->method),
+                    (isset($webhook->as_form) && $webhook->as_form === "1")
+                );
 
-            return $this->doRequest(
-                $webhook->url,
-                isset($webhook->query) ? yaml_parse($webhook->query) : [],
-                mb_strtolower($webhook->method),
-                (isset($webhook->as_form) && $webhook->as_form === "1")
-            );
+            return $response;
         }
         catch(\Illuminate\Http\Client\ConnectionException | \Illuminate\Http\Client\RequestException $e){
-            Journal::leadError($lead, "Ошибка отправления вебхука \"$name\": ".mb_convert_encoding($e->response, 'UTF-8', 'UTF-8').". Вебхук автоматически отключен.");
-            $this->webhook_update($name, ['enabled' => 0], true);
-            return json_decode($e->response);
+            // $this->webhook_update($name, ['enabled' => 0], true);
+
+            Journal::leadError($lead, "Ошибка отправления вебхука \"$name\": ".json_encode($response->json()).". Вебхук автоматически отключен.");
+
+            return $response;
         }
 
     } //webhook_send

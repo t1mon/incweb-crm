@@ -1,0 +1,34 @@
+<?php
+
+use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
+
+class AddConversionTypeToLeads extends Migration
+{
+    /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    public function up()
+    {
+        Schema::table('leads', function (Blueprint $table) {
+            $table->string('conversion_type')->after('entries')->nullable();
+            $table->string('yandex_user_id')->after('yandex_counter_id')->nullable();
+        });
+    }
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
+    {
+        Schema::table('leads', function (Blueprint $table) {
+            $table->dropColumn('conversion_type');
+            $table->dropColumn('yandex_user_id');
+        });
+    }
+}

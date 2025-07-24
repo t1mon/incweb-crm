@@ -5,9 +5,9 @@
 <aside class="sidenav navbar navbar-vertical navbar-expand-xs border-0 rounded-0 border-radius-xl fixed-start bg-gradient-dark" id="sidenav-main">
     <div class="sidenav-header h-auto d-flex align-items-center justify-content-between">
         <a class="navbar-brand m-0 p-3" href="{{ route('home') }}">
-            <!--GIT ИЗМЕНЕНИЯ <img src="{{ asset('media/img/logo/logo.svg') }}" class="navbar-brand-img h-100" alt="main_logo">
-            <span class="ms-1 font-weight-bold text-white">PRO</span> -->
-            <span class="ms-1 font-weight-bold text-white">MLeads</span>
+             <img src="{{ asset('media/img/logo/logo.svg') }}" class="navbar-brand-img h-100" alt="main_logo">
+            <span class="ms-1 font-weight-bold text-white">CRM</span> -->
+            {{-- <span class="ms-1 font-weight-bold text-white">Incweb</span> --}}
         </a>
         <i class="sidenav-close material-icons-round opacity-10 p-2">close</i>
     </div>

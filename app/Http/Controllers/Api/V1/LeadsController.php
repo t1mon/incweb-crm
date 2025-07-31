@@ -38,7 +38,7 @@ class LeadsController extends Controller
     {
         $request->merge(['project_id' => Project::where('api_token', $request->api_token)->value('id')]);
 
-        if(filter_var($request->host, FILTER_VALIDATE_URL)){
+        if (filter_var($request->host, FILTER_VALIDATE_URL)) {
             $host = parse_url($request->host);
             $request->merge(['host' => $host['host']]);
         }
@@ -46,7 +46,7 @@ class LeadsController extends Controller
         $phone = $request->phone;
 
         if ($phone[0] == 8) {
-            $phone = preg_replace('/^./','7', $phone);
+            $phone = preg_replace('/^./', '7', $phone);
             $request->merge(['phone' => $phone]);
         }
 
@@ -57,27 +57,31 @@ class LeadsController extends Controller
         $request->merge(['utm' => $this->getUTM($request)]);
 
         //Проверка хоста у лида
-        if(!Host::where([ ['host', $request->host], ['project_id', $request->project_id] ])->exists()){
-            Journal::leadError(['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id ],
-                        'Лид не добавлен в проект: хост ' . $request->host . ' не найден');
-            return response()->json(['data' =>
+        if (!Host::where([['host', $request->host], ['project_id', $request->project_id]])->exists()) {
+            Journal::leadError(
+                ['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id],
+                'Лид не добавлен в проект: хост ' . $request->host . ' не найден'
+            );
+            return response()->json([
+                'data' =>
                 [
                     'status'  => Host::HOST_NOT_FOUND,
                     'message' => trans('leads.host-error'),
                     'response' => Response::HTTP_PRECONDITION_FAILED,
                 ]
-            ],Response::HTTP_PRECONDITION_FAILED);
+            ], Response::HTTP_PRECONDITION_FAILED);
         }
 
-        if(!Project::findOrFail($request->project_id)->settings['enabled']) {
-            Journal::leadWarning(['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id ], "Попытка добавления лида в отключенный проект");
-            return response()->json(['data' =>
+        if (!Project::findOrFail($request->project_id)->settings['enabled']) {
+            Journal::leadWarning(['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id], "Попытка добавления лида в отключенный проект");
+            return response()->json([
+                'data' =>
                 [
                     'status'  => Project::DISABLED,
                     'message' => trans('projects.enabled.false'),
                     'response' => Response::HTTP_FOUND,
                 ]
-            ],Response::HTTP_FOUND);
+            ], Response::HTTP_FOUND);
         }
 
         //Добавление владельца. Если владелец не авторизован, по умолчанию ставится "API"
@@ -102,58 +106,107 @@ class LeadsController extends Controller
         );
     }
 
-    public function detectSource(LeadsRequest $request){ //Определить источник
-        //Если реферер не обнаружен, вернуть соответствующую запись
-        if($request->exists('referrer') && ( parse_url($request->referrer,  PHP_URL_HOST) !== parse_url($request->host,  PHP_URL_HOST) ) ){
-            return parse_url($request->referrer,  PHP_URL_HOST);
+    public function detectSource(LeadsRequest $request) // Определение источника лида
+    {
+        // 1. Высший приоритет: внешний referrer
+        if ($request->exists('referrer')) {
+            $refHost = parse_url($request->referrer, PHP_URL_HOST);
+            $ownHost = parse_url($request->host, PHP_URL_HOST);
+
+            if ($refHost && $refHost !== $ownHost) {
+                return $this->cleanUTM($refHost);
+            }
         }
 
-        if(!$request->exists('url_query_string'))
-            return Leads::SOURCE_DIRECT_ENTRY;
+        // 2. Средний приоритет: параметр source из query_string
+        if ($request->exists('url_query_string')) {
+            $queryString = parse_url($request->url_query_string, PHP_URL_QUERY) ?: $request->url_query_string;
 
+            $utm = [];
+            parse_str($queryString, $utm);
+
+            if (!empty($utm['source'])) {
+                $cleaned = $this->cleanUTM($utm['source']);
+                if ($cleaned !== '') {
+                    return $cleaned;
+                }
+            }
+
+            // 3. Низкий приоритет: utm_source
+            if (!empty($utm['utm_source'])) {
+                $cleaned = $this->cleanUTM($utm['utm_source']);
+                if ($cleaned !== '') {
+                    return $cleaned;
+                }
+            }
+        }
+
+        // 4. По умолчанию: прямой заход
+        Journal::leadWarning([
+            'name' => $request->name,
+            'phone' => $request->phone,
+            'project_id' => $request->project_id,
+        ], "Не удалось определить источник лида.");
+
+        return Leads::SOURCE_DIRECT_ENTRY;
+    }
+
+    public function getUTM(LeadsRequest $request)
+    {
         $utm = [];
-        parse_str(parse_url($request->url_query_string, PHP_URL_QUERY), $utm);
+        $utmKeys = ['utm_source', 'utm_campaign', 'utm_medium', 'utm_term', 'utm_content'];
 
-        if( array_key_exists('utm_source', $utm) )
-            return $utm['utm_source'];
-        else{
-            Journal::leadWarning(['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id ],
-                                "Не удалось определить источник лида.");
-            return Leads::SOURCE_DIRECT_ENTRY;
+        // 1. Основной источник — query_string
+        if ($request->exists('url_query_string')) {
+            $queryString = parse_url($request->url_query_string, PHP_URL_QUERY) ?: $request->url_query_string;
+            parse_str($queryString, $utm);
         }
 
-    } //detectSource
+        // 2. Если нет ни одной utm-метки — пытаемся из referrer
+        $hasUtmMarks = !empty(array_intersect_key($utm, array_flip($utmKeys)));
 
-    public function getUTM(LeadsRequest $request){ //Получить UTM-метки в виде массива
-        $src = $request->exists('url_query_string')
-                ? $request->url_query_string
-                : ( $request->exists('referrer') ? $request->referrer : null);
-
-        if(is_null($src))
-            return [];
-
-        $vars = [];
-        parse_str(parse_url($request->url_query_string, PHP_URL_QUERY), $vars);
-
-        $utm = [];
-
-        foreach(['utm_source', 'utm_campaign', 'utm_medium', 'utm_term'] as $utm_mark){
-            if( array_key_exists($utm_mark, $vars) )
-                $utm[$utm_mark] = $vars[$utm_mark];
+        if (!$hasUtmMarks && $request->exists('referrer')) {
+            $refQuery = parse_url($request->referrer, PHP_URL_QUERY);
+            if ($refQuery) {
+                $tmp = [];
+                parse_str($refQuery, $tmp);
+                $utm = array_merge($utm, $tmp);
+            }
         }
 
-        if(!count($utm))
-            Journal::leadWarning(['name' => $request->name, 'phone' => $request->phone, 'project_id' => $request->project_id ],
-                                    "Не удалось получить UTM-метки.");
+        // 3. Фильтрация и очистка
+        $filtered = [];
+        foreach ($utmKeys as $key) {
+            if (isset($utm[$key])) {
+                $cleaned = $this->cleanUTM($utm[$key]);
+                if ($cleaned !== '') {
+                    $filtered[$key] = $cleaned;
+                }
+            }
+        }
 
-        return $utm;
+        if (empty($filtered)) {
+            Journal::leadWarning([
+                'name' => $request->name,
+                'phone' => $request->phone,
+                'project_id' => $request->project_id,
+            ], "Не удалось получить UTM-метки.");
+        }
 
-    } //getUTM
+        return $filtered;
+    }
 
-    public function update(LeadsRequest $request){
+    private function cleanUTM(string $value): string
+    {
+        // Убираем только опасные символы, оставляем больше валидных
+        return preg_replace('/[<>\'"\\\\]+/u', '', trim($value));
+    }
+
+    public function update(LeadsRequest $request)
+    {
         //Проверка наличия лида
         $lead = Leads::find($request->id);
-        if(is_null($lead))
+        if (is_null($lead))
             return response()->json(['error' => 'Lead not found'], Response::HTTP_NOT_FOUND);
 
 
@@ -162,37 +215,38 @@ class LeadsController extends Controller
         //     return response()->json(['error' => 'You are not authorized for this action'], Response::HTTP_UNAUTHORIZED);
         // $user = Auth::guard('api')->user();
         $user = User::where('api_token', $request->bearerToken())->first();
-        if(is_null($user))
+        if (is_null($user))
             return response()->json(['error' => 'You are not authorized for this action'], Response::HTTP_UNAUTHORIZED);
-        if($user->name !== $lead->owner){
-            if(!$user->isAdmin())
+        if ($user->name !== $lead->owner) {
+            if (!$user->isAdmin())
                 return response()->json(['error' => 'You are not owner of this lead'], Response::HTTP_FORBIDDEN);
         }
 
         //Изменение лида
-         $lead_copy = clone $lead; //Копия лида для записи
-         $lead->fill($request->all());
-         $lead->owner = $user->name;
-         $lead->save();
+        $lead_copy = clone $lead; //Копия лида для записи
+        $lead->fill($request->all());
+        $lead->owner = $user->name;
+        $lead->save();
 
         Journal::lead($lead_copy, $user->name . ' изменил лид');
         return response()->json(['messsage' => 'Lead has been updated'], Response::HTTP_OK);
     } //update
 
-    public function destroy(Request $request){
+    public function destroy(Request $request)
+    {
         //Валидация
         $request->validate(['id' => 'required|integer']);
 
         //Проверка наличия лида
         $lead = Leads::find($request->id);
-        if(is_null($lead))
+        if (is_null($lead))
             return response()->json(['error' => 'Lead not found'], Response::HTTP_NOT_FOUND);
 
         $user = User::where('api_token', $request->bearerToken())->first();
-        if(is_null($user))
+        if (is_null($user))
             return response()->json(['error' => 'You are not authorized for this action'], Response::HTTP_UNAUTHORIZED);
-        if($user->name !== $lead->owner){
-            if(!$user->isAdmin())
+        if ($user->name !== $lead->owner) {
+            if (!$user->isAdmin())
                 return response()->json(['error' => 'You are not owner of this lead'], Response::HTTP_FORBIDDEN);
         }
 
@@ -205,7 +259,5 @@ class LeadsController extends Controller
         return response()->json(['messsage' => 'Lead has been deleted'], Response::HTTP_OK);
     } //destroy
 
-    public function test(Request $request){
-
-    } //test
+    public function test(Request $request) {} //test
 }

@@ -46,8 +46,8 @@ class LeadsRequest extends FormRequest
             'ip' => 'nullable|ip',
             'email' => 'nullable|email',
             'utm' => 'nullable|json',
-            'host' => ['required', 'string', 'regex:~^((http|https)+?://)?(www\.)?[\w\-\.]{2,}\.[\w]{2,}$~i'],
-            //'host' => ['required', 'string', 'regex:~^((http|https)+?://)?(www\.)?[^.]+\.\S{2,4}$~iu'],
+            'host' => ['required', 'string', 'regex:~^((http|https)+?://)?(www\.)?([a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?\.)+[a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?$~iu'],
+            //'host' => ['required', 'string', 'regex:~^((http|https)+?://)?(www\.)?[\w\-\.]{2,}\.[\w]{2,}$~i'],
             'referrer' => 'nullable|string',
             'url_query_string' => 'nullable|string',
         ];
@@ -56,6 +56,6 @@ class LeadsRequest extends FormRequest
     protected function failedAuthorization()
     {
 
-            throw new AuthorizationException(trans('projects.access.denied'));
+        throw new AuthorizationException(trans('projects.access.denied'));
     }
 }

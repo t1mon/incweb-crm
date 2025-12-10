@@ -11,8 +11,7 @@ class AddManually extends FormRequest
 {
     public function __construct(
         private ProjectReadRepository $projectReadRepository
-    )
-    {} //Конструктор
+    ) {} //Конструктор
 
     /**
      * Determine if the user is authorized to make this request.
@@ -54,7 +53,8 @@ class AddManually extends FormRequest
             'utm_campaign' => 'nullable|string',
             'utm_content' => 'nullable|string',
             'utm_term' => 'nullable|string',
-            'host' => ['nullable', 'string', 'regex:~^((http|https)+?://)?(www\.)?[\w\-\.]{2,}\.[\w]{2,}$~i',],
+            'host' => ['nullable', 'string', 'regex:~^((http|https)+?://)?(www\.)?([a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?\.)+[a-z0-9]([a-z0-9\-]{0,61}[a-z0-9])?$~iu'],
+            //'host' => ['nullable', 'string', 'regex:~^((http|https)+?://)?(www\.)?[\w\-\.]{2,}\.[\w]{2,}$~i'],
             'url_query_string' => 'nullable|string',
             'nextcall_date' => 'nullable|dateformat:Y-m-d H:i',
         ];

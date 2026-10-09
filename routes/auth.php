@@ -52,8 +52,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
         //TODO При переделке фронта переделать или удалить этот маршрут
         Route::post('{project}/journal/{lead}/class/assign', [LeadClassController::class, 'assign'])->name('class-assign');
 
-        Route::get('{project}/test', [ProjectController::class, 'test'])->name('project.test');
-
         Route::get('{project}/log', [ProjectController::class, 'log'])->name('project.log');
         Route::get('{project}/log-export', [ProjectController::class, 'log_export'])->name('project.log-export');
 
@@ -113,5 +111,3 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::resource('newsletter-subscriptions', NewsletterSubscriptionController::class)->only('store');
 });
-
-Route::get('/test', [WebhookController::class, 'test'])->name('test');

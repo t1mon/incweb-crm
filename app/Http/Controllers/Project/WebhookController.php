@@ -5,14 +5,11 @@ namespace App\Http\Controllers\Project;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Models\Leads;
-
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 
 use App\Models\Project\Project;
@@ -183,11 +180,4 @@ class WebhookController extends Controller
         }
         return redirect()->route('project.settings-sync', $project)->withSuccess('Вебхук прошёл повторную авторизацию');
     } //amocrm_reauthorize
-
-    public function test(Request $request){
-
-        Log::info($request);
-        //$lead = Leads::latest()->first();
-        //return $lead->project->webhook_send('AmoCRM-4', $lead);
-    } //test
 }

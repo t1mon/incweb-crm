@@ -15,9 +15,23 @@
 /storage/debugbar
 /storage/tmp
 /storage/medialibrary
+/storage/logs/*
+!/storage/logs/.gitignore
 /log
+/docker/nginx_logs/*
+!/docker/nginx_logs/.gitignore
 .phpunit.result.cache
 _ide_helper.php
 .phpstorm.meta.php
 composer.lock
 package-lock.json
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
+
+# Runtime logs
+*.log
+/horizon.log

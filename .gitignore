@@ -9,6 +9,7 @@
 /vendor
 /.idea
 /.vagrant
+/.vscode
 /mysqldb
 .env
 .php_cs.cache

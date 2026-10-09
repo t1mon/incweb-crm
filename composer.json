@@ -1,6 +1,6 @@
 {
-    "name": "t1mon/leads-hunter-crm",
-    "description": "Laravel 8.0 CRM LEADS.",
+    "name": "t1mon/incweb-crm",
+    "description": "Incweb CRM — система управления лидами на Laravel 8.",
     "keywords": ["framework", "laravel", "crm"],
     "license": "MIT",
     "type": "project",

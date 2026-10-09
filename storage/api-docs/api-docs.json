@@ -2,7 +2,7 @@
     "openapi": "3.0.0",
     "info": {
         "title": "Документация по API",
-        "description": "Документация по API для Leads Hunter CRM",
+        "description": "Документация по API для Incweb CRM",
         "version": "1.0.0"
     },
     "paths": {
@@ -38,7 +38,7 @@
                         "type": "string"
                     },
                     "webhook_token": {
-                        "description": "Секретный ключ бота, по которому Leads Hunter CRM API распознаёт, от какого бота пришёл запрос на вебхук. Генерируется автоматически",
+                        "description": "Секретный ключ бота, по которому Incweb CRM API распознаёт, от какого бота пришёл запрос на вебхук. Генерируется автоматически",
                         "type": "string"
                     },
                     "enabled": {

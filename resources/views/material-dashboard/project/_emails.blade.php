@@ -57,7 +57,7 @@
                                         'class' => 'form-check-input',
                                     ])
                                 !!}
-                                {!! Form::label('template-markdown', 'Leads-Hunter (' . env('MAIL_FROM_ADDRESS') . ')', ['class' => 'form-check-label']) !!}
+                                {!! Form::label('template-markdown', 'Incweb (' . env('MAIL_FROM_ADDRESS') . ')', ['class' => 'form-check-label']) !!}
 
                                 <br>
 

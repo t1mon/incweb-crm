@@ -44,7 +44,7 @@ class Mango extends Model
             [
                 'type' => 0,
                 'name' => '',
-                'comment' => 'Контакт с Leads Hunter CRM',
+                'comment' => 'Контакт с Incweb CRM',
                 'phones' => [
                     [
                         'type' => 1, //Мобильный телефон

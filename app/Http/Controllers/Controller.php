@@ -12,7 +12,7 @@ use Illuminate\Routing\Controller as BaseController;
  *  @OA\Info(
  *      title="Документация по API",
  *      version="1.0.0",
- *      description="Документация по API для Leads Hunter CRM",
+ *      description="Документация по API для Incweb CRM",
  *  ),
  *  @OA\PathItem(
  *      path="/"
